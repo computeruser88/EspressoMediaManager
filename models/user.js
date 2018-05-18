@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       type: { type: DataTypes.STRING, defaultValue: "user" },
-      balance: {type: DataType.FLOAT, defaultValue: 0.0}
+      balance: {type: DataTypes.FLOAT, defaultValue: 0.0}
     });
   
     User.associate = function(models) {
