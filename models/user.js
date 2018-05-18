@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      type: { type: DataTypes.STRING, defaultValue: "user" }
+      type: { type: DataTypes.STRING, defaultValue: "user" },
+      balance: {type: DataType.FLOAT, defaultValue: 0.0}
     });
   
     User.associate = function(models) {
@@ -13,6 +14,8 @@ module.exports = function(sequelize, DataTypes) {
       User.hasMany(models.Transaction, {
         onDelete: "cascade"
       });
+
+      User.hasMany(models.User_rating)
     };
   
     return User;

@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
       genre: DataTypes.STRING,
       year: DataType.INTEGER,
       quantity: DataType.INTEGER,
-      time_limit: { type: DataTypes.INTEGER, defaultValue: 3 }
+      time_limit: { type: DataTypes.INTEGER, defaultValue: 3 },
+      cost: {type: DataTypes.FLOAT, defaultValue: 0.0}
     });
   
     Media.associate = function(models) {
