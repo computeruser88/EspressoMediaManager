@@ -1,0 +1,21 @@
+    <h2>Create New User:</h2>
+<form action="/users/new" method="POST">
+  <label for="name">Name</label>
+  <input name="name" type="text" />
+  <input type="submit" />
+</form>
+
+{{#if User}}
+  {{#each User}}
+    <h2>
+      <a href="/users/{{id}}">{{name}}</a>
+    </h2>
+    {{#each transactions}}
+      <p>
+        {{type}}: ${{balance}}.00
+      </p>
+    {{/each}}
+  {{/each}}
+{{else}}
+  <h3>No User</h3>
+{{/if}}

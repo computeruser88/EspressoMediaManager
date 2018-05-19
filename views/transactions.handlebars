@@ -1,0 +1,9 @@
+{{#if transactions}}
+  {{#each transactions}}
+    <p>
+      ${{amount}}.00 {{type}}
+    </p>
+  {{/each}}
+{{else}}
+  <h3>No Transactions.</h3>
+{{/if}}
