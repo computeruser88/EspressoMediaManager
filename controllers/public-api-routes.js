@@ -81,7 +81,7 @@ module.exports = function(app) {
 
     });
 
-    app.post("public/new-user", function(req,res) {
+    app.post("/public/new-user", function(req,res) {
         //this post API should only be called after it's been confirmed that there's no existing user with this input email
         //input should come from form body
 

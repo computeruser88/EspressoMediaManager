@@ -30,12 +30,8 @@ app.set("view engine", "handlebars");
 // Static directory
 app.use(express.static("public"));
 
-// Routes
-// =============================================================
-/*
 require("./controllers/user-api-routes.js")(app);
-
-require("./controllers/admin-api-routes.js")(app);*/
+require("./controllers/admin-api-routes.js")(app);
 require("./controllers/public-api-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
