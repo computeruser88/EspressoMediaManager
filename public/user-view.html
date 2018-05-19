@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Espresso Media Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</head>
+
+<body>
+  <section class="hero is-dark">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Espresso Media Manager.
+        </h1>
+        <h2 class="subtitle">
+          A library at your fingertips.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <div class="field is-grouped">
+    <p class="control is-expanded">
+      <input class="input" type="text" placeholder="Search our books, music, or videos">
+    </p>
+    <p class="control">
+      <a class="button is-info">
+        Search
+      </a>
+    </p>
+  </div>
+  <aside class="menu">
+    <p class="menu-label">
+        Refine search
+    </p>
+    <ul class="menu-list">
+        <li>
+            <a>Books</a>
+        </li>
+        <li>
+            <a>Music</a>
+        </li>
+        <li>
+            <a>Videos</a>
+        </li>
+    </ul>
+</aside>
+
+<div class="modal" id="login-modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="content"><h4>Login</h4></div>
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <input class="input" type="email" placeholder="Email">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="password" placeholder="Password">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="login"></button>
+</div>
+
+<div class="modal" id="signup-modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="content"><h4>Sign up</h4></div>
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <input class="input" type="email" placeholder="Email">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="password" placeholder="Password">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="sign up"></button>
+</div>
+
+<table class="table">
+    <thead>
+    <th>User Dashboard</th>
+      <tr>
+        <th id="Medianame">Name</abbr></th>
+        <th id="Media Type">Media Type</th>
+        <thid="Genre">Genre</abbr></th>
+        <th id="Rating">Rating</abbr></th>
+        <th id="Release Year">Year</abbr></th>
+        <th id="Time-Limit">Due Date</abbr></th>
+        <th id="Cost">Amount Due</abbr></th>
+      </tr>
+    </thead>
+    </table>
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
