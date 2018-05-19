@@ -7,9 +7,7 @@ module.exports = function(sequelize, DataTypes) {
   
     User_rating.associate = function(models) {
       // Associating User_rating with Users and Media
-
       User_rating.belongsTo(models.User);
-
       User_rating.belongsTo(models.Media);
     };
   
