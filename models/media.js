@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
       name: DataTypes.STRING,
       type: DataTypes.STRING,
       genre: DataTypes.STRING,
+      rating: DataTypes.STRING,
       year: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
       time_limit: { type: DataTypes.INTEGER, defaultValue: 3 },
