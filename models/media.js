@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
       // Giving the Media model a name of type STRING
       name: DataTypes.STRING,
       type: DataTypes.STRING,
+      artist: { type: DataTypes.STRING, defaultValue: "Unknown"},
       genre: DataTypes.STRING,
       rating: DataTypes.STRING,
       year: DataTypes.INTEGER,
