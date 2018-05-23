@@ -1,14 +1,16 @@
 {{#if User}}
-    <h2>
-      <a href="/user/{{id}}">{{name}}</a>
-      <a href="/user/{{email}}">{{email}}</a>
-    </h2>
-    {{#each transactions}}
-      <p>
-        {{type}}: ${{balance}}.00
-      </p>
-    {{/each}}
-  {{/each}}
-{{else}}
-  <h3>No User</h3>
+<h2>
+  <a href="/user/{{id}}">{{name}}</a>
+  <a href="/user/{{email}}">{{email}}</a>
+</h2>
+{{#each transactions}}
+<p>
+  {{type}}: ${{balance}}.00
+</p>
+{{/each}} {{/each}} {{else}}
+<h3>No User</h3>
 {{/if}}
+<script>
+  $("signup-button").addClass("is-disabled");
+  $("login-button").addClass("is-disabled");
+</script>
