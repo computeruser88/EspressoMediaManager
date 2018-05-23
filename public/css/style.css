@@ -9,8 +9,28 @@
     text-align:center;
 }
 .fix-footer {
-    position: absolute;
+    position: fixed;
     width: 100%;
     bottom: 0;
     overflow:hidden;
+}
+@media all and (max-width: 520px) {
+    .hero-body {
+        position: relative;
+        max-height: 200px;
+        margin-bottom: 40px;
+        top: 20px;
+        width: 100%;
+    }
+    #signin-button, 
+    #login-button {
+        position: relative;
+        left: 0;
+    }
+    #navView {
+        position: absolute;
+    }
+    table {
+        max-width: 100%;
+    }
 }
