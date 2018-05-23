@@ -24,9 +24,10 @@ module.exports = function(app) {
     var email = req.params.email;
 
     db.Transaction.findAll({
-      attributes : [ 'checked_out_date', 'MediumId', 'returned_date' ] ,
+      attributes : [ 'checked_out_date', 'returned_date','Medium.type','Medium.name','Medium.rating','Medium.year','Medium.genre' ] ,
       where: { 
-          UserEmail : email
+          UserEmail : email,
+          returned_date : null
       },
       include: [{
         model: db.Media
@@ -35,6 +36,25 @@ module.exports = function(app) {
       res.json(dbMediaTransaction);
     });
 
+  });
+
+  app.get("/user-history/:email", function(req,res) {
+    var email = req.params.email;
+
+    db.Transaction.findAll({
+      attributes : [ 'checked_out_date', 'returned_date','Medium.type','Medium.name','Medium.rating','Medium.year','Medium.genre' ] ,
+      where: { 
+          UserEmail : email,
+          returned_date : {
+            [db.Sequelize.Op.ne] : null
+          }
+      },
+      include: [{
+        model: db.Media
+      }]
+    }).then(function(dbMediaTransaction) {
+      res.json(dbMediaTransaction);
+    });
   });
 
 
