@@ -6,6 +6,7 @@
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
+var path = require("path");
 
 // Sets up the Express App
 // =============================================================
@@ -33,6 +34,13 @@ app.use(express.static("public"));
  require('./controllers/admin-api-routes.js')(app);
  require('./controllers/user-api-routes.js')(app);
  require('./controllers/public-api-routes.js')(app);
+
+
+ //HTML
+ app.get("/user-view", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/user-view.html"));
+});
+
 
 
 

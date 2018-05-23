@@ -12,6 +12,7 @@
     position: fixed;
     width: 100%;
     bottom: 0;
+    max-height: 50px;
     overflow:hidden;
 }
 @media all and (max-width: 520px) {
