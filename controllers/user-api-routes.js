@@ -85,7 +85,7 @@ module.exports = function(app) {
             db.Media.decrement('quantity', { where :
               {id : mediaId}
             }).then(function(dbMedia) {
-              console.log("Updated media quantity for id : " + mediaId);
+              console.log("Decremented media quantity for id : " + mediaId);
               res.json(dbTransaction);
             });
           });
@@ -100,8 +100,38 @@ module.exports = function(app) {
   })
 
 
-
   // /user-return-media/:email/:mediaId - allow user to return media, update returned_date in transaction, and quantity in media
+  app.get("/user-return-media/:email/:mediaId", function(req,res) {
+    var email = req.params.email;
+    var mediaId = req.params.mediaId;
+
+    db.Transaction.findOne({
+      where : {
+        UserEmail: email,
+        MediumId : mediaId
+      }
+    }).then(function(obj) {
+      if(obj) {
+        //console.log(JSON.stringify(obj));
+        console.log("Transaction exists already for this email: " + email + " and for Media ID: " + mediaId);
+        obj.update({
+          returned_date: Date.now() 
+        }).then(function(result) {
+          console.log("Returned media by setting returned_date value. Now update media's quantity");
+          db.Media.increment('quantity', { where :
+            {id : mediaId}
+          }).then(function(dbMedia) {
+            console.log("Incremented media quantity for id : " + mediaId);
+            res.json(result);
+          });
+        })
+      }
+      else{
+        console.log("transaction does not exist for User Email: " + email + " and for Media ID: " + mediaId);
+        console.log("nothing to return");
+      }
+    });
+  });
 
   app.get("/user-history/:email", function(req,res) {
     //returns all the historical rental history of media that have been returned
