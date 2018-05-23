@@ -30,20 +30,9 @@ app.set("view engine", "handlebars");
 // Static directory
 app.use(express.static("public"));
 
-// Routes
-// =============================================================
-/*require("./routes/html-routes.js")(app);
-require("./routes/user-api-routes.js")(app);
-
-require("./routes/admin-api-routes.js")(app);*/
-//require("./routes/public-api-routes.js")(app);
-
-
- //require('./controllers/admin-api-routes.js')(app);
- //require('./controllers/user-api-routes.js')(app);
- //require('./controllers/public-api-routes.js')(app);
-
-
+ require('./controllers/admin-api-routes.js')(app);
+ require('./controllers/user-api-routes.js')(app);
+ require('./controllers/public-api-routes.js')(app);
 
 
 
