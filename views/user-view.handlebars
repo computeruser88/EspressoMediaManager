@@ -1,14 +1,7 @@
-    <h2>Create New User:</h2>
-<form action="/users/new" method="POST">
-  <label for="name">Name</label>
-  <input name="name" type="text" />
-  <input type="submit" />
-</form>
-
 {{#if User}}
-  {{#each User}}
     <h2>
       <a href="/user/{{id}}">{{name}}</a>
+      <a href="/user/{{email}}">{{email}}</a>
     </h2>
     {{#each transactions}}
       <p>

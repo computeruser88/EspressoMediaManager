@@ -1,0 +1,209 @@
+  <section class="hero is-dark">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Espresso Media Manager.
+        </h1>
+        <h2 class="subtitle">
+          A library at your fingertips.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="field is-grouped">
+    <p class="control is-expanded">
+       <input class="input" type="text" placeholder="Search our books, music, or videos">
+    </p>
+    <p class="control">
+      <a class="button is-info">
+        Search
+      </a>
+    </p>
+  </div>
+  <aside class="menu">
+    <p class="menu-label">
+        Refine search
+    </p>
+    <ul class="menu-list">
+        <li>
+            <a>Books</a>
+        </li>
+        <li>
+            <a>Music</a>
+        </li>
+        <li>
+            <a>Videos</a>
+        </li>
+    </ul>
+  </aside>
+    
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+            <form class="box" method="POST" action="" >
+              <p class="is-size-4-tablet has-text-centered">Media Maintenance Form</p>
+
+                <div class="control" id="opbuttons" style="margin-bottom : 1rem;">
+                  <label class="radio">
+                    <input type="radio" name="operation">
+                    Find
+                  </label>
+
+                  <label class="radio">
+                    <input type="radio" name="operation">
+                    Add
+                  </label>
+
+                  <label class="radio">
+                    <input type="radio" name="operation">
+                    Update
+                  </label>
+
+                  <label class="radio">
+                    <input type="radio" name="operation">
+                    Delete
+                  </label>
+                </div>
+                
+                <div class="field">
+                  <label class="label">ID</label>
+                  <div class="control">
+                    <input class="input" type="text" name="id">
+                  </div>
+                </div>
+  
+                <div class="field">
+                  <label class="label">Name</label>
+                  <div class="control">
+                    <input class="input" type="text" name="name">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Type</label>
+                  <div class="control">
+                    <div class="select">
+                      <select id="type" name="type">
+                        <option>Book</option>
+                        <option>Movie</option>
+                        <option>Music</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Genre</label>
+                  <div class="control">
+                    <div class="select">
+                      <select id="genre" name="genre">
+                        <option>Select one</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Rating</label>
+                  <div class="control">
+                    <div class="select">
+                      <select id="rating" name="rating">
+                        <option>N/A</option>
+                        <option>Unknown</option>
+                        <option>G</option>
+                        <option>PG</option>
+                        <option>PG-13</option>
+                        <option>R</option>
+                        <option>NC-17</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Year</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="YYYY" name="year">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Quantity</label>
+                  <div class="control">
+                    <input class="input" type="text" value="3" name="quantity">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Time Limit</label>
+                  <div class="control">
+                    <input class="input" type="text" value="3" name="timelimit">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Cost</label>
+                  <div class="control">
+                    <input class="input" type="text" value="0.0" name="cost">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Messages</label>
+                  <div class="control">
+                    <textarea class="textarea" name="messages"
+                              placeholder="error and status messages"
+                              rows="6"></textarea>
+                  </div>
+                </div>
+
+                <div class="field is-grouped">
+                  <div class="control">
+                    <button class="button is-info" id="execute">Execute</button>
+                  </div>
+                  <div class="control">
+                    <button class="button is-text" id="cancel">Cancel</button>
+                  </div>
+                </div>
+            </form>
+          </div>  <!-- column -->
+        </div>  <!-- columns -->
+      </div>  <!-- container-->
+    </div>  <!-- hero-body -->
+  </section>  <!-- hero -->
+    
+  <section>
+    <table class="table">
+      <thead>
+      <th>Admin Result Set</th>
+        <tr>
+          <th id="Medianame">Name</th>
+          <th id="Media Type">Media Type</th>
+          <th id="Genre">Genre</th>
+          <th id="Rating">Rating</th>
+          <th id="Release Year">Year</th>
+          <th id="Quantity">Quantity</th>
+          <th id="Time-Limit">Due Date</th>
+          <th id="Cost">Amount Due</th>
+        </tr>
+      </thead>
+    </table>
+                         
+  </section>    
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          &copy;Copyright 2018 Tom Harris, Hnin Haymar, Jan Balangue, Meghna Nag, Radhika Iyer
+        </p>
+      </div>
+    </div>
+  </footer>
+                      
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+  <script src="../../public/javascript/app.js"></script>
