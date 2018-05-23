@@ -1,3 +1,13 @@
+.table{
+
+    width:100%;
+
+    background: linear-gradient(rgb(150, 119, 168), rgb(173, 228, 230));
+}
+
+#heading{
+    text-align:center;
+}
 .fix-footer {
     position: absolute;
     width: 100%;
