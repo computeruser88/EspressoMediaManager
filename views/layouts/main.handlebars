@@ -11,6 +11,30 @@
 </head>
 
 <body>
+  <nav id="navMenu" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+          <i class="fas fa-home fa-lg"></i>
+        </a>
+        <div id="navbar-burger-id" class="navbar-burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div id="navbar-menu-id" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="#section-1">Books</a>
+          <a class="navbar-item" href="#section-2">Music</a>
+          <a class="navbar-item" href="#section-3">Videos</a>
+        </div>
+        <div class="navbar-end">
+
+        </div>
+      </div>
+    </div>
+  </nav>
   <section class="hero is-dark">
     <div class="hero-body">
       <div class="container">
@@ -34,7 +58,7 @@
     </p>
   </div>
   {{{ body }}}
-  <footer class="footer">
+  <footer class="footer fix-footer">
     <div class="container">
       <div class="content has-text-centered">
         <p>
@@ -45,7 +69,7 @@
   </footer>
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
-  <script src="../../public/javascript/appljs"></script>
+  <script src="../../public/javascript/app.js"></script>
 </body>
 
 </html>
