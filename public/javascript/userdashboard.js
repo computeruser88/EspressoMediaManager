@@ -1,15 +1,18 @@
 $(document).ready(function () {
     /* global moment */
-var email ="janedoe@gmail.com";
+    var email ="janedoe@gmail.com";
     // userDashboard holds all of our records
     var userDashboard = $(".user-dashboard");
+    var userHistory = $(".user-history");
 
     // Click events for the checkout and return buttons
     $(document).on("click", "button.checkout", handleCheckout);
     $(document).on("click", "button.return", handleReturn);
     // Variable to hold our records
     var records;
-
+    
+    getRecords(email);
+    getHistoricalRecords(email);
     // The code below handles the case where we want to get transaction records for a specific user
     // Looks for a query param in the url for useremail
    /*var url = window.location.search;
@@ -23,12 +26,18 @@ var email ="janedoe@gmail.com";
         $(".user-dashboard").hide();
     }*/
 
+    function getHistoricalRecords(email) {
+        console.log(email);
+        $.get("/user-history/"+ email, function (data) {
+            if (data)
+                initializeHistoricalRows(data);
+        });
+    }
+
 
     // This function grabs records from the database and updates the view
-    function getrecords(email) {
-
+    function getRecords(email) {
         $.get("/user-dashboard/"+ email, function (data) {
-            console.log("records", data);
             records=data;
             if (records)
                 initializeRows();
@@ -39,55 +48,172 @@ var email ="janedoe@gmail.com";
     function initializeRows() {
         userDashboard.empty();
         var recordsToAdd = [];
+        userDashboard.append(createHeaderRow());
         for (var i = 0; i < records.length; i++) {
             recordsToAdd.push(createNewRow(records[i]));
         }
         userDashboard.append(recordsToAdd);
     }
 
-    // This function constructs a post's HTML
-    function createNewRow(record) {
+    function initializeHistoricalRows(data) {
+        userHistory.empty();
+        var recordsToAdd = [];
+        userHistory.append(createHistoricalHeaderRow());
+        for(i = 0; i < data.length; i++) {
+            recordsToAdd.push(createHistoryRow(data[i]));
+        }
+        userHistory.append(recordsToAdd);
+    }
 
+    function createHeaderRow(){
+        var row = $("<tr>");
+        var placeholder = $("<th>");
+        row.append(placeholder);
+
+        var name = $("<th>");
+        name.text("Name");
+        row.append(name);
+
+        var checkedOutDate = $("<th>");
+        checkedOutDate.text("Checked Out Date");
+        row.append(checkedOutDate);
+
+        var mediaType = $("<th>");
+        mediaType.text("Media Type");
+        row.append(mediaType);
+
+        var genre = $("<th>");
+        genre.text("Genre");
+        row.append(genre);
+
+        var rating = $("<th>");
+        rating.text("Rating");
+        row.append(rating);
+
+        var year = $("<th>");
+        year.text("Release Year");
+        row.append(year);
+
+        return row;
+
+    }
+    // This function constructs a a record's row
+    function createNewRow(record) {
         var newRecord = $("<div>");
         newRecord.addClass("card");
-        var newRecordHeading = $("<div>");
-        newRecordHeading.addClass("card-header");
         var checkoutBtn = $("<button>");
         checkoutBtn.text("CHECKOUT");
         checkoutBtn.addClass("checkout btn btn-info");
         var returnBtn = $("<button>");
         returnBtn.text("RETURN");
         returnBtn.addClass("return btn btn-info");
+        
+        var newRecordRow= $("<tr>");
+        newRecordRow.append(returnBtn);
+
         var Name = $("<td>");
+        Name.text(record.Medium.name);
+        var checkedOut = $("<td>");
+        checkedOut.text(record.checked_out_date);
         var Type = $("<td>");
+        Type.text(record.Medium.type);
         var Genre= $("<td>");
+        Genre.text(record.Medium.genre);
         var Rating= $("<td>");
+        Rating.text(record.Medium.rating);
         var ReleaseYear = $("<td>");
-        var Quantity = $("<td");
-        var TimeLimit = $("<td>");
-        var Cost= $("<td>");
-        newRecordBody.addClass("card-body");
-        var newPostBody = $("<tr>");
-        newPostBody.text(post.body);
-        newRecordHeading.append(checkoutBtn);
-        newRecordHeading.append(returnBtn);
-        newRecordHeading.append(Name);
-        newRecordHeading.append(Type);
-        newRecordHeading.append(Genre);
-        newRecordHeading.append(Rating);
-        newRecordHeading.append(ReleaseYear);
-        newRecordHeading.append(Quantity);
-        newRecordHeading.append(TimeLimit);
-        newRecordHeading.append(Cost);
-        newRecordBody.append(newPostBody);
-        newRecord.append(newRecordHeading);
-        newRecord.append(newRecordBody);
-        newRecord.data("record", record);
-        return newRecord;
+        ReleaseYear.text(record.Medium.year);
+
+        newRecordRow.append(Name);
+        newRecordRow.append(checkedOut);
+        newRecordRow.append(Type);
+        newRecordRow.append(Genre);
+        newRecordRow.append(Rating);
+        newRecordRow.append(ReleaseYear);
+ 
+        newRecordRow.data("record",record);
+        return newRecordRow;
+    }
+
+    function createHistoricalHeaderRow(){
+        var row = $("<tr>");
+        var placeholder = $("<th>");
+        row.append(placeholder);
+
+        var name = $("<th>");
+        name.text("Name");
+        row.append(name);
+
+        var checkedOutDate = $("<th>");
+        checkedOutDate.text("Checked Out Date");
+        row.append(checkedOutDate);
+
+        var returnedDate = $("<th>");
+        returnedDate.text("Returned Date");
+        row.append(returnedDate);
+
+        var mediaType = $("<th>");
+        mediaType.text("Media Type");
+        row.append(mediaType);
+
+        var genre = $("<th>");
+        genre.text("Genre");
+        row.append(genre);
+
+        var rating = $("<th>");
+        rating.text("Rating");
+        row.append(rating);
+
+        var year = $("<th>");
+        year.text("Release Year");
+        row.append(year);
+
+        return row;
+
+    }
+
+    function createHistoryRow(record) {
+        var newRecord = $("<div>");
+        newRecord.addClass("card");
+        var checkoutBtn = $("<button>");
+        checkoutBtn.text("CHECKOUT");
+        checkoutBtn.addClass("checkout btn btn-info");
+        var reviewBtn = $("<button>");
+        reviewBtn.text("Write Review");
+        reviewBtn.addClass("review btn btn-info");
+        
+        var newRecordRow= $("<tr>");
+        newRecordRow.append(reviewBtn);
+
+        var Name = $("<td>");
+        Name.text(record.Medium.name);
+        var checkedOut = $("<td>");
+        checkedOut.text(record.checked_out_date);
+        var returned = $("<td>");
+        returned.text(record.returned_date);
+        var Type = $("<td>");
+        Type.text(record.Medium.type);
+        var Genre= $("<td>");
+        Genre.text(record.Medium.genre);
+        var Rating= $("<td>");
+        Rating.text(record.Medium.rating);
+        var ReleaseYear = $("<td>");
+        ReleaseYear.text(record.Medium.year);
+
+        newRecordRow.append(Name);
+        newRecordRow.append(checkedOut);
+        newRecordRow.append(returned);
+        newRecordRow.append(Type);
+        newRecordRow.append(Genre);
+        newRecordRow.append(Rating);
+        newRecordRow.append(ReleaseYear);
+ 
+        newRecordRow.data("record",record);
+        return newRecordRow;
     }
 
     // This function figures out which post we want to delete and then calls deletePost
-    function handlehandleCheckout() {
+    function handleCheckout() {
         var currentRecord = $(this)
             .parent()
             .parent()
@@ -99,9 +225,21 @@ var email ="janedoe@gmail.com";
     function handleReturn() {
         var currentRecord = $(this)
             .parent()
-            .parent()
             .data("record");
-        window.location.href = "/cms?post_id=" + currentRecord.id;
+        console.log(currentRecord);
+        returnMedia(email,currentRecord.Medium.id);
+        //window.location.href = "/user-return-media/"+email+"/" + currentRecord.Medium.id;
+    }
+
+    function returnMedia(email,id){
+        $.ajax({
+            method: "GET",
+            url: "/user-return-media/"+email+"/"+id
+        }).then(function(result) {
+              console.log(result);
+              window.location.href = "/user-view";
+              //getPosts(postCategorySelect.val());
+        });
     }
 
     // This function displays a message when there are no records
