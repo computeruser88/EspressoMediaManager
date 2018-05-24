@@ -3,27 +3,27 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-5-tablet is-4-desktop is-6-widescreen">
-            <form class="box" method="POST" action="" >
+            <form class="box" method="POST">
               <p class="is-size-4-tablet has-text-centered">Media Maintenance Form</p>
 
                 <div class="control" id="opbuttons" style="margin-bottom : 1rem;">
                   <label class="radio">
-                    <input type="radio" name="operation">
+                    <input type="radio" name="operation" value="find">
                     Find
                   </label>
 
                   <label class="radio">
-                    <input type="radio" name="operation">
+                    <input type="radio" name="operation" value="add">
                     Add
                   </label>
 
                   <label class="radio">
-                    <input type="radio" name="operation">
+                    <input type="radio" name="operation" value="update">
                     Update
                   </label>
 
                   <label class="radio">
-                    <input type="radio" name="operation">
+                    <input type="radio" name="operation" value="delete">
                     Delete
                   </label>
                 </div>
@@ -31,14 +31,21 @@
                 <div class="field">
                   <label class="label">ID</label>
                   <div class="control">
-                    <input class="input" type="text" name="id">
+                    <input class="input" type="text" name="id" id="id">
                   </div>
                 </div>
-  
+
                 <div class="field">
                   <label class="label">Name</label>
                   <div class="control">
-                    <input class="input" type="text" name="name">
+                    <input class="input" type="text" id="name" name="name">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Artist</label>
+                  <div class="control">
+                    <input class="input" type="text" id="artist" name="artist">
                   </div>
                 </div>
 
@@ -86,37 +93,37 @@
                 <div class="field">
                   <label class="label">Year</label>
                   <div class="control">
-                    <input class="input" type="text" placeholder="YYYY" name="year">
+                    <input class="input" type="text" placeholder="YYYY" id="year" name="year">
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Quantity</label>
                   <div class="control">
-                    <input class="input" type="text" value="3" name="quantity">
+                    <input class="input" type="text" value="3" id="quantity" name="quantity">
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Time Limit</label>
                   <div class="control">
-                    <input class="input" type="text" value="3" name="timelimit">
+                    <input class="input" type="text" value="3" id="timelimit" name="timelimit">
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Cost</label>
                   <div class="control">
-                    <input class="input" type="text" value="0.0" name="cost">
+                    <input class="input" type="text" value="0.0" id="cost" name="cost">
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Messages</label>
                   <div class="control">
-                    <textarea class="textarea" name="messages"
+                    <textarea class="textarea" name="messages" id="messages"
                               placeholder="error and status messages"
-                              rows="6"></textarea>
+                              rows="9"></textarea>
                   </div>
                 </div>
 
@@ -152,8 +159,22 @@
       </thead>
     </table>
                          
-  </section>  
-      <script>
-        $("signup-button").addClass("is-disabled");
-        $("login-button").addClass("is-disabled");
-    </script>
+  </section>    
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          &copy;Copyright 2018 Tom Harris, Hnin Haymar, Jan Balangue, Meghna Nag, Radhika Iyer
+        </p>
+      </div>
+    </div>
+  </footer>
+                      
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+  <script src="../../public/javascript/app.js"></script>
+  <script>
+      $("signup-button").addClass("is-disabled");
+      $("login-button").addClass("is-disabled");
+  </script>
