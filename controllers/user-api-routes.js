@@ -22,17 +22,19 @@ module.exports = function(app) {
   app.get("/user-dashboard/:email", function(req,res) {
     //return all media in the transaction table for this user-email
     var email = req.params.email;
-
+    var attributes = [ 'checked_out_date', 'returned_date'];
+    var mediaAttributes = ['id','type','name','rating','year','genre'];
     db.Transaction.findAll({
-      attributes : [ 'checked_out_date', 'returned_date','Medium.type','Medium.name','Medium.rating','Medium.year','Medium.genre' ] ,
+      attributes : attributes,
       where: { 
           UserEmail : email,
           returned_date : null
       },
       include: [{
-        model: db.Media
+        model: db.Media, attributes: mediaAttributes
       }]
     }).then(function(dbMediaTransaction) {
+      //console.log(JSON.parse(JSON.stringify(dbMediaTransaction)));
       res.json(dbMediaTransaction);
     });
 
@@ -122,13 +124,15 @@ module.exports = function(app) {
             {id : mediaId}
           }).then(function(dbMedia) {
             console.log("Incremented media quantity for id : " + mediaId);
-            res.json(result);
+            //res.json(result);
+            res.redirect("/user-view");
           });
         })
       }
       else{
         console.log("transaction does not exist for User Email: " + email + " and for Media ID: " + mediaId);
         console.log("nothing to return");
+        res.redirect("/user-view");
       }
     });
   });
@@ -136,9 +140,11 @@ module.exports = function(app) {
   app.get("/user-history/:email", function(req,res) {
     //returns all the historical rental history of media that have been returned
     var email = req.params.email;
+    var attributes = [ 'checked_out_date', 'returned_date'];
+    var mediaAttributes = ['id','type','name','rating','year','genre'];
 
     db.Transaction.findAll({
-      attributes : [ 'checked_out_date', 'returned_date','Medium.type','Medium.name','Medium.rating','Medium.year','Medium.genre' ] ,
+      attributes : attributes,
       where: { 
           UserEmail : email,
           returned_date : {
@@ -146,7 +152,7 @@ module.exports = function(app) {
           }
       },
       include: [{
-        model: db.Media
+        model: db.Media, attributes: mediaAttributes
       }]
     }).then(function(dbMediaTransaction) {
       res.json(dbMediaTransaction);
