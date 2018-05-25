@@ -4,9 +4,6 @@
 // e.g., https://mighty-springs-63277.herokuapp.com/,
 //       https://vast-wave-20966.herokuapp.com/
 
-const HOST = "http://localhost";
-const PORT = process.env.PORT || 8080;
-
 const ADD_ROUTE    = "/admin-add-media";
 const UPDATE_ROUTE = "/admin-update-media/:mediaid/:quantity/:time_limit";
 const SHOW_ROUTE   = "/admin-show-media";
@@ -77,15 +74,11 @@ $(document).ready(readyFunc);
 // delarations; no functions are actually executed
 
 function readyFunc() {
-  $("table").tablesorter(); 
-  // Close mobile & tablet menu on item click
-  $('.navbar-item').each(function (e) {
-    $(this).click(function () {
-      if ($('#navbar-burger-id').hasClass('is-active')) {
+  $("table").tablesorter();
       // Close mobile & tablet menu on item click
   $('.navbar-item').each(function(e) {
     $(this).click(function(){
-      if($('#navbar-burger-id').hasClass('is-active')){
+      if ($('#navbar-burger-id').hasClass('is-active')){
         $('#navbar-burger-id').removeClass('is-active');
         $('#navbar-menu-id').removeClass('is-active');
       }
