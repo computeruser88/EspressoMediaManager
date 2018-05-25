@@ -55,7 +55,9 @@ const validTypes =
   [
     "Book", "Movie", "Music"
   ];
-
+let userName;
+let emailAddress;
+let password;
 
 /*
    Note: document.onload() waits until the entire page, includng any
@@ -104,7 +106,7 @@ function readyFunc() {
       $(".dropdown").addClass("is-active");
     }
   });
-  $(".dropdown-item").on("click", function() {
+  $(".dropdown-item").on("click", function () {
     $("#media-type").html($(this).html());
     $(".dropdown").removeClass("is-active");
   });
@@ -112,9 +114,11 @@ function readyFunc() {
   // modal controls
   $("#signup-button").on("click", function () {
     $("#signup-modal").addClass("is-active");
+    $(".modal-card-title").html("Sign up");
   });
   $("#login-button").on("click", function () {
     $("#login-modal").addClass("is-active");
+    $(".modal-card-title").html("Login");
   });
   $(".delete").on("click", function () {
     $(".modal").removeClass("is-active");
@@ -123,4 +127,33 @@ function readyFunc() {
     $(".modal").removeClass("is-active");
   });
 
+  $("#signup-save-button").on("click", function () {
+    userName = $("#signup-userName").val();
+    emailAddress = $("#signup-email").val();
+    password = $("#signup-password").val();
+    console.log("userName: " + userName + " emailAddress: " + emailAddress + " password: " + password);
+    if (userName.length > 0 && emailAddress.length > 0 && password.length > 0) {
+      $("#signup-userName").val("");
+      $("#signup-email").val("");
+      $("#signup-password").val("");
+      $("#signup-modal").removeClass("is-active");
+    }
+    else {
+      $(".modal-card-title").html("Sign up - please complete all fields.");
+    }
+  });
+
+  $("#login-save-button").on("click", function () {
+    emailAddress = $("#login-email").val();
+    password = $("#login-password").val();
+    console.log("emailAddress: " + emailAddress + " password: " + password);
+    if (emailAddress.length > 0 && password.length > 0) {
+      $("#login-email").val("");
+      $("#login-password").val("");
+      $("#login-modal").removeClass("is-active");
+    }
+    else {
+      $(".modal-card-title").html("Login - please complete all fields.");
+    }
+  });
 }
