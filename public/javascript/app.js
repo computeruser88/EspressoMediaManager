@@ -8,6 +8,10 @@ const ADD_ROUTE = "/admin-add-media";
 const UPDATE_ROUTE = "/admin-update-media/:mediaid/:quantity/:time_limit";
 const SHOW_ROUTE = "/admin-show-media";
 
+var publicView = $("#public-media-view");
+var offset = 0;
+var limit = 10;
+
 // The lists below are adapted from the following websites:
 //    http://www.musicgenreslist.com/
 //    http://reference.yourdictionary.com/books-literature/different-types-of-books.html
@@ -76,6 +80,13 @@ $(document).ready(readyFunc);
 // delarations; no functions are actually executed
 
 function readyFunc() {
+
+  fetchData();
+
+  backNextToggle();
+
+  //$(document).on("click", "button.next", handleNext);
+
   $("table").tablesorter();
   // Close mobile & tablet menu on item click
   $('.navbar-item').each(function (e) {
@@ -156,4 +167,85 @@ function readyFunc() {
       $(".modal-card-title").html("Login - please complete all fields.");
     }
   });
+
+}
+
+
+function fetchData(){
+  var inputs = {};
+
+    inputs.offset = offset;
+    inputs.limit = limit;
+
+    const url = "/public";
+    $.ajax({
+      type     : 'GET',
+      url      : url,
+      data     : inputs,
+      dataType : 'json',
+      encode   : true
+
+    }).done(function(data) {
+      console.log("data fetched!");
+      console.log(data);
+      populatePublicView(data);
+    }).fail(function(data) {
+
+      console.log(data);  // DEBUG
+
+    });
+}
+
+function backNextToggle(){
+  if(offset == 0){
+    $('#back-link').hide();
+  }
+
+  var nextLink = $('#next-link');
+  nextLink.show();
+  var nextButton = $("<button>");
+  nextButton.text("Next 10");
+  nextButton.addClass("next btn btn-info");  
+}
+
+function populatePublicView(data){
+  publicView.empty();
+  var rowsToAdd = [];
+  for(i = 0; i < data.length; i++){
+    rowsToAdd.push(createRow(data[i]));
+  }
+
+  publicView.append(rowsToAdd);
+  
+}
+
+function createRow(record){
+  var newRow = $("<tr>");
+  var name = $("<td>");
+  name.text(record.name);
+  newRow.append(name);
+
+  var type = $("<td>");
+  type.text(record.type);
+  newRow.append(type);
+
+  var genre = $("<td>");
+  genre.text(record.genre);
+  newRow.append(genre);
+
+  var rating = $("<td>");
+  rating.text(record.rating);
+  newRow.append(rating);
+
+  var year = $("<td>");
+  year.text(record.year);
+  newRow.append(year);
+
+  var artist = $("<td>");
+  artist.text(record.artist);
+  newRow.append(artist);
+
+  newRow.data("record",record);
+  return newRow;
+
 }

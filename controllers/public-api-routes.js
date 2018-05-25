@@ -8,14 +8,15 @@ module.exports = function(app) {
     app.get("/public", function(req, res) {
         //public view - show top 10 media
         if(req.query.offset) {
-            offset = req.query.offset;
+            offset = parseInt(req.query.offset);
         }
 
         if(req.query.limit) {
-            limit = req.query.limit;
+            limit = parseInt(req.query.limit);
         }
-
+        var attributes = ['id','type','name','artist','rating','year','genre'];
         db.Media.findAll({
+            attributes : attributes,
             where: { 
                 quantity : { [db.Op.gt]: 0 } 
             },
