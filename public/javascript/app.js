@@ -1,3 +1,4 @@
+
 // The lists below are adapted from the following websites:
 //    http://www.musicgenreslist.com/
 //    http://reference.yourdictionary.com/books-literature/different-types-of-books.html
@@ -53,6 +54,7 @@ $(document).ready(readyFunc);
 // delarations; no functions are actually executed
 
 function readyFunc() {
+  $("table").tablesorter(); 
   // Close mobile & tablet menu on item click
   $('.navbar-item').each(function (e) {
     $(this).click(function () {

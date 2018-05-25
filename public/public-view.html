@@ -7,7 +7,11 @@
     <title>Espresso Media Manager</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <link rel="stylesheet" href="../node_modules/tablesorter/dist/css/theme.blue.css" />
     <link rel="stylesheet" href="./css/style.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="../node_modules/tablesorter/dist/js/jquery.tablesorter.min.js"></script>
 </head>
 
 <body>
@@ -34,7 +38,7 @@
                 </div>
 
             </div>
- 
+
         </div>
     </nav>
     <section class="hero is-dark">
@@ -71,184 +75,164 @@
             </a>
         </p>
     </div>
-    <table class="table">
-        <tr="heading">
-            <th id="Medianame">Name</th>
-            <th id="Media Type">Media Type</th>
-            <th id="Genre">Genre</th>
-            <th id="Rating">Rating</th>
-            <th id="Release Year">Year</th>
-            <th id="Time-Limit">Due Date</th>
-            <th id="Cost">Amount Due</th>
-            </tr>
-
+    <table id="myTable" class="table tablesorter" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr="heading">
+                <th id="Medianame">
+                    <span>Name</span>
+                </th>
+                <th id="Media Type">
+                    <span>Media Type</span>
+                </th>
+                <th id="Genre">
+                    <span>Genre</span>
+                </th>
+                <th id="Rating">
+                    <span>Rating</span>
+                </th>
+                <th id="Release Year">
+                    <span>Year</span>
+                </th>
+                <th id="Time-Limit">
+                    <span>Due Date</span>
+                </th>
+                <th id="Cost">
+                    <span>Amount Due</span>
+                </th>
+                </tr>
+        </thead>
+        <tbody>
             <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
-            </tr>
-            <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
-            </tr>
-            <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
+                <td class="Medianame lalign">Harry Potter and the Deathly Hallows</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">2007</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
             </tr>
             <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
+                <td class="Medianame">Harry Potter and the Sorcerer's Stone</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">1997</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
             </tr>
             <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
+                <td class="Medianame">Harry Potter and the Half-Blood Prince</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">2005</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
             </tr>
             <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
+                <td class="Medianame">Harry Potter and the Goblet of Fire</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">2000</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
             </tr>
             <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
+                <td class="Medianame">Harry Potter and the Chamber of Secrets</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">1998</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
             </tr>
             <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
+                <td class="Medianame">Harry Potter and the Order of the Phoenix</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">2003</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
             </tr>
-            <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
-            </tr>
-            <tr>
-                <th id="Medianame">Harry Potter and the Deathly Hallows</th>
-                <th id="Media Type">Books</th>
-                <th id="Genre">Children's Books</th>
-                <th id="Rating">4.99</th>
-                <th id="Release Year">2007</th>
-                <th id="Time-Limit">05-25-2018</th>
-                <th id="Cost">0.00</th>
-            </tr>
-
+        </tbody>
     </table>
 
     <div class="modal" id="login-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Login</p>
-            <button class="delete" aria-label="close"></button>
-          </header>
-          <section class="modal-card-body">
-            <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </p>
-            </div>
-          </section>
-          <footer class="modal-card-foot">
-            <button class="button is-info">Save changes</button>
-            <button class="button cancel-button">Cancel</button>
-          </footer>
+            <header class="modal-card-head">
+                <p class="modal-card-title">Login</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input" type="email" placeholder="Email">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" type="password" placeholder="Password">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-info">Save changes</button>
+                <button class="button cancel-button">Cancel</button>
+            </footer>
         </div>
-      </div>    
+    </div>
 
     <div class="modal" id="signup-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Sign up</p>
-            <button class="delete" aria-label="close"></button>
-          </header>
-          <section class="modal-card-body">
-            <div class="field">
-                <div class="control">
-                    <input class="input" type="text" placeholder="Full name">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Sign up</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Full name">
+                    </div>
                 </div>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </p>
-            </div>
-          </section>
-          <footer class="modal-card-foot">
-            <button class="button is-info">Save changes</button>
-            <button class="button cancel-button">Cancel</button>
-          </footer>
+                <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input" type="email" placeholder="Email">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" type="password" placeholder="Password">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-info">Save changes</button>
+                <button class="button cancel-button">Cancel</button>
+            </footer>
         </div>
-      </div>
+    </div>
 
 
     <footer class="footer fix-footer">
@@ -260,8 +244,7 @@
             </div>
         </div>
     </footer>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+
     <script src="./javascript/app.js"></script>
 </body>
 
