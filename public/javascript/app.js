@@ -128,9 +128,9 @@ function readyFunc() {
   });
 
   $("#signup-save-button").on("click", function () {
-    userName = $("#signup-userName").val();
-    emailAddress = $("#signup-email").val();
-    password = $("#signup-password").val();
+    userName = $("#signup-userName").val().trim();
+    emailAddress = $("#signup-email").val().trim();
+    password = $("#signup-password").val().trim();
     console.log("userName: " + userName + " emailAddress: " + emailAddress + " password: " + password);
     if (userName.length > 0 && emailAddress.length > 0 && password.length > 0) {
       $("#signup-userName").val("");
@@ -144,8 +144,8 @@ function readyFunc() {
   });
 
   $("#login-save-button").on("click", function () {
-    emailAddress = $("#login-email").val();
-    password = $("#login-password").val();
+    emailAddress = $("#login-email").val().trim();
+    password = $("#login-password").val().trim();
     console.log("emailAddress: " + emailAddress + " password: " + password);
     if (emailAddress.length > 0 && password.length > 0) {
       $("#login-email").val("");
