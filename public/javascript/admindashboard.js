@@ -45,6 +45,30 @@ $(document).ready(function () {
         });
     }
 
+    //this function populates the tables to show the admin all the users 
+    function showUsers(name,email){
+        $.ajax({
+            method: "GET",
+            url: "/admin-show-users/"+name+"/"+email+"/"+medianame+"/"+timelimit
+        }).then(function(result) {
+              console.log(result);
+              window.location.href = "/admin-view";
+            
+        });
+    }
+
+     //this function populates the tables to show the admin the media
+    function showMedia(name,type,genre,timelimit,amountleft){
+        $.ajax({
+            method: "GET",
+            url: "/admin-show-media/"+name+"/"+type+"/"+genre+"/"+timeleft+"/"+cost
+        }).then(function(result) {
+              console.log(result);
+              window.location.href = "/admin-view";
+            
+        });
+    }
+
     // InitializeRows handles appending all of our constructed post HTML inside adminDashboard
     function initializeRows() {
         adminDashboard.empty();

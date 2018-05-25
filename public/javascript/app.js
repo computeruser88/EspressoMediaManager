@@ -8,6 +8,10 @@ const ADD_ROUTE = "/admin-add-media";
 const UPDATE_ROUTE = "/admin-update-media/:mediaid/:quantity/:time_limit";
 const SHOW_ROUTE = "/admin-show-media";
 
+var publicView = $("#public-media-view");
+var offset = 0;
+var limit = 10;
+
 // The lists below are adapted from the following websites:
 //    http://www.musicgenreslist.com/
 //    http://reference.yourdictionary.com/books-literature/different-types-of-books.html
@@ -55,7 +59,9 @@ const validTypes =
   [
     "Book", "Movie", "Music"
   ];
-
+let userName;
+let emailAddress;
+let password;
 
 /*
    Note: document.onload() waits until the entire page, includng any
@@ -74,6 +80,13 @@ $(document).ready(readyFunc);
 // delarations; no functions are actually executed
 
 function readyFunc() {
+
+  fetchData();
+
+  backNextToggle();
+
+  //$(document).on("click", "button.next", handleNext);
+
   $("table").tablesorter();
   // Close mobile & tablet menu on item click
   $('.navbar-item').each(function (e) {
@@ -104,7 +117,7 @@ function readyFunc() {
       $(".dropdown").addClass("is-active");
     }
   });
-  $(".dropdown-item").on("click", function() {
+  $(".dropdown-item").on("click", function () {
     $("#media-type").html($(this).html());
     $(".dropdown").removeClass("is-active");
   });
@@ -112,9 +125,11 @@ function readyFunc() {
   // modal controls
   $("#signup-button").on("click", function () {
     $("#signup-modal").addClass("is-active");
+    $(".modal-card-title").html("Sign up");
   });
   $("#login-button").on("click", function () {
     $("#login-modal").addClass("is-active");
+    $(".modal-card-title").html("Login");
   });
   $(".delete").on("click", function () {
     $(".modal").removeClass("is-active");
@@ -123,199 +138,114 @@ function readyFunc() {
     $(".modal").removeClass("is-active");
   });
 
-
-  // click handler for the Operation radio buttons
-  $('#opbuttons').on("click", function () {
-    var btnValue;
-    btnValue = $('input[name=operation]:checked').val();
-
-    // Don't allow the user to enter an ID when a row is being added
-    switch (btnValue) {
-
-      case 'add':
-        $('#id').prop('disabled', true);
-        break;
-
-      case 'find':
-      case 'update':
-      case 'delete':
-        $('#id').prop('disabled', false);
-        break;
-
-      default:
-        throw "An internal error occured.\n" + "Invalid value (" + btnValue
-        + ") for radio button";
+  $("#signup-save-button").on("click", function () {
+    userName = $("#signup-userName").val().trim();
+    emailAddress = $("#signup-email").val().trim();
+    password = $("#signup-password").val().trim();
+    console.log("userName: " + userName + " emailAddress: " + emailAddress + " password: " + password);
+    if (userName.length > 0 && emailAddress.length > 0 && password.length > 0) {
+      $("#signup-userName").val("");
+      $("#signup-email").val("");
+      $("#signup-password").val("");
+      $("#signup-modal").removeClass("is-active");
     }
-
+    else {
+      $(".modal-card-title").html("Sign up - please complete all fields.");
+    }
   });
 
-  // click handler for the Execute submit button
-  $("#execute").on("click", function () {
-    // Get the requested operation type
-    var opType = $('input[name=operation]:checked').val();
-
-    switch (opType) {
-
-      case 'add':
-        insertMedia();
-        break;
-
-      case 'find':
-        findMedia();
-        break;
-
-      case 'update':
-        updateMedia();
-        break;
-
-      case 'delete':
-        deleteMedia();
-        break;
-
-      default:
-        throw "An internal error occured.\n" + "Invalid value (" + btnValue
-        + ") for radio button";
+  $("#login-save-button").on("click", function () {
+    emailAddress = $("#login-email").val().trim();
+    password = $("#login-password").val().trim();
+    console.log("emailAddress: " + emailAddress + " password: " + password);
+    if (emailAddress.length > 0 && password.length > 0) {
+      $("#login-email").val("");
+      $("#login-password").val("");
+      $("#login-modal").removeClass("is-active");
     }
-
-  });
-
-  // Bind a click event to the Type select menu
-  $("#type").bind("click", function (event) {
-    // Update the list of available genres to match the selected
-    // media type
-    var typeChoice = $(this).val();
-    var options;
-    var array;
-
-    switch (typeChoice) {
-      case 'Book':
-        array = bookGenres;
-        break;
-
-      case 'Movie':
-        array = movieGenres;
-        break;
-
-      case 'Music':
-        array = musicGenres;
-        break;
-
-      default:
-        throw "An internal error occured.\n" + "Cannot get genres for: " + typeChoice;
+    else {
+      $(".modal-card-title").html("Login - please complete all fields.");
     }
-
-    options = createGenreOptions(array);
-
-    // Remove any previous content from the #genre <select> control
-    $("#genre").empty();
-
-    // Store the new content
-    $("#genre").html(options);
-
-  });
-
-
-  // Bind a click event to the Type select menu
-  $("#type").bind("click", function (event) {
-
   });
 
 }
 
-function createGenreOptions(genreList) {
-  var numItems = genreList.length;
-  var optionsString = '';
-  var nextOption = '';
 
-  for (var i = 0; i < numItems; i++) {
-    nextOption = '<option>' + genreList[i] + '</option>';
-    optionsString += nextOption;
+function fetchData(){
+  var inputs = {};
+
+    inputs.offset = offset;
+    inputs.limit = limit;
+
+    const url = "/public";
+    $.ajax({
+      type     : 'GET',
+      url      : url,
+      data     : inputs,
+      dataType : 'json',
+      encode   : true
+
+    }).done(function(data) {
+      console.log("data fetched!");
+      console.log(data);
+      populatePublicView(data);
+    }).fail(function(data) {
+
+      console.log(data);  // DEBUG
+
+    });
+}
+
+function backNextToggle(){
+  if(offset == 0){
+    $('#back-link').hide();
   }
 
-  return optionsString;
+  var nextLink = $('#next-link');
+  nextLink.show();
+  var nextButton = $("<button>");
+  nextButton.text("Next 10");
+  nextButton.addClass("next btn btn-info");  
 }
 
-function insertMedia() {
-  var inputs = {};
-  inputs.name = $('#name').val();
-  inputs.artist = $('#artist').val();
-  inputs.type = $('#type').val();
-  inputs.genre = $('#genre').val();
-  inputs.rating = $('#rating').val();
-  inputs.year = $('#year').val();
-  inputs.quantity = $('#quantity').val();
-  inputs.time_limit = $('#timelimit').val();
-  inputs.cost = $('#cost').val();
+function populatePublicView(data){
+  publicView.empty();
+  var rowsToAdd = [];
+  for(i = 0; i < data.length; i++){
+    rowsToAdd.push(createRow(data[i]));
+  }
 
-  // TODO: add some validation code here
-
-  const url = HOST + ':' + PORT + ADD_ROUTE;
-
-  $('form').submit(function (event) {
-
-    // remove any previous text from the message area
-    $('#messages').val('');
-
-    // execute the INSERT INTO `Media` ... statement
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: inputs,
-      dataType: 'json',
-      encode: true
-
-    }).done(function (data) {
-      alert('.done executing');  // DEBUG
-      console.log(data);  // DEBUG
-      var okMsg = data.name + "\nwas successfully added as ID " + data.id;
-      $('#messages').val(okMsg);
-    }).fail(function (data) {
-      alert('.fail executing');  // DEBUG
-      console.log(data);  // DEBUG
-      $('#messages').val(JSON.stringify(data));
-    });
-
-    event.preventDefault();
-
-  });
+  publicView.append(rowsToAdd);
+  
 }
 
-function updateMedia() {
-  alert("UPDATE Not Implemented Yet."); return;
-  var inputs = {};
-  const url = HOST + ':' + PORT + UPDATE_ROUTE;
+function createRow(record){
+  var newRow = $("<tr>");
+  var name = $("<td>");
+  name.text(record.name);
+  newRow.append(name);
 
-  $('form').submit(function (event) {
+  var type = $("<td>");
+  type.text(record.type);
+  newRow.append(type);
 
-    // remove any previous text from the message area
-    $('#messages').val('');
+  var genre = $("<td>");
+  genre.text(record.genre);
+  newRow.append(genre);
 
-    // execute the INSERT INTO `Media` ... statement
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: inputs,
-      dataType: 'json',
-      encode: true
+  var rating = $("<td>");
+  rating.text(record.rating);
+  newRow.append(rating);
 
-    }).done(function (data) {
-      console.log(data);  // DEBUG
-    }).fail(function (data) {
-      console.log(data);  // DEBUG
-      $('#messages').val(JSON.stringify(data));
-    });
+  var year = $("<td>");
+  year.text(record.year);
+  newRow.append(year);
 
-    event.preventDefault();
+  var artist = $("<td>");
+  artist.text(record.artist);
+  newRow.append(artist);
 
-  });
+  newRow.data("record",record);
+  return newRow;
+
 }
-
-function deleteMedia() {
-  alert("DELETE Not Implemented Yet."); return;
-}
-
-function findMedia() {
-  alert("FIND Not Implemented Yet."); return;
-}
-  // http://digipiph.com/blog/submitting-multipartform-data-using-jquery-and-ajax
-  // https://scotch.io/tutorials/submitting-ajax-forms-with-jquery
