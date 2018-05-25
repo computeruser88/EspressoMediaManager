@@ -4,9 +4,9 @@
 // e.g., https://mighty-springs-63277.herokuapp.com/,
 //       https://vast-wave-20966.herokuapp.com/
 
-const ADD_ROUTE    = "/admin-add-media";
+const ADD_ROUTE = "/admin-add-media";
 const UPDATE_ROUTE = "/admin-update-media/:mediaid/:quantity/:time_limit";
-const SHOW_ROUTE   = "/admin-show-media";
+const SHOW_ROUTE = "/admin-show-media";
 
 // The lists below are adapted from the following websites:
 //    http://www.musicgenreslist.com/
@@ -15,46 +15,46 @@ const SHOW_ROUTE   = "/admin-show-media";
 
 // list of literary genres
 const bookGenres =
-[
-   "Action and Adventure", "Anthology", "Art", "Autobiographies", 
-   "Biographies", "Children's", "Comics", "Cookbooks", "Diaries",
-   "Dictionaries", "Drama", "Encylopedias", "Fantasy", "Guide",
-   "Health", "History", "Horror", "Journals", "Math", "Mystery",
-   "Poetry", "Prayer books", "Religion, Spirituality & New Age",
-   "Romance", "Satire", "Science", "Science Fiction", "Self help",
-   "Series", "Travel", "Trilogy"
-];
+  [
+    "Action and Adventure", "Anthology", "Art", "Autobiographies",
+    "Biographies", "Children's", "Comics", "Cookbooks", "Diaries",
+    "Dictionaries", "Drama", "Encylopedias", "Fantasy", "Guide",
+    "Health", "History", "Horror", "Journals", "Math", "Mystery",
+    "Poetry", "Prayer books", "Religion, Spirituality & New Age",
+    "Romance", "Satire", "Science", "Science Fiction", "Self help",
+    "Series", "Travel", "Trilogy"
+  ];
 
 // list of motion picture genres
 const movieGenres =
-[
-   "Action", "Adventure", "Comedy", "Crime & Gangster", "Drama",
-   "Epics/Historical", "Horror", "Musicals/Dance", "Science Fiction",
-   "War", "Westerns"
-];
+  [
+    "Action", "Adventure", "Comedy", "Crime & Gangster", "Drama",
+    "Epics/Historical", "Horror", "Musicals/Dance", "Science Fiction",
+    "War", "Westerns"
+  ];
 
 // list of music genres
 const musicGenres =
-[
-   "Alternative", "Arime", "Blues", "Children's Music", "Comedy",
-   "Commercial", "Country", "Dance", "Elecronic", "Disney", "Easy Listening",
-   "Erika", "French Pop", "German Folk", "German Pop", "Fitness & Workout",
-   "Hip-Hop/Rap", "Holiday", "Indie Pop", "Industiral",
-   "Inspirational - Christian & Gospel", "Instrumental", "J-Pop", "Jazz",
-   "K-Pop", "Karaoke", "Kayokyoku", "Latin", "New Age", "Opera", "Pop",
-   "R&B/Soul", "Reggae", "Rock", "Singer/Songwriter", "Soundtrack",
-   "Spoken Word", "Tex-Mex/Tejano", "Vocal", "World"
-];
+  [
+    "Alternative", "Arime", "Blues", "Children's Music", "Comedy",
+    "Commercial", "Country", "Dance", "Elecronic", "Disney", "Easy Listening",
+    "Erika", "French Pop", "German Folk", "German Pop", "Fitness & Workout",
+    "Hip-Hop/Rap", "Holiday", "Indie Pop", "Industiral",
+    "Inspirational - Christian & Gospel", "Instrumental", "J-Pop", "Jazz",
+    "K-Pop", "Karaoke", "Kayokyoku", "Latin", "New Age", "Opera", "Pop",
+    "R&B/Soul", "Reggae", "Rock", "Singer/Songwriter", "Soundtrack",
+    "Spoken Word", "Tex-Mex/Tejano", "Vocal", "World"
+  ];
 
-const validRatings = 
-[
-   "N/A", "Unknown", "G", "PG", "PG-13", "R", "NC-17"
-];
+const validRatings =
+  [
+    "N/A", "Unknown", "G", "PG", "PG-13", "R", "NC-17"
+  ];
 
 const validTypes =
-[
-   "Book", "Movie", "Music"
-];
+  [
+    "Book", "Movie", "Music"
+  ];
 
 
 /*
@@ -75,42 +75,52 @@ $(document).ready(readyFunc);
 
 function readyFunc() {
   $("table").tablesorter();
-      // Close mobile & tablet menu on item click
-  $('.navbar-item').each(function(e) {
-    $(this).click(function(){
-      if ($('#navbar-burger-id').hasClass('is-active')){
+  // Close mobile & tablet menu on item click
+  $('.navbar-item').each(function (e) {
+    $(this).click(function () {
+      if ($('#navbar-burger-id').hasClass('is-active')) {
         $('#navbar-burger-id').removeClass('is-active');
         $('#navbar-menu-id').removeClass('is-active');
       }
     });
   });
-    
+
   // Open or Close mobile & tablet menu
   $('#navbar-burger-id').click(function () {
-    if($('#navbar-burger-id').hasClass('is-active')){
+    if ($('#navbar-burger-id').hasClass('is-active')) {
       $('#navbar-burger-id').removeClass('is-active');
       $('#navbar-menu-id').removeClass('is-active');
-    }else {
+    } else {
       $('#navbar-burger-id').addClass('is-active');
       $('#navbar-menu-id').addClass('is-active');
     }
   });
 
+  // dropdown controls
+  $(".dropdown-trigger").on("click", function () {
+    if ($(".dropdown").hasClass("is-active")) {
+      $(".dropdown").removeClass("is-active");
+    } else {
+      $(".dropdown").addClass("is-active");
+    }
+  });
+  $(".dropdown-item").on("click", function() {
+    $("#media-type").html($(this).html());
+    $(".dropdown").removeClass("is-active");
+  });
+
   // modal controls
-  $("#signup-button").on("click", function() {
+  $("#signup-button").on("click", function () {
     $("#signup-modal").addClass("is-active");
   });
-  $("#login-button").on("click", function() {
+  $("#login-button").on("click", function () {
     $("#login-modal").addClass("is-active");
   });
-  $(".delete").on("click", function() {
+  $(".delete").on("click", function () {
     $(".modal").removeClass("is-active");
   });
-  $(".cancel-button").on("click", function() {
+  $(".cancel-button").on("click", function () {
     $(".modal").removeClass("is-active");
   });
 
 }
-
-
-
