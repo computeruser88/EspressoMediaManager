@@ -5,6 +5,7 @@ module.exports = function(app) {
     app.post("/admin-add-media", function(req, res) {
         //insert a new media record, assuming req.body provides all the necessary fields
         db.Media.create(req.body).then(function(dbMedia) {
+            //res.redirect('/media-manager');
           res.json(dbMedia);
         });
     });
@@ -68,7 +69,7 @@ module.exports = function(app) {
 
         db.Media.findAll({
             order : [
-                ['quantity','ASC']
+                ['id','ASC']
             ]
           }).then(function(dbMedia) {
             res.json(dbMedia);

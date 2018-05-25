@@ -1,4 +1,5 @@
 $(document).ready(readyFunc);
+var adminMedia = $(".admin-media");
 
 const bookGenres =
 [
@@ -44,6 +45,7 @@ const validTypes =
 
 
 function readyFunc() {
+    populateAdminResult();
     // click handler for the Operation radio buttons
     $('#opbuttons').on( "click", function() {
         var btnValue;
@@ -140,6 +142,61 @@ function readyFunc() {
     });
 }
 
+function populateAdminResult(){
+    $.get("/admin-show-media", function (data) {
+        if (data)
+            initRows(data);
+    });
+}
+
+function initRows(records){
+    adminMedia.empty();
+    var recordsToAdd = [];
+
+    for (var i = 0; i < records.length; i++) {
+        recordsToAdd.push(createNewRow(records[i]));
+    }
+    adminMedia.append(recordsToAdd);
+}
+
+function createNewRow(record) {
+    var newRecordRow= $("<tr>");
+    var id = $("<td>");
+    id.text(record.id);
+    newRecordRow.append(id);
+    
+    var Name = $("<td>");
+    Name.text(record.name);
+    newRecordRow.append(Name);
+
+    var type = $("<td>");
+    type.text(record.type);
+    newRecordRow.append(type);
+
+    var genre = $("<td>");
+    genre.text(record.genre);
+    newRecordRow.append(genre);
+
+    var year = $("<td>");
+    year.text(record.year);
+    newRecordRow.append(year);
+
+    var quantity = $("<td>");
+    quantity.text(record.quantity);
+    newRecordRow.append(quantity);
+
+    var time_limit = $("<td>");
+    time_limit.text(record.time_limit);
+    newRecordRow.append(time_limit);
+
+    var cost = $("<td>");
+    cost.text(record.cost);
+    newRecordRow.append(cost);
+
+    newRecordRow.data("record",record);
+    return newRecordRow;
+}
+
 
 function createGenreOptions(genreList) {
     var numItems = genreList.length;
@@ -189,6 +246,7 @@ function insertMedia() {
         console.log(data);  // DEBUG
         var okMsg = data.name + "\nwas successfully added as ID " + data.id;
         $('#messages').val(okMsg);
+        populateAdminResult();
       }).fail(function(data) {
   alert('.fail executing');  // DEBUG
         console.log(data);  // DEBUG
