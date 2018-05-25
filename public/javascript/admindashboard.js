@@ -2,9 +2,9 @@ $(document).ready(function () {
 
     /* global moment */
     var email ="janedoe@gmail.com";
-    // userDashboard holds all of our records
-    var userDashboard = $(".user-dashboard");
-    var userHistory = $(".user-history");
+    // adminDashboard holds all of our records
+    var adminDashboard = $(".admin-dashboard");
+    var adminHistory = $(".admin-history");
 
     // Click events for the checkout and return buttons
     $(document).on("click", "button.checkout", handleCheckout);
@@ -14,8 +14,8 @@ $(document).ready(function () {
     
     getRecords(email);
     getHistoricalRecords(email);
-    // The code below handles the case where we want to get transaction records for a specific user
-    // Looks for a query param in the url for useremail
+    // The code below handles the case where we want to get transaction records for a specific admin
+    // Looks for a query param in the url for adminemail
    /*var url = window.location.search;
     var email;
     if (url.indexOf("?email=") !== -1) {
@@ -24,12 +24,12 @@ $(document).ready(function () {
     }
     // If there's no email we just get all records as usual
     else {
-        $(".user-dashboard").hide();
+        $(".admin-dashboard").hide();
     }*/
 
     function getHistoricalRecords(email) {
         console.log(email);
-        $.get("/user-history/"+ email, function (data) {
+        $.get("/admin-history/"+ email, function (data) {
             if (data)
                 initializeHistoricalRows(data);
         });
@@ -38,32 +38,32 @@ $(document).ready(function () {
 
     // This function grabs records from the database and updates the view
     function getRecords(email) {
-        $.get("/user-dashboard/"+ email, function (data) {
+        $.get("/admin-dashboard/"+ email, function (data) {
             records=data;
             if (records)
                 initializeRows();
         });
     }
 
-    // InitializeRows handles appending all of our constructed post HTML inside userDashboard
+    // InitializeRows handles appending all of our constructed post HTML inside adminDashboard
     function initializeRows() {
-        userDashboard.empty();
+        adminDashboard.empty();
         var recordsToAdd = [];
-        userDashboard.append(createHeaderRow());
+        adminDashboard.append(createHeaderRow());
         for (var i = 0; i < records.length; i++) {
             recordsToAdd.push(createNewRow(records[i]));
         }
-        userDashboard.append(recordsToAdd);
+        adminDashboard.append(recordsToAdd);
     }
 
     function initializeHistoricalRows(data) {
-        userHistory.empty();
+        adminHistory.empty();
         var recordsToAdd = [];
-        userHistory.append(createHistoricalHeaderRow());
+        adminHistory.append(createHistoricalHeaderRow());
         for(i = 0; i < data.length; i++) {
             recordsToAdd.push(createHistoryRow(data[i]));
         }
-        userHistory.append(recordsToAdd);
+        adminHistory.append(recordsToAdd);
     }
 
     function createHeaderRow(){
@@ -213,6 +213,7 @@ $(document).ready(function () {
         return newRecordRow;
     }
 
+    /*
     // This function figures out which post we want to checkout and then calls checkout
     function handleCheckout() {
         var currentRecord = $(this)
@@ -229,16 +230,16 @@ $(document).ready(function () {
             .data("record");
         console.log(currentRecord);
         returnMedia(email,currentRecord.Medium.id);
-        //window.location.href = "/user-return-media/"+email+"/" + currentRecord.Medium.id;
+        //window.location.href = "/admin-return-media/"+email+"/" + currentRecord.Medium.id;
     }
 
     function returnMedia(email,id){
         $.ajax({
             method: "GET",
-            url: "/user-return-media/"+email+"/"+id
+            url: "/admin-return-media/"+email+"/"+id
         }).then(function(result) {
               console.log(result);
-              window.location.href = "/user-view";
+              window.location.href = "/admin-view";
               //getPosts(postCategorySelect.val());
         });
     }
@@ -250,7 +251,7 @@ $(document).ready(function () {
         if (id) {
             partial = " for email #" + id;
         }
-        userDashboard.empty();
+        adminDashboard.empty();
         var messageH2 = $("<h2>");
         messageH2.css({
             "text-align": "center",
@@ -258,7 +259,7 @@ $(document).ready(function () {
         });
         messageH2.html("No records yet" + partial + ", navigate <a href='/cms" + query +
             "'>here</a> in order to get started.");
-        userDashboard.append(messageH2);
+        adminDashboard.append(messageH2);
     }*/
 
 });
