@@ -41,6 +41,9 @@ app.use(express.static("public"));
   res.sendFile(path.join(__dirname, "./public/user-view.html"));
 });
 
+app.get("/admin-view", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/admin-view.html"));
+});
 
 
 
