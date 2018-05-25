@@ -77,6 +77,11 @@ $(document).ready(readyFunc);
 // delarations; no functions are actually executed
 
 function readyFunc() {
+  $("table").tablesorter(); 
+  // Close mobile & tablet menu on item click
+  $('.navbar-item').each(function (e) {
+    $(this).click(function () {
+      if ($('#navbar-burger-id').hasClass('is-active')) {
       // Close mobile & tablet menu on item click
   $('.navbar-item').each(function(e) {
     $(this).click(function(){
