@@ -5,7 +5,7 @@ var offset = 0;
 var limit = 10;
 
 module.exports = function(app) {
-    app.get("/", function(req, res) {
+    app.get("/public", function(req, res) {
         //public view - show top 10 media
         if(req.query.offset) {
             offset = req.query.offset;
@@ -26,7 +26,37 @@ module.exports = function(app) {
         });
     });
 
-    app.get("/search/:name", function(req,res) {
+    app.get("/public/:type", function(req, res) {
+        //public view - show top 10 "type" of books
+
+        var query = {
+            quantity : {
+                 [db.Op.gt]: 0 
+            }
+        };
+        var type = req.params.type;
+        if(type &&  (type.toLowerCase() =="book" || type.toLowerCase() == "movie" || type.toLowerCase() =="music") ){
+            query.type = type;
+        }
+
+        if(req.query.offset) {
+            offset = req.query.offset;
+        }
+
+        if(req.query.limit) {
+            limit = req.query.limit;
+        }
+
+        db.Media.findAll({
+            where: query,
+            offset: offset, 
+            limit: limit
+          }).then(function(dbMedia) {
+            res.json(dbMedia);
+        });
+    });
+
+    app.get("/search/:name/:type", function(req,res) {
         if(!req.params.name){
             throw "search parameter name is not defined";
         }
@@ -34,8 +64,12 @@ module.exports = function(app) {
             name : {
                 [db.Op.like] : "%"+req.params.name+"%"
             }
-            
         };
+        var type = req.params.type;
+        if(type &&  (type.toLowerCase() =="book" || type.toLowerCase() == "movie" || type.toLowerCase() =="music") ){
+            query.type = type;
+        }
+
         db.Media.findAll({
             where: query
         }).then(function(dbMedia) {
