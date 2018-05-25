@@ -77,4 +77,20 @@ module.exports = function(app) {
 
     });
 
+    app.get("/media-search/:id", function(req,res) {
+        if(!req.params.id){
+            throw "search parameter ID is not defined";
+        }
+        var query = {
+            id : req.params.id
+        };
+
+        db.Media.findOne({
+            where: query
+        }).then(function(dbMedia) {
+            res.json(dbMedia);
+        });
+
+    });
+
 };
