@@ -79,14 +79,14 @@ module.exports = function(app) {
 
     });
 
-    app.get("/public/user-authenticate/:email/:passwd",function(req,res) {
-        if(!req.params.email || !req.params.passwd) {
+    app.get("/public/user-authenticate",function(req,res) {
+        if(!req.body.email || !req.body.password) {
             throw "Must provide email AND password for user authentication login";
         }
 
         var query = {
-            email : req.params.email,
-            password: req.params.passwd
+            email : req.body.email,
+            password: req.body.password
         };
 
         db.User.findAll({
