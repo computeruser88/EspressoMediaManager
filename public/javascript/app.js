@@ -206,12 +206,17 @@ function authenticate(email, password) {
     console.log(data);
     if (data && data.length > 0) {
       console.log("authentication: success");
+      if (data[0].type === "admin") {
+        var currentUrl = window.location.href.split('/').pop();
+        var targetUrl = currentUrl +"/media-manager";
+        window.location.replace(targetUrl);
+      } else {
       var currentUrl = window.location.href.split('/').pop();
       //console.log("currentUrl: " + currentUrl);
       var targetUrl = currentUrl +"/user-view/" + data[0].email;
       //console.log(targetUrl);
       window.location.replace(targetUrl);
-      
+      }
     } else {
       console.log("authentication: failure");
       $("#login-modal").addClass("is-active");
