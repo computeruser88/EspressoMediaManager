@@ -21,18 +21,18 @@ const movieGenres =
    "Action and Adventure", "Action, Thriller, Comedy, Romance", "Adventure",
    "Alternate History", "Apocalyptic Sci-Fi", "Biblical", "Biopic",
    "Chick Flick", "Claymation", "Comedy", "Contemporary Fantasy", "Courtroom",
-   "Crime & Gangster", "Cutout Animation", "Dark Fantasy", "Disaster", "Drama",
-   "Drama, Action", "Empire Western", "Epic", "Epic Fantasy", "Epic Western",
-   "Epics/Historical", "Fairy Tale", "Family, Fantasy, Musical",
-   "Found Footage", "Future Noir", "Gangster", "Hardboiled", "Heroic Fantasy",
-   "Historical Drama", "Horror", "Legal Thriller", "Live Action/Animation",
-   "Marshal Western", "Martial Arts", "Military Science Fiction", "Monster",
-   "Musicals/Dance", "Outlaw Western", "Paranormal/Occult", "Period",
-   "Psychological Horror", "Punk Sci-Fi", "Puppet Animation",
-   "Revenge Western", "Revisionist Western", "Rom-com", "Romantic Drama",
-   "Romantic Thriller", "Science Fiction", "Slasher Movies", "Space Opera",
-   "Spaghetti Western",  "Speculative Sci-Fi", "Splatter Movies", "Spy",
-   "Superhero", "Survival Horror", "Sword and Sorcery", "Thriller",
+   "Crime/Caper Story", "Crime & Gangster", "Cutout Animation", "Dark Fantasy",
+   "Disaster", "Drama", "Drama, Action", "Drama/Thriller", "Empire Western",
+   "Epic", "Epic Fantasy", "Epic Western", "Epics/Historical", "Fairy Tale",
+   "Family,Fantasy, Musical", "Found Footage", "Future Noir", "Gangster",
+   "Hardboiled", "Heroic Fantasy", "Historical Drama", "Horror",
+   "Legal Thriller", "Live Action/Animation", "Marshal Western", "Martial Arts",
+   "Military Science Fiction", "Monster", "Musicals/Dance", "Outlaw Western",
+   "Paranormal/Occult", "Period", "Psychological Horror", "Punk Sci-Fi",
+   "Puppet Animation", "Revenge Western", "Revisionist Western", "Rom-com",
+   "Romantic Drama", "Romantic Thriller", "Science Fiction", "Slasher Movies",
+   "Space Opera", "Spaghetti Western",  "Speculative Sci-Fi", "Splatter Movies",
+   "Spy", "Superhero", "Survival Horror", "Sword and Sorcery", "Thriller",
    "Traditional Animation", "War", "Westerns", "Whodunnit/Detective"
 ];
 
@@ -260,7 +260,7 @@ function insertMedia() {
     event.preventDefault();
 
     // remove any previous text from the message area
-    $('#messages').val('');
+    $('#messages').text('');
 
     // execute the INSERT INTO `Media` ... statement
     $.ajax({
@@ -273,13 +273,11 @@ function insertMedia() {
     }).done(function(data) {
       console.log(data);  // DEBUG
       var okMsg = data.name + "\nwas successfully added as ID " + data.id;
-      $('#messages').val(okMsg);
+      $('#messages').text(okMsg);
     }).fail(function(data) {
       console.log(data);  // DEBUG
-      $('#messages').val(JSON.stringify(data));
+      $('#messages').text(JSON.stringify(data));
     });
-
-
   });
 }
 
@@ -294,7 +292,7 @@ function updateMedia() {
     event.preventDefault();
 
     // remove any previous text from the message area
-    $('#messages').val('');
+    $('#messages').text('');
 
     // execute the UPDATE `Media` SET ... statement
     $.ajax({
@@ -307,9 +305,10 @@ function updateMedia() {
       console.log(data);  // DEBUG
       showForUpdate();
       displayRow(data)
+      $('#messages').text(JSON.stringify(data));
     }).fail(function(data) {
       console.log(data);  // DEBUG
-      $('#messages').val(JSON.stringify(data));
+      $('#messages').text(JSON.stringify(data));
     });
   });
 }
@@ -326,7 +325,7 @@ function findMedia() {
     event.preventDefault();
 
     // remove any previous text from the message area
-    $('#messages').val('');
+    $('#messages').text('');
 
     // execute the SELECT *  FROM Media WHERE id = <id> statement
     $.ajax({
@@ -338,9 +337,10 @@ function findMedia() {
     }).done(function(data) {
       showMostInputs();
       displayRow(data);
+      $('#messages').text(JSON.stringify(data));
     }).fail(function(data) {
       console.log(data);  // DEBUG
-      $('#messages').val(JSON.stringify(data));
+      $('#messages').text(JSON.stringify(data));
     });
   });
 }
