@@ -79,6 +79,33 @@ module.exports = function(app) {
 
     });
 
+    app.get("/public/user-authenticate/:email/:password",function(req,res) {
+        if(!req.params.email || !req.params.password) {
+            throw "Must provide email AND password for user authentication login";
+        }
+
+        var query = {
+            email : req.params.email,
+            password: req.params.password
+        };
+
+        db.User.findAll({
+            where : query
+        }).then(function(dbUser) {
+            var count;
+            count = JSON.parse(JSON.stringify(dbUser));
+            //console.log(count);
+            //console.log(count.length);
+            if(count.length > 0){
+                res.redirect("/user-view/"+count[0].email);
+            }
+            else{
+                res.json(dbUser);
+            }
+            
+        });
+    });
+
     app.get("/public/user-authenticate",function(req,res) {
         if(!req.body.email || !req.body.password) {
             throw "Must provide email AND password for user authentication login";
@@ -92,6 +119,12 @@ module.exports = function(app) {
         db.User.findAll({
             where : query
         }).then(function(dbUser) {
+            var count;
+            count = JSON.parse(JSON.stringify(dbUser));
+            count = parseInt(count[0].total);
+            if(count > 0){
+                res.redirect("/user-view/"+dbUser.email);
+            }
             res.json(dbUser);
         });
     });
