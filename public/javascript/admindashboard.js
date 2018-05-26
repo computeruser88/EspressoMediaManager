@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     /* global moment */
-    var email ="janedoe@gmail.com";
+    var email = "janedoe@gmail.com";
     // adminDashboard holds all of our records
     var adminDashboard = $(".admin-dashboard");
     var adminHistory = $(".admin-history");
@@ -11,25 +11,45 @@ $(document).ready(function () {
     $(document).on("click", "button.return", handleReturn);
     // Variable to hold our records
     var records;
-    
+
+    // media manager button
+    $("#media-manager-button").on("click", function () {
+        console.log("currentUrl: " + currentUrl);
+        currentUrl.pop();
+        var targetUrl = currentUrl.join('/');
+        targetUrl = targetUrl + "/media-manager";
+        console.log(targetUrl);
+        //console.log(targetUrl);
+        window.location.replace(targetUrl);
+    });
+    // logout button
+    $("#logout-button").on("click", function () {
+        console.log("currentUrl: " + currentUrl);
+        currentUrl.pop();
+        var targetUrl = currentUrl.join('/');
+        console.log(targetUrl);
+        //console.log(targetUrl);
+        window.location.replace(targetUrl);
+    });
+
     getRecords(email);
     getHistoricalRecords(email);
     // The code below handles the case where we want to get transaction records for a specific admin
     // Looks for a query param in the url for adminemail
-   /*var url = window.location.search;
-    var email;
-    if (url.indexOf("?email=") !== -1) {
-        email = url.split("=")[1];
-        getrecords(email);
-    }
-    // If there's no email we just get all records as usual
-    else {
-        $(".admin-dashboard").hide();
-    }*/
+    /*var url = window.location.search;
+     var email;
+     if (url.indexOf("?email=") !== -1) {
+         email = url.split("=")[1];
+         getrecords(email);
+     }
+     // If there's no email we just get all records as usual
+     else {
+         $(".admin-dashboard").hide();
+     }*/
 
     function getHistoricalRecords(email) {
         console.log(email);
-        $.get("/admin-history/"+ email, function (data) {
+        $.get("/admin-history/" + email, function (data) {
             if (data)
                 initializeHistoricalRows(data);
         });
@@ -38,34 +58,34 @@ $(document).ready(function () {
 
     // This function grabs records from the database and updates the view
     function getRecords(email) {
-        $.get("/admin-dashboard/"+ email, function (data) {
-            records=data;
+        $.get("/admin-dashboard/" + email, function (data) {
+            records = data;
             if (records)
                 initializeRows();
         });
     }
 
     //this function populates the tables to show the admin all the users 
-    function showUsers(name,email){
+    function showUsers(name, email) {
         $.ajax({
             method: "GET",
-            url: "/admin-show-users/"+name+"/"+email+"/"+medianame+"/"+timelimit
-        }).then(function(result) {
-              console.log(result);
-              window.location.href = "/admin-view";
-            
+            url: "/admin-show-users/" + name + "/" + email + "/" + medianame + "/" + timelimit
+        }).then(function (result) {
+            console.log(result);
+            window.location.href = "/admin-view";
+
         });
     }
 
-     //this function populates the tables to show the admin the media
-    function showMedia(name,type,genre,timelimit,amountleft){
+    //this function populates the tables to show the admin the media
+    function showMedia(name, type, genre, timelimit, amountleft) {
         $.ajax({
             method: "GET",
-            url: "/admin-show-media/"+name+"/"+type+"/"+genre+"/"+timeleft+"/"+cost
-        }).then(function(result) {
-              console.log(result);
-              window.location.href = "/admin-view";
-            
+            url: "/admin-show-media/" + name + "/" + type + "/" + genre + "/" + timeleft + "/" + cost
+        }).then(function (result) {
+            console.log(result);
+            window.location.href = "/admin-view";
+
         });
     }
 
@@ -84,13 +104,13 @@ $(document).ready(function () {
         adminHistory.empty();
         var recordsToAdd = [];
         adminHistory.append(createHistoricalHeaderRow());
-        for(i = 0; i < data.length; i++) {
+        for (i = 0; i < data.length; i++) {
             recordsToAdd.push(createHistoryRow(data[i]));
         }
         adminHistory.append(recordsToAdd);
     }
 
-    function createHeaderRow(){
+    function createHeaderRow() {
         var row = $("<tr>");
         var placeholder = $("<th>");
         row.append(placeholder);
@@ -132,8 +152,8 @@ $(document).ready(function () {
         var returnBtn = $("<button>");
         returnBtn.text("RETURN");
         returnBtn.addClass("return btn btn-info");
-        
-        var newRecordRow= $("<tr>");
+
+        var newRecordRow = $("<tr>");
         newRecordRow.append(returnBtn);
 
         var Name = $("<td>");
@@ -142,9 +162,9 @@ $(document).ready(function () {
         checkedOut.text(record.checked_out_date);
         var Type = $("<td>");
         Type.text(record.Medium.type);
-        var Genre= $("<td>");
+        var Genre = $("<td>");
         Genre.text(record.Medium.genre);
-        var Rating= $("<td>");
+        var Rating = $("<td>");
         Rating.text(record.Medium.rating);
         var ReleaseYear = $("<td>");
         ReleaseYear.text(record.Medium.year);
@@ -155,12 +175,12 @@ $(document).ready(function () {
         newRecordRow.append(Genre);
         newRecordRow.append(Rating);
         newRecordRow.append(ReleaseYear);
- 
-        newRecordRow.data("record",record);
+
+        newRecordRow.data("record", record);
         return newRecordRow;
     }
 
-    function createHistoricalHeaderRow(){
+    function createHistoricalHeaderRow() {
         var row = $("<tr>");
         var placeholder = $("<th>");
         row.append(placeholder);
@@ -206,8 +226,8 @@ $(document).ready(function () {
         var reviewBtn = $("<button>");
         reviewBtn.text("Write Review");
         reviewBtn.addClass("review btn btn-info");
-        
-        var newRecordRow= $("<tr>");
+
+        var newRecordRow = $("<tr>");
         newRecordRow.append(reviewBtn);
 
         var Name = $("<td>");
@@ -218,9 +238,9 @@ $(document).ready(function () {
         returned.text(record.returned_date);
         var Type = $("<td>");
         Type.text(record.Medium.type);
-        var Genre= $("<td>");
+        var Genre = $("<td>");
         Genre.text(record.Medium.genre);
-        var Rating= $("<td>");
+        var Rating = $("<td>");
         Rating.text(record.Medium.rating);
         var ReleaseYear = $("<td>");
         ReleaseYear.text(record.Medium.year);
@@ -232,8 +252,8 @@ $(document).ready(function () {
         newRecordRow.append(Genre);
         newRecordRow.append(Rating);
         newRecordRow.append(ReleaseYear);
- 
-        newRecordRow.data("record",record);
+
+        newRecordRow.data("record", record);
         return newRecordRow;
     }
 

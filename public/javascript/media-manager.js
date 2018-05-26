@@ -63,6 +63,17 @@ const validTypes =
 function readyFunc() {
   populateAdminResult();
 
+  // admin-dashboard-button
+  $("#admin-dashboard-button").on("click", function () {
+    console.log("currentUrl: " + currentUrl);
+    currentUrl.pop();
+    var targetUrl = currentUrl.join('/');
+    targetUrl = targetUrl + "/admin-view";
+    console.log(targetUrl);
+    //console.log(targetUrl);
+    window.location.replace(targetUrl);
+});
+
   // logout button
   $("#logout-button").on("click", function () {
     console.log("currentUrl: " + currentUrl);
