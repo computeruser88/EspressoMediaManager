@@ -147,6 +147,7 @@ function readyFunc() {
       $("#signup-userName").val("");
       $("#signup-email").val("");
       $("#signup-password").val("");
+      saveSignupData(userName, emailAddress, password);
       $("#signup-modal").removeClass("is-active");
     }
     else {
@@ -161,17 +162,34 @@ function readyFunc() {
     if (emailAddress.length > 0 && password.length > 0) {
       $("#login-email").val("");
       $("#login-password").val("");
-      $("#login-modal").removeClass("is-active");
       authenticate(emailAddress, password);
+      $("#login-modal").removeClass("is-active");
     }
     else {
       $(".modal-card-title").html("Login - please complete all fields.");
     }
   });
-
 }
 
-function authenticate(email, password){
+function saveSignupData(name, email, password) {
+  var inputs = {};
+  inputs.name = name;
+  inputs.email = email;
+  inputs.password = password;
+  $.ajax({
+    type: 'POST',
+    url: "/public/new-user/",
+    data: inputs
+  }).done(function (data) {
+    if (data.length === 1) {
+      console.log("authentication: success");
+    } else {
+      console.log("authentication: failure");
+    }
+  });
+}
+
+function authenticate(email, password) {
   var inputs = {};
   inputs.email = email;
   inputs.password = password;
@@ -179,42 +197,42 @@ function authenticate(email, password){
     type: 'GET',
     url: "/public/user-authenticate/",
     data: inputs
-  }).done(function(data) {
-    if(data.length === 1) {
+  }).done(function (data) {
+    if (data.length === 1) {
       console.log("authentication: success");
     } else {
       console.log("authentication: failure");
-    }   
+    }
   });
 }
 
-function fetchData(){
+function fetchData() {
   var inputs = {};
 
-    inputs.offset = offset;
-    inputs.limit = limit;
+  inputs.offset = offset;
+  inputs.limit = limit;
 
-    const url = "/public";
-    $.ajax({
-      type     : 'GET',
-      url      : url,
-      data     : inputs,
-      dataType : 'json',
-      encode   : true
+  const url = "/public";
+  $.ajax({
+    type: 'GET',
+    url: url,
+    data: inputs,
+    dataType: 'json',
+    encode: true
 
-    }).done(function(data) {
-      console.log("data fetched!");
-      console.log(data);
-      populatePublicView(data);
-    }).fail(function(data) {
+  }).done(function (data) {
+    console.log("data fetched!");
+    console.log(data);
+    populatePublicView(data);
+  }).fail(function (data) {
 
-      console.log(data);  // DEBUG
+    console.log(data);  // DEBUG
 
-    });
+  });
 }
 
-function backNextToggle(){
-  if(offset == 0){
+function backNextToggle() {
+  if (offset == 0) {
     $('#back-link').hide();
   }
 
@@ -222,21 +240,21 @@ function backNextToggle(){
   nextLink.show();
   var nextButton = $("<button>");
   nextButton.text("Next 10");
-  nextButton.addClass("next btn btn-info");  
+  nextButton.addClass("next btn btn-info");
 }
 
-function populatePublicView(data){
+function populatePublicView(data) {
   publicView.empty();
   var rowsToAdd = [];
-  for(i = 0; i < data.length; i++){
+  for (i = 0; i < data.length; i++) {
     rowsToAdd.push(createRow(data[i]));
   }
 
   publicView.append(rowsToAdd);
-  
+
 }
 
-function createRow(record){
+function createRow(record) {
   var newRow = $("<tr>");
   var name = $("<td>");
   name.text(record.name);
@@ -262,7 +280,7 @@ function createRow(record){
   artist.text(record.artist);
   newRow.append(artist);
 
-  newRow.data("record",record);
+  newRow.data("record", record);
   return newRow;
 
 }
