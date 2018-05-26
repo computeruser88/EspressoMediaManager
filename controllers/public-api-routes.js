@@ -121,11 +121,14 @@ module.exports = function(app) {
         }).then(function(dbUser) {
             var count;
             count = JSON.parse(JSON.stringify(dbUser));
-            count = parseInt(count[0].total);
-            if(count > 0){
-                res.redirect("/user-view/"+dbUser.email);
+            //console.log(count);
+            //console.log(count.length);
+            if(count.length > 0){
+                res.redirect("/user-view/"+count[0].email);
             }
-            res.json(dbUser);
+            else{
+                res.json(dbUser);
+            }
         });
     });
 
