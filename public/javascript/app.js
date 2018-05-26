@@ -187,7 +187,6 @@ function saveSignupData(name, email, password) {
     if (data) {
       console.log("signup: success");
       authenticate(data.email,data.password);
-      
     } else {
       console.log("authentication: failure");
     }
@@ -208,9 +207,9 @@ function authenticate(email, password) {
     if (data && data.length > 0) {
       console.log("authentication: success");
       var currentUrl = window.location.href.split('/').pop();
-      console.log("currentUrl: " + currentUrl);
+      //console.log("currentUrl: " + currentUrl);
       var targetUrl = currentUrl +"/user-view/" + data[0].email;
-      console.log(targetUrl);
+      //console.log(targetUrl);
       window.location.replace(targetUrl);
       
     } else {
