@@ -204,6 +204,7 @@ function authenticate(email, password) {
     console.log(data);
     if (data.length === 1) {
       console.log("authentication: success");
+      var targetUrl = path.join(__dirname + "/user-view/" + data.email); 
     } else {
       console.log("authentication: failure");
     }
