@@ -1,14 +1,14 @@
 {
   "development": {
     "username": "root",
-    "password": "haymarMySql2018",
+    "password": "root",
     "database": "mediamanager",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "haymarMySql2018",
+    "password": "root",
     "database": "mediamanager",
     "host": "localhost",
     "dialect": "mysql"
