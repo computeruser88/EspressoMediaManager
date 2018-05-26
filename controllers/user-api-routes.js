@@ -56,6 +56,37 @@ module.exports = function(app) {
 
   });
 
+  app.get("/user-available-media/:email", function(req,res){
+    //return a list of media that is available for a particular user to check-out/rent/borrow
+    //user must not currently have this media checked out
+    //make sure media quantity is greater than
+    var email = req.params.email;
+    console.log("/user-available-media/:email route API")
+    var mediaAttributes = ['id','type','name','rating','year','genre'];
+    db.Media.findAll({
+      attributes : mediaAttributes,
+      where: { 
+          quantity : {
+            [db.Sequelize.Op.gt] : 0
+          }
+      },
+      include: [{
+        model: db.Transaction, 
+        required:false,
+        attributes: [],
+        where : {
+          [db.Sequelize.Op.or] : [{UserEmail : { [db.Sequelize.Op.ne] : email}}, {UserEmail : null}]
+        }
+      }]
+    }).then(function(dbMedia) {
+      //console.log("dbMedia");
+      //console.log(dbMedia);
+      res.json(dbMedia);
+    });
+
+  });
+  
+
   //More API routes to create
   // /user-checkout-media/:email/:mediaId - check the current count and only proceed if current count is less than 6
       // create a new transaction record, and update quantity in media table

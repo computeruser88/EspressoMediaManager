@@ -2,10 +2,12 @@ $(document).ready(function () {
 
     /* global moment */
     //var email ="janedoe@gmail.com";
+
     var currentUrl = window.location.href.split("/");
     var email = currentUrl.pop();
     //console.log(id);
     console.log(email);
+
     // userDashboard holds all of our records
     var userDashboard = $(".user-dashboard");
     var userHistory = $(".user-history");
