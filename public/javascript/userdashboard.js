@@ -17,7 +17,7 @@ $(document).ready(function () {
     var records;
 
     // logout button
-    $("logout-button").on("click", function() {
+    $("#logout-button").on("click", function() {
         var currentUrl = window.location.href.split('/').pop().pop();
         //console.log("currentUrl: " + currentUrl);
         var targetUrl = currentUrl;
