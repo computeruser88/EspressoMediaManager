@@ -5,6 +5,7 @@ module.exports = function(app) {
     app.post("/admin-add-media", function(req, res) {
         //insert a new media record, assuming req.body provides all the necessary fields
         db.Media.create(req.body).then(function(dbMedia) {
+            //res.redirect('/media-manager');
           res.json(dbMedia);
         });
     });
@@ -68,9 +69,25 @@ module.exports = function(app) {
 
         db.Media.findAll({
             order : [
-                ['quantity','ASC']
+                ['id','ASC']
             ]
           }).then(function(dbMedia) {
+            res.json(dbMedia);
+        });
+
+    });
+
+    app.get("/media-search/:id", function(req,res) {
+        if(!req.params.id){
+            throw "search parameter ID is not defined";
+        }
+        var query = {
+            id : req.params.id
+        };
+
+        db.Media.findOne({
+            where: query
+        }).then(function(dbMedia) {
             res.json(dbMedia);
         });
 

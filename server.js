@@ -41,7 +41,17 @@ app.use(express.static("public"));
   res.sendFile(path.join(__dirname, "./public/user-view.html"));
 });
 
+app.get("/admin-view", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/admin-view.html"));
+});
 
+app.get("/media-manager", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/media-manager.html"));
+});
+
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/public-view.html"));
+});
 
 
 // Syncing our sequelize models and then starting our Express app

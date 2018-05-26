@@ -1,4 +1,8 @@
-.table{
+
+.hero {
+    max-height: 200px;
+}
+.table {
 
     width:100%;
 
@@ -22,6 +26,7 @@
         margin-bottom: 40px;
         top: 20px;
         width: 100%;
+
     }
     #signin-button, 
     #login-button {
@@ -34,4 +39,8 @@
     table {
         max-width: 100%;
     }
+}
+
+.popular-searches{
+    max-height: 600px;
 }

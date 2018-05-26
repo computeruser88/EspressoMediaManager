@@ -2,210 +2,222 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Espresso Media Manager</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Espresso Media Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 </head>
 
 <body>
-    <section class="hero is-dark">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Espresso Media Manager.
-                </h1>
-                <h2 class="subtitle">
-                    A library at your fingertips.
-                </h2>
-            </div>
-        </div>
-    </section>
-
-    <div class="field is-grouped">
-        <p class="control is-expanded">
-            <input class="input" type="text" placeholder="Search our books, music, or videos">
-        </p>
-        <p class="control">
-            <a class="button is-info">
-                Search
-            </a>
-        </p>
+  <section class="hero is-dark">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Espresso Media Manager.
+        </h1>
+        <h2 class="subtitle">
+          A library at your fingertips.
+        </h2>
+      </div>
     </div>
+  </section>
 
-    <section class="hero">
-        <div class="hero-body">
-            <div class="container">
-                <div class="columns is-centered">
-                    <div class="column is-5-tablet is-4-desktop is-6-widescreen">
-                        <form class="box" method="POST" action="">
-                            <p class="is-size-4-tablet has-text-centered">Media Maintenance Form</p>
+  <div class="field is-grouped">
+    <p class="control is-expanded">
+       <input class="input" type="text" placeholder="Search our books, music, or videos">
+    </p>
+    <p class="control">
+      <a class="button is-info">
+        Search
+      </a>
+    </p>
+  </div>
+    
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-5-tablet is-4-desktop is-6-widescreen">
+            <form class="box" method="POST">
+              <p class="is-size-4-tablet has-text-centered">Media Maintenance Form</p>
 
-                            <div class="control" id="opbuttons" style="margin-bottom : 1rem;">
-                                <label class="radio">
-                                    <input type="radio" name="operation"> Find
-                                </label>
+                <div class="control" id="opbuttons" style="margin-bottom : 1rem;">
+                  <label class="radio">
+                    <input type="radio" name="operation" value="find">
+                    Find
+                  </label>
 
-                                <label class="radio">
-                                    <input type="radio" name="operation"> Add
-                                </label>
+                  <label class="radio">
+                    <input type="radio" name="operation" value="add">
+                    Add
+                  </label>
 
-                                <label class="radio">
-                                    <input type="radio" name="operation"> Update
-                                </label>
+                  <label class="radio">
+                    <input type="radio" name="operation" value="update">
+                    Update
+                  </label>
 
-                                <label class="radio">
-                                    <input type="radio" name="operation"> Delete
-                                </label>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">ID</label>
-                                <div class="control">
-                                    <input class="input" type="text" name="id">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Name</label>
-                                <div class="control">
-                                    <input class="input" type="text" name="name">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Type</label>
-                                <div class="control">
-                                    <div class="select">
-                                        <select id="type" name="type">
-                                            <option>Book</option>
-                                            <option>Movie</option>
-                                            <option>Music</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Genre</label>
-                                <div class="control">
-                                    <div class="select">
-                                        <select id="genre" name="genre">
-                                            <option>Select one</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Rating</label>
-                                <div class="control">
-                                    <div class="select">
-                                        <select id="rating" name="rating">
-                                            <option>N/A</option>
-                                            <option>Unknown</option>
-                                            <option>G</option>
-                                            <option>PG</option>
-                                            <option>PG-13</option>
-                                            <option>R</option>
-                                            <option>NC-17</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Year</label>
-                                <div class="control">
-                                    <input class="input" type="text" placeholder="YYYY" name="year">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Quantity</label>
-                                <div class="control">
-                                    <input class="input" type="text" value="3" name="quantity">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Time Limit</label>
-                                <div class="control">
-                                    <input class="input" type="text" value="3" name="timelimit">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Cost</label>
-                                <div class="control">
-                                    <input class="input" type="text" value="0.0" name="cost">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Messages</label>
-                                <div class="control">
-                                    <textarea class="textarea" name="messages" placeholder="error and status messages" rows="6"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="field is-grouped">
-                                <div class="control">
-                                    <button class="button is-info" id="execute">Execute</button>
-                                </div>
-                                <div class="control">
-                                    <button class="button is-text" id="cancel">Cancel</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- column -->
+                  <label class="radio">
+                    <input type="radio" name="operation" value="delete">
+                    Delete
+                  </label>
                 </div>
-                <!-- columns -->
-            </div>
-            <!-- container-->
-        </div>
-        <!-- hero-body -->
-    </section>
-    <!-- hero -->
+                
+                <div class="field">
+                  <label class="label">ID</label>
+                  <div class="control">
+                    <input class="input" type="text" name="id" id="id">
+                  </div>
+                </div>
 
-    <section>
-        <table class="table">
-            <thead>
-                <th>Admin Result Set</th>
-                <tr>
-                    <th id="Medianame">Name</th>
-                    <th id="Media Type">Media Type</th>
-                    <th id="Genre">Genre</th>
-                    <th id="Rating">Rating</th>
-                    <th id="Release Year">Year</th>
-                    <th id="Quantity">Quantity</th>
-                    <th id="Time-Limit">Due Date</th>
-                    <th id="Cost">Amount Due</th>
-                </tr>
-            </thead>
-        </table>
+                <div class="field">
+                  <label class="label">Name</label>
+                  <div class="control">
+                    <input class="input" type="text" id="name" name="name">
+                  </div>
+                </div>
 
-    </section>
+                <div class="field">
+                  <label class="label">Artist</label>
+                  <div class="control">
+                    <input class="input" type="text" id="artist" name="artist">
+                  </div>
+                </div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="content has-text-centered">
-                <p>
-                    &copy;Copyright 2018 Tom Harris, Hnin Haymar, Jan Balangue, Meghna Nag, Radhika Iyer
-                </p>
-            </div>
-        </div>
-    </footer>
+                <div class="field">
+                  <label class="label">Type</label>
+                  <div class="control">
+                    <div class="select">
+                      <select id="type" name="type">
+                        <option>Book</option>
+                        <option>Movie</option>
+                        <option>Music</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="../../public/javascript/app.js"></script>
-    <script>
-        $("signup-button").addClass("is-disabled");
-        $("login-button").addClass("is-disabled");
-    </script>
+                <div class="field">
+                  <label class="label">Genre</label>
+                  <div class="control">
+                    <div class="select">
+                      <select id="genre" name="genre">
+                        <option>Select one</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Rating</label>
+                  <div class="control">
+                    <div class="select">
+                      <select id="rating" name="rating">
+                        <option>N/A</option>
+                        <option>Unknown</option>
+                        <option>G</option>
+                        <option>PG</option>
+                        <option>PG-13</option>
+                        <option>R</option>
+                        <option>NC-17</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Year</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="YYYY" id="year" name="year">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Quantity</label>
+                  <div class="control">
+                    <input class="input" type="text" value="3" id="quantity" name="quantity">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Time Limit</label>
+                  <div class="control">
+                    <input class="input" type="text" value="3" id="timelimit" name="timelimit">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Cost</label>
+                  <div class="control">
+                    <input class="input" type="text" value="0.0" id="cost" name="cost">
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Messages</label>
+                  <div class="control">
+                    <textarea class="textarea" name="messages" id="messages"
+                              placeholder="error and status messages"
+                              rows="9"></textarea>
+                  </div>
+                </div>
+
+                <div class="field is-grouped">
+                  <div class="control">
+                    <button class="button is-info" id="execute">Execute</button>
+                  </div>
+                  <div class="control">
+                    <button class="button is-text" id="cancel">Cancel</button>
+                  </div>
+                </div>
+            </form>
+          </div>  <!-- column -->
+        </div>  <!-- columns -->
+      </div>  <!-- container-->
+    </div>  <!-- hero-body -->
+  </section>  <!-- hero -->
+    
+  <section>
+    <table class="table tablesorter">
+      <thead>
+      <th>Admin Result Set</th>
+        <tr>
+          <th id="MediaId">ID</th>
+          <th id="Medianame">Name</th>
+          <th id="Media Type">Media Type</th>
+          <th id="Genre">Genre</th>
+          <th id="Rating">Rating</th>
+          <th id="Release Year">Year</th>
+          <th id="Quantity">Quantity</th>
+          <th id="Time-Limit">Due Date</th>
+        </tr>
+      </thead>
+      <tbody class="table admin-media">
+
+      </tbody>
+    </table>
+                         
+  </section>    
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          &copy;Copyright 2018 Tom Harris, Hnin Haymar, Jan Balangue, Meghna Nag, Radhika Iyer
+        </p>
+      </div>
+    </div>
+  </footer>
+                      
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+  <script src="./javascript/media-manager.js"></script>
+  <script>
+      $("signup-button").addClass("is-disabled");
+      $("login-button").addClass("is-disabled");
+  </script>
+  
 </body>
 
 </html>
