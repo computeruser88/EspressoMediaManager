@@ -162,6 +162,7 @@ function readyFunc() {
       $("#login-email").val("");
       $("#login-password").val("");
       $("#login-modal").removeClass("is-active");
+      authenticate(emailAddress, password);
     }
     else {
       $(".modal-card-title").html("Login - please complete all fields.");
@@ -170,6 +171,22 @@ function readyFunc() {
 
 }
 
+function authenticate(email, password){
+  var inputs = {};
+  inputs.email = email;
+  inputs.password = password;
+  $.ajax({
+    type: 'GET',
+    url: "/public/user-authenticate/",
+    data: inputs
+  }).done(function(data) {
+    if(data.length === 1) {
+      console.log("authentication: success");
+    } else {
+      console.log("authentication: failure");
+    }   
+  });
+}
 
 function fetchData(){
   var inputs = {};
