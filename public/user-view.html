@@ -52,13 +52,8 @@
                 </h2>
                 <div class="field is-grouped is-pulled-right">
                     <p class="control">
-                        <a class="button is-dark" id="signup-button">
-                            Sign up
-                        </a>
-                    </p>
-                    <p class="control">
-                        <a class="button is-dark" id="login-button">
-                            Login
+                        <a class="button is-dark" id="logout-button">
+                            Logout
                         </a>
                     </p>
                 </div>
@@ -76,85 +71,19 @@
         </p>
     </div>
 
-
-    <div class="modal" id="login-modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="content">
-                <h4>Login</h4>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <input class="input" type="text" placeholder="Full name">
-                </div>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </p>
-            </div>
-        </div>
-        <button class="modal-close is-large" aria-label="login"></button>
-    </div>
-
-    <div class="modal" id="signup-modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="content">
-                <h4>Sign up</h4>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <input class="input" type="text" placeholder="Full name">
-                </div>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </p>
-            </div>
-        </div>
-        <button class="modal-close is-large" aria-label="sign up"></button>
-    </div>
     <div>
         <div> <h5>Currently checked out</h5> </div>
-        <table class="table user-dashboard">
-           
+        <table class="table user-dashboard tablesorter">
+           <thead></thead>
+           <tbody></tbody>
         </table>
     </div>
 
     <div>
             <div><br><br> <h5>Rental History</h5> </div>
-        <table class="table user-history">
-           
+        <table class="table user-history tablesorter">
+           <thead></thead>
+           <tbody></tbody>
         </table>
     </div>
     
