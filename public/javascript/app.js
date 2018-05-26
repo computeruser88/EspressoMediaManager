@@ -182,6 +182,8 @@ function saveSignupData(name, email, password) {
     data: inputs
   }).done(function (data) {
     if (data.length === 1) {
+      console.log("after saving signup data :");
+      console.log(data);
       console.log("authentication: success");
     } else {
       console.log("authentication: failure");
@@ -198,6 +200,8 @@ function authenticate(email, password) {
     url: "/public/user-authenticate/",
     data: inputs
   }).done(function (data) {
+    console.log("after authentication:");
+    console.log(data);
     if (data.length === 1) {
       console.log("authentication: success");
     } else {
@@ -251,7 +255,7 @@ function populatePublicView(data) {
   }
 
   publicView.append(rowsToAdd);
-
+  $("table").trigger("update"); 
 }
 
 function createRow(record) {
