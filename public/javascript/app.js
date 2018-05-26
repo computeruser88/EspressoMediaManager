@@ -173,6 +173,7 @@ function readyFunc() {
 }
 
 function saveSignupData(name, email, password) {
+  console.log("saving signup for " + name + " email: " + email);
   var inputs = {};
   inputs.name = name;
   inputs.email = email;
@@ -182,10 +183,11 @@ function saveSignupData(name, email, password) {
     url: "/public/new-user/",
     data: inputs
   }).done(function (data) {
-    if (data.length === 1) {
-      console.log("after saving signup data :");
-      console.log(data);
-      console.log("authentication: success");
+    console.log("after sign up");
+    console.log(data);
+    if (data) {
+      console.log("signup: success");
+      authenticate(data.email,data.password);
     } else {
       console.log("authentication: failure");
     }
@@ -205,8 +207,10 @@ function authenticate(email, password) {
     console.log(data);
     if (data && data.length > 0) {
       console.log("authentication: success");
-      var targetUrl = path.join(__dirname + "/user-view/" + data.email); 
-      console.log(targetUrl);
+      var currentUrl = window.location.href.split('/').pop();
+      //console.log("currentUrl: " + currentUrl);
+      var targetUrl = currentUrl +"/user-view/" + data[0].email;
+      //console.log(targetUrl);
       window.location.replace(targetUrl);
       
     } else {
@@ -262,7 +266,7 @@ function populatePublicView(data) {
   }
 
   publicView.append(rowsToAdd);
-  $("table").trigger("update"); 
+
 }
 
 function createRow(record) {
