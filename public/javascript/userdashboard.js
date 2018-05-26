@@ -2,8 +2,8 @@ $(document).ready(function () {
 
     /* global moment */
     //var email ="janedoe@gmail.com";
-
-    var email = window.location.href.split('/').pop();
+    var currentUrl = window.location.href.split("/");
+    var email = currentUrl.pop();
     //console.log(id);
     console.log(email);
     // userDashboard holds all of our records
@@ -18,9 +18,9 @@ $(document).ready(function () {
 
     // logout button
     $("#logout-button").on("click", function() {
-        var currentUrl = window.location.href.split('/').pop().pop();
-        //console.log("currentUrl: " + currentUrl);
-        var targetUrl = currentUrl;
+        console.log("currentUrl: " + currentUrl);
+        currentUrl.pop();
+        var targetUrl = currentUrl.join('/');
         console.log(targetUrl);
         //console.log(targetUrl);
         window.location.replace(targetUrl);
