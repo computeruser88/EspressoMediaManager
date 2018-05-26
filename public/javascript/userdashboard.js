@@ -13,7 +13,17 @@ $(document).ready(function () {
     $(document).on("click", "button.return", handleReturn);
     // Variable to hold our records
     var records;
-    
+
+    // logout button
+    $("#logout-button").on("click", function() {
+        var currentUrl = window.location.href.split('/').pop().pop();
+        //console.log("currentUrl: " + currentUrl);
+        var targetUrl = currentUrl;
+        console.log(targetUrl);
+        //console.log(targetUrl);
+        window.location.replace(targetUrl);
+    });
+
     getRecords(email);
     getHistoricalRecords(email);
     // The code below handles the case where we want to get transaction records for a specific user
@@ -28,6 +38,7 @@ $(document).ready(function () {
     else {
         $(".user-dashboard").hide();
     }*/
+ 
 
     function getHistoricalRecords(email) {
         console.log(email);
