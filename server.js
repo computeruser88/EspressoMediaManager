@@ -37,7 +37,7 @@ app.use(express.static("public"));
 
 
  //HTML
- app.get("/user-view", function(req, res) {
+ app.get("/user-view/:email", function(req, res) {
   res.sendFile(path.join(__dirname, "./public/user-view.html"));
 });
 

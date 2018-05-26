@@ -1,7 +1,11 @@
 $(document).ready(function () {
 
     /* global moment */
-    var email ="janedoe@gmail.com";
+    //var email ="janedoe@gmail.com";
+
+    var email = window.location.href.split('/').pop();
+    //console.log(id);
+    console.log(email);
     // userDashboard holds all of our records
     var userDashboard = $(".user-dashboard");
     var userHistory = $(".user-history");
