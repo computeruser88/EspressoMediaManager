@@ -216,7 +216,7 @@ function authenticate(email, password) {
     } else {
       console.log("authentication: failure");
       $("#login-modal").addClass("is-active");
-      $(".modal-card-title").html("Login");
+      $(".modal-card-title").html("Login - authentication failure");
     }
   });
 }
