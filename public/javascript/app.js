@@ -182,15 +182,19 @@ function saveSignupData(name, email, password) {
   $.ajax({
     type: 'POST',
     url: "/public/new-user/",
-    data: inputs
-  }).done(function (data) {
-    console.log("after sign up");
-    console.log(data);
-    if (data) {
+    data: inputs,
+    success: function (data, text) {
       console.log("signup: success");
+      console.log(data);
       authenticate(data.email,data.password);
-    } else {
-      console.log("authentication: failure");
+    },
+    error: function (request, status, error) {
+      //alert(request.responseText);
+      console.log("sign up : failure");
+      $("#signup-modal").addClass("is-active");
+      $(".modal-card-title").html("Sign up");
+      $("#sign-up-error").show();
+      $("#sign-up-error").text("Sign up failed: " + email + " already exists");
     }
   });
 }
