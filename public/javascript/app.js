@@ -12,6 +12,8 @@ var publicView = $("#public-media-view");
 var offset = 0;
 var limit = 10;
 
+var currentUrl = window.location.href.split("/");
+
 // The lists below are adapted from the following websites:
 //    http://www.musicgenreslist.com/
 //    http://reference.yourdictionary.com/books-literature/different-types-of-books.html

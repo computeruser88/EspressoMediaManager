@@ -1,6 +1,6 @@
 $(document).ready(readyFunc);
 var adminMedia = $(".admin-media");
-
+var currentUrl = window.location.href.split("/");
 // list of literary genres
 const bookGenres =
   [
@@ -59,9 +59,21 @@ const validTypes =
     "Book", "Movie", "Music"
   ];
 
+var currentUrl = window.location.href.split("/");
 
 function readyFunc() {
   populateAdminResult();
+
+  // admin-dashboard-button
+  $("#admin-dashboard-button").on("click", function () {
+    console.log("currentUrl: " + currentUrl);
+    currentUrl.pop();
+    var targetUrl = currentUrl.join('/');
+    targetUrl = targetUrl + "/admin-view";
+    console.log(targetUrl);
+    //console.log(targetUrl);
+    window.location.replace(targetUrl);
+  });
 
   // logout button
   $("#logout-button").on("click", function () {
@@ -72,6 +84,7 @@ function readyFunc() {
     //console.log(targetUrl);
     window.location.replace(targetUrl);
   });
+
   // click handler for the Operation radio buttons
   $('#opbuttons').on("click", function () {
     var btnValue;
