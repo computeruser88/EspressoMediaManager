@@ -59,6 +59,7 @@ const validTypes =
     "Book", "Movie", "Music"
   ];
 
+var currentUrl = window.location.href.split("/");
 
 function readyFunc() {
   populateAdminResult();
@@ -72,7 +73,7 @@ function readyFunc() {
     console.log(targetUrl);
     //console.log(targetUrl);
     window.location.replace(targetUrl);
-});
+  });
 
   // logout button
   $("#logout-button").on("click", function () {
@@ -83,6 +84,7 @@ function readyFunc() {
     //console.log(targetUrl);
     window.location.replace(targetUrl);
   });
+
   // click handler for the Operation radio buttons
   $('#opbuttons').on("click", function () {
     var btnValue;

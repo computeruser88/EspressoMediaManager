@@ -6,6 +6,8 @@ $(document).ready(function () {
     var adminDashboard = $(".admin-dashboard");
     var adminHistory = $(".admin-history");
 
+    var currentUrl = window.location.href.split("/");
+
     // Click events for the checkout and return buttons
     $(document).on("click", "button.checkout", handleCheckout);
     $(document).on("click", "button.return", handleReturn);
