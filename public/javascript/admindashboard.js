@@ -259,7 +259,7 @@ $(document).ready(function () {
         return newRecordRow;
     }
 
-    /*
+    
     // This function figures out which post we want to checkout and then calls checkout
     function handleCheckout() {
         var currentRecord = $(this)
@@ -291,7 +291,7 @@ $(document).ready(function () {
     }
 
     // This function displays a message when there are no records
-    /*function displayEmpty(id) {
+    function displayEmpty(id) {
         var query = window.location.search;
         var partial = "";
         if (id) {
@@ -306,6 +306,6 @@ $(document).ready(function () {
         messageH2.html("No records yet" + partial + ", navigate <a href='/cms" + query +
             "'>here</a> in order to get started.");
         adminDashboard.append(messageH2);
-    }*/
+    }
 
 });
