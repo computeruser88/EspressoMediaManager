@@ -12,6 +12,8 @@ var publicView = $("#public-media-view");
 var offset = 0;
 var limit = 10;
 
+var currentUrl = window.location.href.split("/");
+
 // The lists below are adapted from the following websites:
 //    http://www.musicgenreslist.com/
 //    http://reference.yourdictionary.com/books-literature/different-types-of-books.html
@@ -172,6 +174,7 @@ function readyFunc() {
 }
 
 function saveSignupData(name, email, password) {
+  console.log("saving signup for " + name + " email: " + email);
   var inputs = {};
   inputs.name = name;
   inputs.email = email;
@@ -179,12 +182,19 @@ function saveSignupData(name, email, password) {
   $.ajax({
     type: 'POST',
     url: "/public/new-user/",
-    data: inputs
-  }).done(function (data) {
-    if (data.length === 1) {
-      console.log("authentication: success");
-    } else {
-      console.log("authentication: failure");
+    data: inputs,
+    success: function (data, text) {
+      console.log("signup: success");
+      console.log(data);
+      authenticate(data.email,data.password);
+    },
+    error: function (request, status, error) {
+      //alert(request.responseText);
+      console.log("sign up : failure");
+      $("#signup-modal").addClass("is-active");
+      $(".modal-card-title").html("Sign up");
+      $("#sign-up-error").show();
+      $("#sign-up-error").text("Sign up failed: " + email + " already exists");
     }
   });
 }
@@ -195,13 +205,28 @@ function authenticate(email, password) {
   inputs.password = password;
   $.ajax({
     type: 'GET',
-    url: "/public/user-authenticate/",
+    url: "/public/user-authenticate/"+email+"/"+password,
     data: inputs
   }).done(function (data) {
-    if (data.length === 1) {
+    console.log("after login");
+    console.log(data);
+    if (data && data.length > 0) {
       console.log("authentication: success");
+      if (data[0].type === "admin") {
+        var currentUrl = window.location.href.split('/').pop();
+        var targetUrl = currentUrl +"/media-manager";
+        window.location.replace(targetUrl);
+      } else {
+      var currentUrl = window.location.href.split('/').pop();
+      //console.log("currentUrl: " + currentUrl);
+      var targetUrl = currentUrl +"/user-view/" + data[0].email;
+      //console.log(targetUrl);
+      window.location.replace(targetUrl);
+      }
     } else {
       console.log("authentication: failure");
+      $("#login-modal").addClass("is-active");
+      $(".modal-card-title").html("Login - authentication failure");
     }
   });
 }

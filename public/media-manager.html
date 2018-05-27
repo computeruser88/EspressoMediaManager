@@ -19,13 +19,25 @@
         <h2 class="subtitle">
           A library at your fingertips.
         </h2>
+        <div class="field is-grouped is-pulled-right">
+          <p class="control">
+            <a class="button is-dark" id="admin-dashboard-button">
+              Admin dashboard
+            </a>
+          </p>
+          <p class="control">
+            <a class="button is-dark" id="logout-button">
+              Logout
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
   <div class="field is-grouped">
     <p class="control is-expanded">
-       <input class="input" type="text" placeholder="Search our books, music, or videos">
+      <input class="input" type="text" placeholder="Search our books, music, or videos">
     </p>
     <p class="control">
       <a class="button is-info">
@@ -33,7 +45,7 @@
       </a>
     </p>
   </div>
-    
+
   <section class="hero">
     <div class="hero-body">
       <div class="container">
@@ -42,146 +54,145 @@
             <form class="box" method="POST">
               <p class="is-size-4-tablet has-text-centered">Media Maintenance Form</p>
 
-                <div class="control" id="opbuttons" style="margin-bottom : 1rem;">
-                  <label class="radio">
-                    <input type="radio" name="operation" value="find">
-                    Find
-                  </label>
+              <div class="control" id="opbuttons" style="margin-bottom : 1rem;">
+                <label class="radio">
+                  <input type="radio" name="operation" value="find"> Find
+                </label>
 
-                  <label class="radio">
-                    <input type="radio" name="operation" value="add">
-                    Add
-                  </label>
+                <label class="radio">
+                  <input type="radio" name="operation" value="add"> Add
+                </label>
 
-                  <label class="radio">
-                    <input type="radio" name="operation" value="update">
-                    Update
-                  </label>
+                <label class="radio">
+                  <input type="radio" name="operation" value="update"> Update
+                </label>
 
-                  <label class="radio">
-                    <input type="radio" name="operation" value="delete">
-                    Delete
-                  </label>
+                <label class="radio">
+                  <input type="radio" name="operation" value="delete"> Delete
+                </label>
+              </div>
+
+              <div class="field">
+                <label class="label">ID</label>
+                <div class="control">
+                  <input class="input" type="text" name="id" id="id">
                 </div>
-                
-                <div class="field">
-                  <label class="label">ID</label>
-                  <div class="control">
-                    <input class="input" type="text" name="id" id="id">
+              </div>
+
+              <div class="field hideable updhide">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input class="input" type="text" id="name" name="name">
+                </div>
+              </div>
+
+              <div class="field hideable updhide">
+                <label class="label">Artist</label>
+                <div class="control">
+                  <input class="input" type="text" id="artist" name="artist">
+                </div>
+              </div>
+
+              <div class="field hideable updhide">
+                <label class="label">Type</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="type" name="type">
+                      <option>Book</option>
+                      <option>Movie</option>
+                      <option>Music</option>
+                    </select>
                   </div>
                 </div>
+              </div>
 
-                <div class="field hideable updhide">
-                  <label class="label">Name</label>
-                  <div class="control">
-                    <input class="input" type="text" id="name" name="name">
+              <div class="field hideable updhide">
+                <label class="label">Genre</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="genre" name="genre">
+                      <option>Select one</option>
+                    </select>
                   </div>
                 </div>
+              </div>
 
-                <div class="field hideable updhide">
-                  <label class="label">Artist</label>
-                  <div class="control">
-                    <input class="input" type="text" id="artist" name="artist">
+              <div class="field hideable updhide">
+                <label class="label">Rating</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="rating" name="rating">
+                      <option>N/A</option>
+                      <option>Unknown</option>
+                      <option>G</option>
+                      <option>PG</option>
+                      <option>PG-13</option>
+                      <option>R</option>
+                      <option>NC-17</option>
+                    </select>
                   </div>
                 </div>
+              </div>
 
-                <div class="field hideable updhide">
-                  <label class="label">Type</label>
-                  <div class="control">
-                    <div class="select">
-                      <select id="type" name="type">
-                        <option>Book</option>
-                        <option>Movie</option>
-                        <option>Music</option>
-                      </select>
-                    </div>
-                  </div>
+              <div class="field hideable updhide">
+                <label class="label">Year</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="YYYY" id="year" name="year">
                 </div>
+              </div>
 
-                <div class="field hideable updhide">
-                  <label class="label">Genre</label>
-                  <div class="control">
-                    <div class="select">
-                      <select id="genre" name="genre">
-                        <option>Select one</option>
-                      </select>
-                    </div>
-                  </div>
+              <div class="field hideable">
+                <label class="label">Quantity</label>
+                <div class="control">
+                  <input class="input" type="text" value="3" id="quantity" name="quantity">
                 </div>
+              </div>
 
-                <div class="field hideable updhide">
-                  <label class="label">Rating</label>
-                  <div class="control">
-                    <div class="select">
-                      <select id="rating" name="rating">
-                        <option>N/A</option>
-                        <option>Unknown</option>
-                        <option>G</option>
-                        <option>PG</option>
-                        <option>PG-13</option>
-                        <option>R</option>
-                        <option>NC-17</option>
-                      </select>
-                    </div>
-                  </div>
+              <div class="field hideable">
+                <label class="label">Time Limit</label>
+                <div class="control">
+                  <input class="input" type="text" value="3" id="timelimit" name="timelimit">
                 </div>
+              </div>
 
-                <div class="field hideable updhide">
-                  <label class="label">Year</label>
-                  <div class="control">
-                    <input class="input" type="text" placeholder="YYYY" id="year" name="year">
-                  </div>
+              <div class="field hideable updhide">
+                <label class="label">Cost</label>
+                <div class="control">
+                  <input class="input" type="text" value="0.0" id="cost" name="cost">
                 </div>
+              </div>
 
-                <div class="field hideable">
-                  <label class="label">Quantity</label>
-                  <div class="control">
-                    <input class="input" type="text" value="3" id="quantity" name="quantity">
-                  </div>
+              <div class="field">
+                <label class="label">Messages</label>
+                <div class="control">
+                  <textarea class="textarea" name="messages" id="messages" placeholder="error and status messages" rows="9"></textarea>
                 </div>
+              </div>
 
-                <div class="field hideable">
-                  <label class="label">Time Limit</label>
-                  <div class="control">
-                    <input class="input" type="text" value="3" id="timelimit" name="timelimit">
-                  </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button is-info" id="execute">Execute</button>
                 </div>
-
-                <div class="field hideable updhide">
-                  <label class="label">Cost</label>
-                  <div class="control">
-                    <input class="input" type="text" value="0.0" id="cost" name="cost">
-                  </div>
+                <div class="control">
+                  <button class="button is-text" id="cancel">Cancel</button>
                 </div>
-
-                <div class="field">
-                  <label class="label">Messages</label>
-                  <div class="control">
-                    <textarea class="textarea" name="messages" id="messages"
-                              placeholder="error and status messages"
-                              rows="9"></textarea>
-                  </div>
-                </div>
-
-                <div class="field is-grouped">
-                  <div class="control">
-                    <button class="button is-info" id="execute">Execute</button>
-                  </div>
-                  <div class="control">
-                    <button class="button is-text" id="cancel">Cancel</button>
-                  </div>
-                </div>
+              </div>
             </form>
-          </div>  <!-- column -->
-        </div>  <!-- columns -->
-      </div>  <!-- container-->
-    </div>  <!-- hero-body -->
-  </section>  <!-- hero -->
-    
+          </div>
+          <!-- column -->
+        </div>
+        <!-- columns -->
+      </div>
+      <!-- container-->
+    </div>
+    <!-- hero-body -->
+  </section>
+  <!-- hero -->
+
   <section>
     <table class="table tablesorter">
       <thead>
-      <th>Admin Result Set</th>
+        <th>Admin Result Set</th>
         <tr>
           <th id="MediaId">ID</th>
           <th id="Medianame">Name</th>
@@ -198,8 +209,8 @@
 
       </tbody>
     </table>
-                         
-  </section>    
+
+  </section>
 
   <footer class="footer">
     <div class="container">
@@ -210,16 +221,15 @@
       </div>
     </div>
   </footer>
-                      
-  <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-          crossorigin="anonymous"></script>
+
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
   <script src="./javascript/media-manager.js"></script>
   <script>
-      $("signup-button").addClass("is-disabled");
-      $("login-button").addClass("is-disabled");
+    $("signup-button").addClass("is-disabled");
+    $("login-button").addClass("is-disabled");
   </script>
-  
+
 </body>
 
 </html>

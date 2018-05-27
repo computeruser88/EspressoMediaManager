@@ -15,13 +15,10 @@ router.post('/user/new', function(req, res) {
       res.json(err)
     })
   })
-  
 
-//[db.Media.name,'Media Name'], db.Transaction.checked_out_date, db.Media.genre, db.Media.type, [db.Media.cost,"cost per day"]
-module.exports = function(app) {
-  app.get("/user-dashboard/:email", function(req,res) {
-    //return all media in the transaction table for this user-email
-    var email = req.params.email;
+
+function findAllCheckedOutMedia(email,cb,anotherCb){
+
     var attributes = [ 'checked_out_date', 'returned_date'];
     var mediaAttributes = ['id','type','name','rating','year','genre'];
     db.Transaction.findAll({
@@ -34,8 +31,60 @@ module.exports = function(app) {
         model: db.Media, attributes: mediaAttributes
       }]
     }).then(function(dbMediaTransaction) {
-      //console.log(JSON.parse(JSON.stringify(dbMediaTransaction)));
-      res.json(dbMediaTransaction);
+      console.log(JSON.parse(JSON.stringify(dbMediaTransaction)));
+      var results = JSON.parse(JSON.stringify(dbMediaTransaction));
+      var checkedOutMediaIds = [];
+      for(i = 0;i < results.length; i++){
+        checkedOutMediaIds.push(results[i].Medium.id);
+      }
+      console.log("checkedOutMediaIds: " + checkedOutMediaIds);
+      if(anotherCb){
+        cb(email,checkedOutMediaIds,function(data){
+          anotherCb(data);
+        });
+      }
+      else{
+        cb(dbMediaTransaction);
+      }
+      
+    });
+};
+
+function findAvailableMedia(email,excludeMediaIds,cb) {
+  //exclude the Id's currently checked out. 
+  var mediaAttributes = ['id','type','name','rating','year','genre'];
+    db.Media.findAll({
+      attributes : mediaAttributes,
+      where: { 
+          quantity : {
+            [db.Sequelize.Op.gt] : 0
+          },
+          id : {
+            [db.Sequelize.Op.notIn] : excludeMediaIds
+          }
+      },
+      include: [{
+        model: db.Transaction, 
+        required:false,
+        attributes: ['returned_date','checked_out_date'],
+        where : {
+          [db.Sequelize.Op.or] : [{UserEmail : { [db.Sequelize.Op.ne] : email}}, {UserEmail : null}],
+          returned_date : {
+            [db.Sequelize.Op.ne] : null
+          }
+        }
+      }]
+    }).then(function(dbMedia) {
+      cb(dbMedia);
+    });
+}
+
+module.exports = function(app) {
+  app.get("/user-dashboard/:email", function(req,res) {
+    //return all media in the transaction table for this user-email
+    var email = req.params.email;
+    findAllCheckedOutMedia(email,function(data){
+      res.json(data);
     });
 
   });
@@ -55,6 +104,20 @@ module.exports = function(app) {
     });
 
   });
+
+  app.get("/user-available-media/:email", function(req,res){
+    //return a list of media that is available for a particular user to check-out/rent/borrow
+    //user must not currently have this media checked out
+    //make sure media quantity is greater than
+    var email = req.params.email;
+    //findAll(email,availableMedia);
+    console.log("/user-available-media/:email route API");
+    findAllCheckedOutMedia(email,findAvailableMedia,function(data){
+      res.json(data);
+    });
+
+  });
+  
 
   //More API routes to create
   // /user-checkout-media/:email/:mediaId - check the current count and only proceed if current count is less than 6
@@ -124,15 +187,15 @@ module.exports = function(app) {
             {id : mediaId}
           }).then(function(dbMedia) {
             console.log("Incremented media quantity for id : " + mediaId);
-            //res.json(result);
-            res.redirect("/user-view");
+            res.json(result);
+            //res.redirect("/user-view/"+email);
           });
         })
       }
       else{
         console.log("transaction does not exist for User Email: " + email + " and for Media ID: " + mediaId);
         console.log("nothing to return");
-        res.redirect("/user-view");
+        res.redirect("/user-view/"+email);
       }
     });
   });
