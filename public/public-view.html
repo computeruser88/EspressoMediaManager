@@ -30,11 +30,11 @@
                 <h2 class="subtitle">
                     A library at your fingertips.
                 </h2>
-                <div class="field is-grouped is-pulled-right">
-                    <p class="control">
+               <div class="field is-grouped is-pulled-right">
+                  <!--  <p class="control">
                         <a class="button is-dark" id="synopsis-button">
                             Synopsis
-                        </a>
+                        </a>-->
                         <p class="control">
                             <a class="button is-dark" id="signup-button">
                                 Sign up
@@ -51,7 +51,7 @@
     </section>
     <div class="field is-grouped">
         <p class="control is-expanded">
-            <input class="input" id="search-form" data-validate="parsley" type="text" placeholder="Search books, music, or videos">
+            <input class="input" id="search-form" data-validate="parsley" type="text" placeholder="Search books, music, or videos" data-parsley-required>
         </p>
         <p class="control" id="search">
             <a class="button is-info">
@@ -238,22 +238,12 @@
                 <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
-                <div class="field">
-                    <p class="control has-icons-left has-icons-right">
-                        <input class="synopsis" type="text" id="search" placeholder="Search for synopsis">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-check"></i>
-                        </span>
-                    </p>
-                </div>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button cancel-button">Cancel</button>
-            </footer>
-        </div>
+          <!-- Content ... -->
+        </section>
+         <footer class="modal-card-foot">
+          <button class="button">Cancel</button>
+        </footer>
+      </div>
     </div>
 
     <!--Synopsis Modal-->

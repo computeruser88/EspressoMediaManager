@@ -146,10 +146,14 @@ function readyFunc() {
   });
 
   // modal controls
-  $("#synopsis-button").on("click", function () {
+  
+ /* synposis button near sign up
+ $("#synopsis-button").on("click", function () {
     $("#synopsis-modal").addClass("is-active");
     $(".modal-card-title").html("Synopsis");
-  });
+  }); */
+
+
   $("#signup-button").on("click", function () {
     $("#signup-modal").addClass("is-active");
     $(".modal-card-title").html("Sign up");
