@@ -12,6 +12,7 @@ $(document).ready(function () {
     var userDashboard = $(".user-dashboard");
     var userHistory = $(".user-history");
     var userAvailableMedia = $(".user-available-media");
+    var helloUser = $("#hello-user");
 
     // Click events for the checkout and return buttons
     $(document).on("click", "button.checkout", handleCheckout);
@@ -29,22 +30,19 @@ $(document).ready(function () {
         window.location.replace(targetUrl);
     });
 
+    getUserName(email);
     getAvailableRecords(email);
     getRecords(email);
     getHistoricalRecords(email);
-    // The code below handles the case where we want to get transaction records for a specific user
-    // Looks for a query param in the url for useremail
-   /*var url = window.location.search;
-    var email;
-    if (url.indexOf("?email=") !== -1) {
-        email = url.split("=")[1];
-        getrecords(email);
+
+    function getUserName(email) {
+        $.get("/public/check-email/"+email, function(data){
+            if(data) {
+                console.log(data);
+                helloUser.text("Welcome " + data[0].name);
+            }
+        });
     }
-    // If there's no email we just get all records as usual
-    else {
-        $(".user-dashboard").hide();
-    }*/
- 
 
     function getHistoricalRecords(email) {
         $.get("/user-history/"+ email, function (data) {
