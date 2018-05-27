@@ -263,7 +263,7 @@ function populatePublicView(data) {
   }
 
   publicView.append(rowsToAdd);
-  $(table).trigger("update");
+  $("table").trigger("update");
 }
 
 function createRow(record) {
