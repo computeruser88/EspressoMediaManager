@@ -1,6 +1,6 @@
 $(document).ready(readyFunc);
 var adminMedia = $(".admin-media");
-
+var currentUrl = window.location.href.split("/");
 // list of literary genres
 const bookGenres =
   [

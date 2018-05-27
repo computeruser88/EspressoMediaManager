@@ -155,6 +155,10 @@ function readyFunc() {
     }
   });
 
+  $("#media-manager-button").on("click", function() {
+    
+  });
+
   $("#login-save-button").on("click", function () {
     emailAddress = $("#login-email").val().trim();
     password = $("#login-password").val().trim();
