@@ -83,6 +83,40 @@ $(document).ready(readyFunc);
 
 function readyFunc() {
 
+  /*
+    $("#myTable").hide();
+    $("#search").click(function () {
+    $("#carouselExampleControls").hide();
+    $("#myTable").show();
+    });
+*/
+
+    //Search button logic 
+
+    $("#search").on('click', function(e){
+      e.preventDefault();
+      $("#search-form").parsley().validate();
+      if ($("#search-form").parsley().isValid()){
+          search(event);
+      }
+  });
+
+  $("#search-input").on('keypress', function(e){
+    if (event.keyCode === 13) {
+        e.preventDefault();
+        $("#search-form").parsley().validate();
+        if ($("#search-form").parsley().isValid()){
+            search(event);
+        }
+    }
+});
+
+  function search(event) {
+    $("#carouselExampleControls").hide();
+    $("#myTable").show();}
+    
+ // synopsisView();
+
   fetchData();
 
   backNextToggle();
@@ -296,3 +330,4 @@ function createRow(record) {
   return newRow;
 
 }
+
