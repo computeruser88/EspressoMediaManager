@@ -1,17 +1,35 @@
 $(document).ready(function () {
 
     /* global moment */
-    var email ="janedoe@gmail.com";
+    //var email ="janedoe@gmail.com";
+
+    var currentUrl = window.location.href.split("/");
+    var email = currentUrl.pop();
+    //console.log(id);
+    console.log(email);
+
     // userDashboard holds all of our records
     var userDashboard = $(".user-dashboard");
     var userHistory = $(".user-history");
+    var userAvailableMedia = $(".user-available-media");
 
     // Click events for the checkout and return buttons
     $(document).on("click", "button.checkout", handleCheckout);
     $(document).on("click", "button.return", handleReturn);
     // Variable to hold our records
     var records;
-    
+
+    // logout button
+    $("#logout-button").on("click", function() {
+        console.log("currentUrl: " + currentUrl);
+        currentUrl.pop();
+        var targetUrl = currentUrl.join('/');
+        console.log(targetUrl);
+        //console.log(targetUrl);
+        window.location.replace(targetUrl);
+    });
+
+    getAvailableRecords(email);
     getRecords(email);
     getHistoricalRecords(email);
     // The code below handles the case where we want to get transaction records for a specific user
@@ -26,12 +44,13 @@ $(document).ready(function () {
     else {
         $(".user-dashboard").hide();
     }*/
+ 
 
     function getHistoricalRecords(email) {
-        console.log(email);
         $.get("/user-history/"+ email, function (data) {
             if (data)
-                initializeHistoricalRows(data);
+                //initializeHistoricalRows(data);
+                initRows(userHistory,data,createHistoricalHeaderRow,createHistoryRow);
         });
     }
 
@@ -39,31 +58,90 @@ $(document).ready(function () {
     // This function grabs records from the database and updates the view
     function getRecords(email) {
         $.get("/user-dashboard/"+ email, function (data) {
-            records=data;
-            if (records)
-                initializeRows();
+            if (data)
+                //initializeRows(data);
+                initRows(userDashboard,data,createHeaderRow,createNewRow);
         });
     }
 
-    // InitializeRows handles appending all of our constructed post HTML inside userDashboard
-    function initializeRows() {
-        userDashboard.empty();
-        var recordsToAdd = [];
-        userDashboard.append(createHeaderRow());
-        for (var i = 0; i < records.length; i++) {
-            recordsToAdd.push(createNewRow(records[i]));
-        }
-        userDashboard.append(recordsToAdd);
+    function getAvailableRecords(email) {
+        console.log("getting available media for user email: " + email);
+        $.get("/user-available-media/"+ email, function (data) {
+            console.log(data);
+            if (data)
+                initRows(userAvailableMedia,data,createAvailableHeaderRow,createAvailableRow);
+        });
     }
 
-    function initializeHistoricalRows(data) {
-        userHistory.empty();
+    function initRows(tableClass,data,headerRowFunc,newRowFunc){
+        tableClass.empty();
         var recordsToAdd = [];
-        userHistory.append(createHistoricalHeaderRow());
-        for(i = 0; i < data.length; i++) {
-            recordsToAdd.push(createHistoryRow(data[i]));
+        tableClass.append(headerRowFunc());
+        for(var i = 0; i < data.length; i++){
+            recordsToAdd.push(newRowFunc(data[i]));
         }
-        userHistory.append(recordsToAdd);
+        tableClass.append(recordsToAdd);
+    }
+
+    function createAvailableHeaderRow(){
+        var row = $("<tr>");
+        var placeholder = $("<th>");
+        row.append(placeholder);
+
+        var name = $("<th>");
+        name.text("Name");
+        row.append(name);
+
+        var mediaType = $("<th>");
+        mediaType.text("Media Type");
+        row.append(mediaType);
+
+        var genre = $("<th>");
+        genre.text("Genre");
+        row.append(genre);
+
+        var rating = $("<th>");
+        rating.text("Rating");
+        row.append(rating);
+
+        var year = $("<th>");
+        year.text("Release Year");
+        row.append(year);
+
+        return row;
+
+    }
+
+    // This function constructs a a record's row
+    function createAvailableRow(record) {
+        var newRecord = $("<div>");
+        newRecord.addClass("card");
+        var checkoutBtn = $("<button>");
+        checkoutBtn.text("CHECKOUT");
+        checkoutBtn.addClass("checkout btn btn-info");
+        
+        var newRecordRow= $("<tr>");
+        newRecordRow.append(checkoutBtn);
+
+        var Name = $("<td>");
+        Name.text(record.name);
+        var Type = $("<td>");
+        Type.text(record.type);
+        var Genre= $("<td>");
+        Genre.text(record.genre);
+        var Rating= $("<td>");
+        Rating.text(record.rating);
+        var ReleaseYear = $("<td>");
+        ReleaseYear.text(record.year);
+
+        newRecordRow.append(Name);
+        newRecordRow.append(Type);
+        newRecordRow.append(Genre);
+        newRecordRow.append(Rating);
+        newRecordRow.append(ReleaseYear);
+ 
+        newRecordRow.data("record",record);
+        return newRecordRow;
     }
 
     function createHeaderRow(){
@@ -238,7 +316,8 @@ $(document).ready(function () {
             url: "/user-return-media/"+email+"/"+id
         }).then(function(result) {
               console.log(result);
-              window.location.href = "/user-view";
+              window.location.href = "/user-view/"+email;
+              window.location.reload();
               //getPosts(postCategorySelect.val());
         });
     }

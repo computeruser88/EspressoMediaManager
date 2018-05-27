@@ -7,40 +7,14 @@
     <title>Espresso Media Manager</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-    <link rel="stylesheet" href="../node_modules/tablesorter/dist/css/theme.blue.css" />
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/theme.blue.css" />
+    <link rel="stylesheet" href="../css/style.css">
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <script src="../node_modules/tablesorter/dist/js/jquery.tablesorter.min.js"></script>
+        <script src="../javascript/jquery.tablesorter.min.js"></script>
 </head>
 
 <body>
-    <nav id="navMenu" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="#">
-                    <i class="fas fa-home fa-lg"></i>
-                </a>
-                <div id="navbar-burger-id" class="navbar-burger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <div id="navbar-menu-id" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item" href="#section-1">Books</a>
-                    <a class="navbar-item" href="#section-2">Music</a>
-                    <a class="navbar-item" href="#section-3">Videos</a>
-                </div>
-                <div class="navbar-end">
-
-                </div>
-
-            </div>
-
-        </div>
-    </nav>
     <section class="hero is-dark">
         <div class="hero-body">
             <div class="container">
@@ -52,13 +26,8 @@
                 </h2>
                 <div class="field is-grouped is-pulled-right">
                     <p class="control">
-                        <a class="button is-dark" id="signup-button">
-                            Sign up
-                        </a>
-                    </p>
-                    <p class="control">
-                        <a class="button is-dark" id="login-button">
-                            Login
+                        <a class="button is-dark" id="logout-button">
+                            Logout
                         </a>
                     </p>
                 </div>
@@ -76,85 +45,28 @@
         </p>
     </div>
 
-
-    <div class="modal" id="login-modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="content">
-                <h4>Login</h4>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <input class="input" type="text" placeholder="Full name">
-                </div>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </p>
-            </div>
-        </div>
-        <button class="modal-close is-large" aria-label="login"></button>
+    <div>
+        <div> <h5>Available for Rent</h5> </div>
+        <table class="table user-available-media tablesorter">
+           <thead></thead>
+           <tbody></tbody>
+        </table>
+        <br><br>
     </div>
 
-    <div class="modal" id="signup-modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="content">
-                <h4>Sign up</h4>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <input class="input" type="text" placeholder="Full name">
-                </div>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </p>
-            </div>
-        </div>
-        <button class="modal-close is-large" aria-label="sign up"></button>
-    </div>
     <div>
         <div> <h5>Currently checked out</h5> </div>
-        <table class="table user-dashboard">
-           
+        <table class="table user-dashboard tablesorter">
+           <thead></thead>
+           <tbody></tbody>
         </table>
     </div>
 
     <div>
             <div><br><br> <h5>Rental History</h5> </div>
-        <table class="table user-history">
-           
+        <table class="table user-history tablesorter">
+           <thead></thead>
+           <tbody></tbody>
         </table>
     </div>
     
@@ -171,7 +83,7 @@
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     
-    <script src="./javascript/userdashboard.js"></script>
+    <script src="../javascript/userdashboard.js"></script>
 
     
 </body>
