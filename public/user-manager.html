@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Espresso Media Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <link rel="stylesheet" href="../node_modules/tablesorter/dist/css/theme.blue.css" />
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="../node_modules/tablesorter/dist/js/jquery.tablesorter.min.js"></script>
+</head>
+
+<body>
+    <section class="hero is-dark">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Espresso Media Manager
+                </h1>
+                <h2 class="subtitle">
+                    A library at your fingertips.
+                </h2>
+                <div class="field is-grouped is-pulled-right">
+                    <p class="control">
+                        <a class="button is-dark" id="signup-button">
+                            Sign up
+                        </a>
+                    </p>
+                    <p class="control">
+                        <a class="button is-dark" id="login-button">
+                            Login
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="field is-grouped">
+        <p class="control is-expanded">
+            <input class="input" type="text" placeholder="Search books, music, or videos">
+        </p>
+        <p class="control">
+            <a class="button is-info">
+                Search
+            </a>
+        </p>
+    </div>
+    <table id="myTable" class="table tablesorter" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr="heading">
+                <th id="Medianame">
+                    <span>Name</span>
+                </th>
+                <th id="Media Type">
+                    <div class="dropdown">
+                        <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span id="media-type">Media Type</span>
+                                <span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                                <a href="#" class="dropdown-item">
+                                    Books
+                                </a>
+                                <a class="dropdown-item">
+                                    Music
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    Video
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th id="Genre">
+                    <span>Genre</span>
+                </th>
+                <th id="Rating">
+                    <span>Rating</span>
+                </th>
+                <th id="Release Year">
+                    <span>Year</span>
+                </th>
+                <th id="Artist">
+                    <span>Artist</span>
+                </th>
+                <!--th id="Cost">
+                    <span>Amount Due</span>
+                </th-->
+                </tr>
+        </thead>
+        <tbody id="public-media-view">
+            <tr>
+                <td class="Medianame lalign">Harry Potter and the Deathly Hallows</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">2007</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
+            </tr>
+            <tr>
+                <td class="Medianame">Harry Potter and the Sorcerer's Stone</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">1997</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
+            </tr>
+            <tr>
+                <td class="Medianame">Harry Potter and the Half-Blood Prince</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">2005</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
+            </tr>
+            <tr>
+                <td class="Medianame">Harry Potter and the Goblet of Fire</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">2000</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
+            </tr>
+            <tr>
+                <td class="Medianame">Harry Potter and the Chamber of Secrets</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">1998</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
+            </tr>
+            <tr>
+                <td class="Medianame">Harry Potter and the Order of the Phoenix</td>
+                <td class="Media Type">Books</td>
+                <td class="Genre">Children's Books</td>
+                <td class="Rating">4.99</td>
+                <td class="Release Year">2003</td>
+                <td class="Time-Limit">05-25-2018</td>
+                <td class="Cost">0.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="back-link">
+
+    </div>
+    <div id="next-link">
+        
+    </div>
+
+    <div class="modal" id="login-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Login</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input" type="email" id="login-email" placeholder="Email">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" type="password" id="login-password" placeholder="Password">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-info" id="login-save-button">Save changes</button>
+                <button class="button cancel-button">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal" id="signup-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Sign up</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" id="signup-userName" placeholder="Full name">
+                    </div>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input" type="email" id="signup-email" placeholder="Email">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" type="password" id="signup-password" placeholder="Password">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-info" id="signup-save-button">Save changes</button>
+                <button class="button cancel-button">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+
+    <footer class="footer fix-footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>
+                    &copy;Copyright 2018 Tom Harris, Hnin Haymar, Jan Balangue, Meghna Nag, Radhika Iyer
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./javascript/app.js"></script>
+</body>
+
+</html>
