@@ -63,6 +63,16 @@ const validTypes =
 function readyFunc() {
     populateAdminResult();
 
+    // logout button
+    $("#logout-button").on("click", function () {
+      console.log("currentUrl: " + currentUrl);
+      currentUrl.pop();
+      var targetUrl = currentUrl.join('/');
+      console.log(targetUrl);
+      //console.log(targetUrl);
+      window.location.replace(targetUrl);
+   });
+
     // click handler for the Operation radio buttons
     $('#opbuttons').on( "click", function() {
       var btnValue;
