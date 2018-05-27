@@ -111,19 +111,6 @@ function readyFunc() {
     }
   });
 
-  // dropdown controls
-  $(".dropdown-trigger").on("click", function () {
-    if ($(".dropdown").hasClass("is-active")) {
-      $(".dropdown").removeClass("is-active");
-    } else {
-      $(".dropdown").addClass("is-active");
-    }
-  });
-  $(".dropdown-item").on("click", function () {
-    $("#media-type").html($(this).html());
-    $(".dropdown").removeClass("is-active");
-  });
-
   // modal controls
   $("#signup-button").on("click", function () {
     $("#signup-modal").addClass("is-active");
