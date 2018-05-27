@@ -295,9 +295,27 @@ $(document).ready(function () {
     function handleCheckout() {
         var currentRecord = $(this)
             .parent()
-            .parent()
             .data("record");
-        checkoutMedia(currentPost.id);
+        console.log(currentRecord);
+        checkoutMedia(email,currentRecord.id);
+    }
+
+    function checkoutMedia(email,id){
+        console.log("returnMedia - email: " + email + " id: " + id);
+        $.ajax({
+            method: "GET",
+            url: "/user-checkout-media/"+email+"/"+id
+        }).then(function(result) {
+              console.log(result);
+              console.log("refresh page after checkoutMedia");
+
+            getAvailableRecords(email);
+            getRecords(email);
+            //getHistoricalRecords(email);
+              //window.location.href = "/user-view/"+email;
+              //window.location.reload();
+              //getPosts(postCategorySelect.val());
+        });
     }
 
     // This function figures out which post we want to return 
@@ -311,13 +329,19 @@ $(document).ready(function () {
     }
 
     function returnMedia(email,id){
+        console.log("returnMedia - email: " + email + " id: " + id);
         $.ajax({
             method: "GET",
             url: "/user-return-media/"+email+"/"+id
         }).then(function(result) {
               console.log(result);
-              window.location.href = "/user-view/"+email;
-              window.location.reload();
+              console.log("refresh page after returnMedia");
+
+            getAvailableRecords(email);
+            getRecords(email);
+            getHistoricalRecords(email);
+              //window.location.href = "/user-view/"+email;
+              //window.location.reload();
               //getPosts(postCategorySelect.val());
         });
     }
