@@ -112,10 +112,7 @@ function readyFunc() {
   });
 
   function search(input) {
-    console.log("search input: " +input);
     var searchInput = { name: input };
-    
-
     fetchData("/search",searchInput);
 
     $("#carouselExampleControls").hide();
@@ -153,12 +150,13 @@ function readyFunc() {
   // synposis button near sign up
   $("#synopsis-button").on("click", function () {
     console.log("synopsis button clicked!");
-     $("#synopsis-modal").addClass("is-active");
-     $(".modal-card-title").html("Synopsis");
-     var currentRecord = $(this)
+    var currentRecord = $(this)
             .parent()
             .data("record");
         console.log(currentRecord);
+     $("#synopsis-modal").addClass("is-active");
+     $(".modal-card-title").html("Synopsis");
+     
    }); 
 
   $("#signup-button").on("click", function () {
