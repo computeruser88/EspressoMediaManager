@@ -1,16 +1,15 @@
 $(document).ready(function () {
 
     /* global moment */
-    var email = "janedoe@gmail.com";
     // adminDashboard holds all of our records
-    var adminDashboard = $(".admin-dashboard");
-    var adminHistory = $(".admin-history");
+    var allUsers = $(".all-users");
+    var allMedia = $(".all-media");
 
     var currentUrl = window.location.href.split("/");
 
     // Click events for the checkout and return buttons
-    $(document).on("click", "button.checkout", handleCheckout);
-    $(document).on("click", "button.return", handleReturn);
+    //$(document).on("click", "button.checkout", handleCheckout);
+    //$(document).on("click", "button.return", handleReturn);
     // Variable to hold our records
     var records;
 
@@ -34,8 +33,8 @@ $(document).ready(function () {
         window.location.replace(targetUrl);
     });
 
-    getRecords(email);
-    getHistoricalRecords(email);
+    showUsers();
+    showMedia();
     // The code below handles the case where we want to get transaction records for a specific admin
     // Looks for a query param in the url for adminemail
     /*var url = window.location.search;
@@ -49,155 +48,88 @@ $(document).ready(function () {
          $(".admin-dashboard").hide();
      }*/
 
-    function getHistoricalRecords(email) {
-        console.log(email);
-        $.get("/admin-history/" + email, function (data) {
-            if (data)
-                initializeHistoricalRows(data);
-        });
-    }
-
-
-    // This function grabs records from the database and updates the view
-    function getRecords(email) {
-        $.get("/admin-dashboard/" + email, function (data) {
-            records = data;
-            if (records)
-                initializeRows();
-        });
-    }
-
     //this function populates the tables to show the admin all the users 
-    function showUsers(name, email) {
-        $.ajax({
-            method: "GET",
-            url: "/admin-show-users/" + name + "/" + email + "/" + medianame + "/" + timelimit
-        }).then(function (result) {
-            console.log(result);
-            window.location.href = "/admin-view";
-
+    function showUsers() {
+        $.get("/admin-show-users/", function (data) {
+            if (data)
+            initRows(allUsers,data,createUserHeaderRow,createUserRow);
+                //initializeHistoricalRows(data);
         });
     }
+
 
     //this function populates the tables to show the admin the media
-    function showMedia(name, type, genre, timelimit, amountleft) {
-        $.ajax({
-            method: "GET",
-            url: "/admin-show-media/" + name + "/" + type + "/" + genre + "/" + timeleft + "/" + cost
-        }).then(function (result) {
-            console.log(result);
-            window.location.href = "/admin-view";
-
+    function showMedia() {
+        $.get("/admin-show-media/", function (data) {
+            if (data)
+                initRows(allMedia,data,createMediaHeaderRow,createMediaRow);
         });
     }
 
-    // InitializeRows handles appending all of our constructed post HTML inside adminDashboard
-    function initializeRows() {
-        adminDashboard.empty();
+    function initRows(tableClass, data, headerRowFunc, newRowFunc) {
+        tableClass.empty();
         var recordsToAdd = [];
-        adminDashboard.append(createHeaderRow());
-        for (var i = 0; i < records.length; i++) {
-            recordsToAdd.push(createNewRow(records[i]));
+        tableClass.append(headerRowFunc());
+        for (var i = 0; i < data.length; i++) {
+            recordsToAdd.push(newRowFunc(data[i]));
         }
-        adminDashboard.append(recordsToAdd);
+        tableClass.append(recordsToAdd);
     }
 
-    function initializeHistoricalRows(data) {
-        adminHistory.empty();
-        var recordsToAdd = [];
-        adminHistory.append(createHistoricalHeaderRow());
-        for (i = 0; i < data.length; i++) {
-            recordsToAdd.push(createHistoryRow(data[i]));
-        }
-        adminHistory.append(recordsToAdd);
-    }
 
-    function createHeaderRow() {
+    function createUserHeaderRow() {
         var row = $("<tr>");
-        var placeholder = $("<th>");
-        row.append(placeholder);
 
         var name = $("<th>");
         name.text("Name");
         row.append(name);
 
-        var checkedOutDate = $("<th>");
-        checkedOutDate.text("Checked Out Date");
-        row.append(checkedOutDate);
+        var email= $("<th>");
+        email.text("Email");
+        row.append(email);
 
-        var mediaType = $("<th>");
-        mediaType.text("Media Type");
-        row.append(mediaType);
+        var totalCheckedOut = $("<th>");
+        totalCheckedOut.text("Total Media Checked out");
+        row.append(totalCheckedOut);
 
-        var genre = $("<th>");
-        genre.text("Genre");
-        row.append(genre);
-
-        var rating = $("<th>");
-        rating.text("Rating");
-        row.append(rating);
-
-        var year = $("<th>");
-        year.text("Release Year");
-        row.append(year);
+        var balance = $("<th>");
+        balance.text("Balance");
+        row.append(balance);
 
         return row;
-
     }
     // This function constructs a a record's row
-    function createNewRow(record) {
+    function createUserRow(record) {
         var newRecord = $("<div>");
         newRecord.addClass("card");
-        var checkoutBtn = $("<button>");
-        checkoutBtn.text("CHECKOUT");
-        checkoutBtn.addClass("checkout btn btn-info");
-        var returnBtn = $("<button>");
-        returnBtn.text("RETURN");
-        returnBtn.addClass("return btn btn-info");
 
         var newRecordRow = $("<tr>");
-        newRecordRow.append(returnBtn);
+        //newRecordRow.append(returnBtn);
 
         var Name = $("<td>");
-        Name.text(record.Medium.name);
-        var checkedOut = $("<td>");
-        checkedOut.text(record.checked_out_date);
-        var Type = $("<td>");
-        Type.text(record.Medium.type);
-        var Genre = $("<td>");
-        Genre.text(record.Medium.genre);
-        var Rating = $("<td>");
-        Rating.text(record.Medium.rating);
-        var ReleaseYear = $("<td>");
-        ReleaseYear.text(record.Medium.year);
+        Name.text(record.name);
+        var email = $("<td>");
+        email.text(record.email);
+        var count = $("<td>");
+        count.text(0);
+        var balance = $("<td>");
+        balance.text(record.balance);
 
         newRecordRow.append(Name);
-        newRecordRow.append(checkedOut);
-        newRecordRow.append(Type);
-        newRecordRow.append(Genre);
-        newRecordRow.append(Rating);
-        newRecordRow.append(ReleaseYear);
+        newRecordRow.append(email);
+        newRecordRow.append(count);
+        newRecordRow.append(balance);
 
         newRecordRow.data("record", record);
         return newRecordRow;
     }
 
-    function createHistoricalHeaderRow() {
+    function createMediaHeaderRow() {
         var row = $("<tr>");
-        var placeholder = $("<th>");
-        row.append(placeholder);
-
+        
         var name = $("<th>");
         name.text("Name");
         row.append(name);
-
-        var checkedOutDate = $("<th>");
-        checkedOutDate.text("Checked Out Date");
-        row.append(checkedOutDate);
-
-        var returnedDate = $("<th>");
-        returnedDate.text("Returned Date");
-        row.append(returnedDate);
 
         var mediaType = $("<th>");
         mediaType.text("Media Type");
@@ -215,45 +147,47 @@ $(document).ready(function () {
         year.text("Release Year");
         row.append(year);
 
+        var quantity = $("<th>");
+        quantity.text("Quantity");
+        row.append(quantity);
+
+        var time_limit = $("<th>");
+        time_limit.text("Time Limit");
+        row.append(time_limit);
+
         return row;
 
     }
 
-    function createHistoryRow(record) {
+    function createMediaRow(record) {
         var newRecord = $("<div>");
         newRecord.addClass("card");
-        var checkoutBtn = $("<button>");
-        checkoutBtn.text("CHECKOUT");
-        checkoutBtn.addClass("checkout btn btn-info");
-        var reviewBtn = $("<button>");
-        reviewBtn.text("Write Review");
-        reviewBtn.addClass("review btn btn-info");
 
         var newRecordRow = $("<tr>");
-        newRecordRow.append(reviewBtn);
+        //newRecordRow.append(reviewBtn);
 
         var Name = $("<td>");
-        Name.text(record.Medium.name);
-        var checkedOut = $("<td>");
-        checkedOut.text(record.checked_out_date);
-        var returned = $("<td>");
-        returned.text(record.returned_date);
+        Name.text(record.name);
         var Type = $("<td>");
-        Type.text(record.Medium.type);
+        Type.text(record.type);
         var Genre = $("<td>");
-        Genre.text(record.Medium.genre);
+        Genre.text(record.genre);
         var Rating = $("<td>");
-        Rating.text(record.Medium.rating);
+        Rating.text(record.rating);
         var ReleaseYear = $("<td>");
-        ReleaseYear.text(record.Medium.year);
+        ReleaseYear.text(record.year);
+        var quantity = $("<td>");
+        quantity.text(record.quantity);
+        var time_limit = $("<td>");
+        time_limit.text(record.time_limit);
 
         newRecordRow.append(Name);
-        newRecordRow.append(checkedOut);
-        newRecordRow.append(returned);
         newRecordRow.append(Type);
         newRecordRow.append(Genre);
         newRecordRow.append(Rating);
         newRecordRow.append(ReleaseYear);
+        newRecordRow.append(quantity);
+        newRecordRow.append(time_limit);
 
         newRecordRow.data("record", record);
         return newRecordRow;
