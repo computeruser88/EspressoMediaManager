@@ -233,12 +233,13 @@ function readyFunc() {
   }
 
   function authenticate(email, password) {
+    console.log("inside authenticate");
     var inputs = {};
     inputs.email = email;
     inputs.password = password;
     $.ajax({
       type: 'GET',
-      url: "/public/user-authenticate/" + email + "/" + password,
+      url: "/public/user-authenticate/"+email+"/"+password,
       data: inputs
     }).done(function (data) {
       console.log("after login");
@@ -248,6 +249,7 @@ function readyFunc() {
         if (data[0].type === "admin") {
           var currentUrl = window.location.href.split('/').pop();
           var targetUrl = currentUrl + "/media-manager";
+          //console.log(targetUrl);
           window.location.replace(targetUrl);
         } else {
           var currentUrl = window.location.href.split('/').pop();

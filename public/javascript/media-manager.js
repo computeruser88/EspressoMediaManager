@@ -304,6 +304,7 @@ function insertMedia() {
       var okMsg = data.name + "\nwas successfully added as ID " + data.id;
       $('#messages').text();
       $('#messages').text(okMsg);
+      populateAdminResult();
     }).fail(function (data) {
       console.log(data);  // DEBUG
       $('#messages').text();
@@ -341,6 +342,7 @@ function updateMedia() {
       displayRow(data)
       $('#messages').text();
       $('#messages').text(JSON.stringify(data));
+      populateAdminResult();
     }).fail(function (data) {
       console.log(data);  // DEBUG
       $('#messages').text();
