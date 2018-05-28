@@ -314,17 +314,20 @@ function insertMedia() {
 
 function updateMedia() {
   const route = "/admin-update-media/:mediaid/:quantity/:time_limit";
-  var url = route;
-  url = url.replace(':mediaid', $('#id').val());
-  url = url.replace(':quantity', $('#quantity').val());
-  url = url.replace(':time_limit', $('#timelimit').val());
 
   $('form').submit(function (event) {
     event.preventDefault();
 
-    // remove any previous text from the message area
-    $('#messages').text('');
+    var isValid = validateForUpdate();
+    if (isValid === false) {
+      return;
+    }
 
+    var url = route;
+    url = url.replace(':mediaid',    $('#id').val());
+    url = url.replace(':quantity',   $('#quantity').val());
+    url = url.replace(':time_limit', $('#timelimit').val());
+  
     // execute the UPDATE `Media` SET ... statement
     $.ajax({
       type: 'GET',
@@ -336,9 +339,11 @@ function updateMedia() {
       console.log(data);  // DEBUG
       showForUpdate();
       displayRow(data)
+      $('#messages').text();
       $('#messages').text(JSON.stringify(data));
     }).fail(function (data) {
       console.log(data);  // DEBUG
+      $('#messages').text();
       $('#messages').text(JSON.stringify(data));
     });
   });
@@ -350,14 +355,19 @@ function deleteMedia() {
 
 function findMedia() {
   const route = "/media-search/";
-  var url = route + $('#id').val();
 
   $('form').submit(function (event) {
     event.preventDefault();
 
-    // remove any previous text from the message area
-    $('#messages').text('');
+    if ( /^\d+$/.test($('#id').val())  === false 
+      || Number($('#id').val()) <= 0 ) {
+      $('#messages').text();
+      $('#messages').text("The ID must be a positive integer\n");
+      return;
+    }
 
+    var url = route + $('#id').val();
+    
     // execute the SELECT *  FROM Media WHERE id = <id> statement
     $.ajax({
       type: 'GET',
@@ -366,11 +376,23 @@ function findMedia() {
       encode: true
 
     }).done(function (data) {
+      // Note: this path is taken, even if a row with the requested ID
+      //       is not found in the database. In that case, "data" is null
+      if (data === null) {
+        $('#messages').text();
+        var errMsg = "No row with ID " + $('#id').val()
+                   + " was found in the database";      
+        $('#messages').text(errMsg);
+        return;
+      }
+
       showMostInputs();
       displayRow(data);
+      $('#messages').text();
       $('#messages').text(JSON.stringify(data));
     }).fail(function (data) {
       console.log(data);  // DEBUG
+      $('#messages').text();
       $('#messages').text(JSON.stringify(data));
     });
   });
@@ -486,6 +508,31 @@ function validateFormInputs(inpObject) {
   var moneyRegex = /^\d+\.\d{2}$/;
   if (moneyRegex.test(inpObject.cost) === false) {
     errors += "Cost must be in the format d.dd\n";
+  }
+
+  if (errors.length > 0) {
+    // remove any previous text from the message area
+    $('#messages').text();
+    $('#messages').text(errors);
+  }
+
+  return (errors.length > 0) ? false : true;
+}
+
+function validateForUpdate() {
+  var errors = '';
+
+  if ( /^\d+$/.test($('#id').val())  === false || Number($('#id').val()) <= 0 ) {
+    errors += "The ID must be a positive integer\n";
+  }
+
+  var intRegex = /^\d+$/;
+  if (intRegex.test($('#quantity').val()) === false) {
+    errors += "Quantity must be a non-negative integer\n";
+  }
+
+  if (intRegex.test($('#timelimit').val()) === false) {
+    errors += "Time Limit must be a non-negative integer\n";
   }
 
   if (errors.length > 0) {
