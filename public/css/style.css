@@ -26,8 +26,8 @@
 .fix-footer {
     position: fixed;
     width: 100%;
-    bottom: 0;
-    max-height: 50px;
+    bottom: -25px;
+    max-height: 10px;
     overflow:hidden;
 }
 @media all and (max-width: 520px) {
