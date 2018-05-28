@@ -1,7 +1,8 @@
-/*
+
   
   // /user-writereview-media/:email/:mediaId - check the media is returned and update the review in the review table
       app.get("/user-writereview-media/:email/:mediaId",function(req,res) {
+        console.log("inside user-writereview-media/:email/:mediaId ");
         var email = req.params.email;
         var mediaId = req.params.mediaId;
         
@@ -35,4 +36,4 @@
         });
       });
 
-      */
+    

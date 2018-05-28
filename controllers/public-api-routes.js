@@ -57,16 +57,16 @@ module.exports = function(app) {
         });
     });
 
-    app.get("/search/:name/:type", function(req,res) {
-        if(!req.params.name){
+    app.get("/search", function(req,res) {
+        if(!req.query.name){
             throw "search parameter name is not defined";
         }
         var query = {
             name : {
-                [db.Op.like] : "%"+req.params.name+"%"
+                [db.Op.like] : "%"+req.query.name+"%"
             }
         };
-        var type = req.params.type;
+        var type = req.query.type;
         if(type &&  (type.toLowerCase() =="book" || type.toLowerCase() == "movie" || type.toLowerCase() =="music") ){
             query.type = type;
         }
