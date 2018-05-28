@@ -12,6 +12,17 @@
 #heading{
     text-align:center;
 }
+
+/* Modal Content/Box */
+.modal-content {
+    color: white;
+    background-color: black;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid rgb(190, 190, 190);
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
 .fix-footer {
     position: fixed;
     width: 100%;
