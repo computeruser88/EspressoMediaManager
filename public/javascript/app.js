@@ -83,6 +83,40 @@ $(document).ready(readyFunc);
 
 function readyFunc() {
 
+  /*
+    $("#myTable").hide();
+    $("#search").click(function () {
+    $("#carouselExampleControls").hide();
+    $("#myTable").show();
+    });
+*/
+
+    //Search button logic 
+
+    $("#search").on('click', function(e){
+      e.preventDefault();
+      $("#search-form").parsley().validate();
+      if ($("#search-form").parsley().isValid()){
+          search(event);
+      }
+  });
+
+  $("#search-input").on('keypress', function(e){
+    if (event.keyCode === 13) {
+        e.preventDefault();
+        $("#search-form").parsley().validate();
+        if ($("#search-form").parsley().isValid()){
+            search(event);
+        }
+    }
+});
+
+  function search(event) {
+    $("#carouselExampleControls").hide();
+    $("#myTable").show();}
+    
+ // synopsisView();
+
   fetchData();
 
   backNextToggle();
@@ -111,20 +145,11 @@ function readyFunc() {
     }
   });
 
-  // dropdown controls
-  $(".dropdown-trigger").on("click", function () {
-    if ($(".dropdown").hasClass("is-active")) {
-      $(".dropdown").removeClass("is-active");
-    } else {
-      $(".dropdown").addClass("is-active");
-    }
-  });
-  $(".dropdown-item").on("click", function () {
-    $("#media-type").html($(this).html());
-    $(".dropdown").removeClass("is-active");
-  });
-
   // modal controls
+  $("#synopsis-button").on("click", function () {
+    $("#synopsis-modal").addClass("is-active");
+    $(".modal-card-title").html("Synopsis");
+  });
   $("#signup-button").on("click", function () {
     $("#signup-modal").addClass("is-active");
     $(".modal-card-title").html("Sign up");
@@ -276,7 +301,7 @@ function populatePublicView(data) {
   }
 
   publicView.append(rowsToAdd);
-
+  $("table").trigger("update");
 }
 
 function createRow(record) {
@@ -309,3 +334,4 @@ function createRow(record) {
   return newRow;
 
 }
+
