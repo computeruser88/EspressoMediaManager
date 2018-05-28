@@ -17,7 +17,7 @@ $(document).ready(function () {
     // Click events for the checkout and return buttons
     $(document).on("click", "button.checkout", handleCheckout);
     $(document).on("click", "button.return", handleReturn);
-   // $(document).on("click", "button.review", reviewPost);
+    $(document).on("click", "button.review", reviewPost);
     // Variable to hold our records
     var records;
 
@@ -47,6 +47,8 @@ $(document).ready(function () {
 
     function getHistoricalRecords(email) {
         $.get("/user-history/" + email, function (data) {
+            console.log("getting rental history");
+            console.log(data);
             if (data)
                 //initializeHistoricalRows(data);
                 initRows(userHistory, data, createHistoricalHeaderRow, createHistoryRow);
@@ -260,10 +262,11 @@ $(document).ready(function () {
         var checkoutBtn = $("<button>");
         checkoutBtn.text("CHECKOUT");
         checkoutBtn.addClass("checkout btn btn-info");
+
         var reviewBtn = $("<button>");
         reviewBtn.text("Write Review");
         reviewBtn.addClass("review btn btn-info");
-        reviewBtn.addId("reviewBtn");
+        reviewBtn.attr("id","reviewBtn");
 
 
         //Review button modal pop up functionality
@@ -357,22 +360,41 @@ $(document).ready(function () {
             //getPosts(postCategorySelect.val());
         });
     }
-/*
+
     //Posts the reviews
 
-        // This function figures out which post we want to checkout and then calls checkout
-        $(".reviewbtn").click(function reviewPost() {
-            var currentRecord = $(this)
-                .parent()
-                .data("record");
-            console.log(currentRecord);
-            writeReview(email, currentRecord.id);
+    function reviewPost() {
+        var currentRecord = $(this)
+            .parent()
+            .data("record");
+        console.log("reviewPost function");
+        console.log(currentRecord);
+        $("#review-modal").addClass("is-active");
+        $("#review-text").attr("placeholder","Write your review for " + currentRecord.Medium.name + " here");
+
+        $("#review-submit-button").on("click", function () {
+            writeReview(email, currentRecord.Medium.id);
+            $("#review-modal").removeClass("is-active");
         });
+
+        $("#review-cancel").on("click", function () {
+            $("#review-modal").removeClass("is-active");
+        });
+
+        $(".close-review").on("click", function () {
+            $("#review-modal").removeClass("is-active");
+        });
+        
+        
+    }
+
+        // This function figures out which post we want to checkout and then calls checkout
+        $(".reviewbtn").click(reviewPost);
     
         function writeReview(email, id) {
             console.log("write review for Media - email: " + email + " id: " + id);
             $.ajax({
-                method: "POST",
+                method: "GET",
                 url: "/user-writereview-media/" + email + "/" + id
             }).then(function (result) {
                 console.log(result);
@@ -382,9 +404,9 @@ $(document).ready(function () {
                 getRecords(email);
             });
         }
-*/
+
     // This function displays a message when there are no records
-    /*function displayEmpty(id) {
+    function displayEmpty(id) {
         var query = window.location.search;
         var partial = "";
         if (id) {
@@ -399,6 +421,6 @@ $(document).ready(function () {
         messageH2.html("No records yet" + partial + ", navigate <a href='/cms" + query +
             "'>here</a> in order to get started.");
         userDashboard.append(messageH2);
-    }*/
+    }
 
 });

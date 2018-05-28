@@ -85,32 +85,44 @@ function readyFunc() {
     $("#myTable").show();
     });
 */
+  var inputs = {};
 
+  inputs.offset = offset;
+  inputs.limit = limit;
+
+  fetchData("/public",inputs);
   //Search button logic 
 
   $("#search").on('click', function (e) {
     e.preventDefault();
     $("#search-form").parsley().validate();
     if ($("#search-form").parsley().isValid()) {
-      search(event);
+      search($("#search-form").val().trim());
     }
   });
 
-  $("#search-input").on('keypress', function (e) {
+  $("#search-form").on('keypress', function (e) {
     if (event.keyCode === 13) {
       e.preventDefault();
       $("#search-form").parsley().validate();
       if ($("#search-form").parsley().isValid()) {
-        search(event);
+        search($("#search-form").val().trim());
       }
     }
   });
 
-  function search(event) {
+  function search(input) {
+    console.log("search input: " +input);
+    var searchInput = { name: input };
+    
+
+    fetchData("/search",searchInput);
+
     $("#carouselExampleControls").hide();
-    // synopsisView();
-    fetchData();
+    //synopsisView();
     backNextToggle();
+
+
   }
   //$(document).on("click", "button.next", handleNext);
 
@@ -138,11 +150,16 @@ function readyFunc() {
 
   // modal controls
 
-  /* synposis button near sign up
+  // synposis button near sign up
   $("#synopsis-button").on("click", function () {
+    console.log("synopsis button clicked!");
      $("#synopsis-modal").addClass("is-active");
      $(".modal-card-title").html("Synopsis");
-   }); */
+     var currentRecord = $(this)
+            .parent()
+            .data("record");
+        console.log(currentRecord);
+   }); 
 
   $("#signup-button").on("click", function () {
     $("#signup-modal").addClass("is-active");
@@ -249,13 +266,9 @@ function readyFunc() {
     });
   }
 
-  function fetchData() {
-    var inputs = {};
-
-    inputs.offset = offset;
-    inputs.limit = limit;
-
-    const url = "/public";
+  function fetchData(url,inputs) {
+    console.log("inputs: ");
+    console.log(inputs);
     $.ajax({
       type: 'GET',
       url: url,
@@ -275,12 +288,12 @@ function readyFunc() {
   }
 
   //Function for synopsis view
-  /*
+  
   function synopsisView(){
 
   }
 
-  */
+  
 
   function backNextToggle() {
     if (offset == 0) {
@@ -311,15 +324,14 @@ function readyFunc() {
     name.text(record.name);
     newRow.append(name);
 
-
-
     //Adding synopsis in public view
-    //var synposisHeader =$("<td>");
+    var synposisHeader =$("<td>");
 
-    //var synopsistBtn = $("<td>","<button>");
-    //synopsisBtn.text("SYNOPSIS");
-    //synopsisBtn.addClass("synopsis btn btn-info");
-    //newRow.append(synopsisBtn);
+    var synopsisBtn = $("<td>","<button>");
+    synopsisBtn.text("SYNOPSIS");
+    synopsisBtn.attr("id","synopsis-button")
+    synopsisBtn.addClass("synopsis btn btn-info");
+    newRow.append(synopsisBtn);
 
     var type = $("<td>");
     type.text(record.type);
