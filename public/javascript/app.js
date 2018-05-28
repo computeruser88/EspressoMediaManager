@@ -20,47 +20,42 @@ var currentUrl = window.location.href.split("/");
 //    http://www.filmsite.org/genres.html
 
 // list of literary genres
-const bookGenres =
-  [
-    "Action and Adventure", "Anthology", "Art", "Autobiographies",
-    "Biographies", "Children's", "Comics", "Cookbooks", "Diaries",
-    "Dictionaries", "Drama", "Encylopedias", "Fantasy", "Guide",
-    "Health", "History", "Horror", "Journals", "Math", "Mystery",
-    "Poetry", "Prayer books", "Religion, Spirituality & New Age",
-    "Romance", "Satire", "Science", "Science Fiction", "Self help",
-    "Series", "Travel", "Trilogy"
-  ];
+const bookGenres = [
+  "Action and Adventure", "Anthology", "Art", "Autobiographies",
+  "Biographies", "Children's", "Comics", "Cookbooks", "Diaries",
+  "Dictionaries", "Drama", "Encylopedias", "Fantasy", "Guide",
+  "Health", "History", "Horror", "Journals", "Math", "Mystery",
+  "Poetry", "Prayer books", "Religion, Spirituality & New Age",
+  "Romance", "Satire", "Science", "Science Fiction", "Self help",
+  "Series", "Travel", "Trilogy"
+];
 
 // list of motion picture genres
-const movieGenres =
-  [
-    "Action", "Adventure", "Comedy", "Crime & Gangster", "Drama",
-    "Epics/Historical", "Horror", "Musicals/Dance", "Science Fiction",
-    "War", "Westerns"
-  ];
+const movieGenres = [
+  "Action", "Adventure", "Comedy", "Crime & Gangster", "Drama",
+  "Epics/Historical", "Horror", "Musicals/Dance", "Science Fiction",
+  "War", "Westerns"
+];
 
 // list of music genres
-const musicGenres =
-  [
-    "Alternative", "Arime", "Blues", "Children's Music", "Comedy",
-    "Commercial", "Country", "Dance", "Elecronic", "Disney", "Easy Listening",
-    "Erika", "French Pop", "German Folk", "German Pop", "Fitness & Workout",
-    "Hip-Hop/Rap", "Holiday", "Indie Pop", "Industiral",
-    "Inspirational - Christian & Gospel", "Instrumental", "J-Pop", "Jazz",
-    "K-Pop", "Karaoke", "Kayokyoku", "Latin", "New Age", "Opera", "Pop",
-    "R&B/Soul", "Reggae", "Rock", "Singer/Songwriter", "Soundtrack",
-    "Spoken Word", "Tex-Mex/Tejano", "Vocal", "World"
-  ];
+const musicGenres = [
+  "Alternative", "Arime", "Blues", "Children's Music", "Comedy",
+  "Commercial", "Country", "Dance", "Elecronic", "Disney", "Easy Listening",
+  "Erika", "French Pop", "German Folk", "German Pop", "Fitness & Workout",
+  "Hip-Hop/Rap", "Holiday", "Indie Pop", "Industiral",
+  "Inspirational - Christian & Gospel", "Instrumental", "J-Pop", "Jazz",
+  "K-Pop", "Karaoke", "Kayokyoku", "Latin", "New Age", "Opera", "Pop",
+  "R&B/Soul", "Reggae", "Rock", "Singer/Songwriter", "Soundtrack",
+  "Spoken Word", "Tex-Mex/Tejano", "Vocal", "World"
+];
 
-const validRatings =
-  [
-    "N/A", "Unknown", "G", "PG", "PG-13", "R", "NC-17"
-  ];
+const validRatings = [
+  "N/A", "Unknown", "G", "PG", "PG-13", "R", "NC-17"
+];
 
-const validTypes =
-  [
-    "Book", "Movie", "Music"
-  ];
+const validTypes = [
+  "Book", "Movie", "Music"
+];
 let userName;
 let emailAddress;
 let password;
@@ -91,36 +86,32 @@ function readyFunc() {
     });
 */
 
-    //Search button logic 
+  //Search button logic 
 
-    $("#search").on('click', function(e){
-      e.preventDefault();
-      $("#search-form").parsley().validate();
-      if ($("#search-form").parsley().isValid()){
-          search(event);
-      }
+  $("#search").on('click', function (e) {
+    e.preventDefault();
+    $("#search-form").parsley().validate();
+    if ($("#search-form").parsley().isValid()) {
+      search(event);
+    }
   });
 
-  $("#search-input").on('keypress', function(e){
+  $("#search-input").on('keypress', function (e) {
     if (event.keyCode === 13) {
-        e.preventDefault();
-        $("#search-form").parsley().validate();
-        if ($("#search-form").parsley().isValid()){
-            search(event);
-        }
+      e.preventDefault();
+      $("#search-form").parsley().validate();
+      if ($("#search-form").parsley().isValid()) {
+        search(event);
+      }
     }
-});
+  });
 
   function search(event) {
     $("#carouselExampleControls").hide();
-    $("#myTable").show();}
-    
- // synopsisView();
-
-  fetchData();
-
-  backNextToggle();
-
+    // synopsisView();
+    fetchData();
+    backNextToggle();
+  }
   //$(document).on("click", "button.next", handleNext);
 
   $("table").tablesorter();
@@ -146,10 +137,13 @@ function readyFunc() {
   });
 
   // modal controls
+
+  /* synposis button near sign up
   $("#synopsis-button").on("click", function () {
-    $("#synopsis-modal").addClass("is-active");
-    $(".modal-card-title").html("Synopsis");
-  });
+     $("#synopsis-modal").addClass("is-active");
+     $(".modal-card-title").html("Synopsis");
+   }); */
+
   $("#signup-button").on("click", function () {
     $("#signup-modal").addClass("is-active");
     $(".modal-card-title").html("Sign up");
@@ -165,6 +159,7 @@ function readyFunc() {
     $(".modal").removeClass("is-active");
   });
 
+
   $("#signup-save-button").on("click", function () {
     userName = $("#signup-userName").val().trim();
     emailAddress = $("#signup-email").val().trim();
@@ -176,8 +171,7 @@ function readyFunc() {
       $("#signup-password").val("");
       saveSignupData(userName, emailAddress, password);
       $("#signup-modal").removeClass("is-active");
-    }
-    else {
+    } else {
       $(".modal-card-title").html("Sign up - please complete all fields.");
     }
   });
@@ -191,147 +185,236 @@ function readyFunc() {
       $("#login-password").val("");
       authenticate(emailAddress, password);
       $("#login-modal").removeClass("is-active");
-    }
-    else {
+    } else {
       $(".modal-card-title").html("Login - please complete all fields.");
     }
   });
-}
 
-function saveSignupData(name, email, password) {
-  console.log("saving signup for " + name + " email: " + email);
-  var inputs = {};
-  inputs.name = name;
-  inputs.email = email;
-  inputs.password = password;
-  $.ajax({
-    type: 'POST',
-    url: "/public/new-user/",
-    data: inputs,
-    success: function (data, text) {
-      console.log("signup: success");
-      console.log(data);
-      authenticate(data.email,data.password);
-    },
-    error: function (request, status, error) {
-      //alert(request.responseText);
-      console.log("sign up : failure");
-      $("#signup-modal").addClass("is-active");
-      $(".modal-card-title").html("Sign up");
-      $("#sign-up-error").show();
-      $("#sign-up-error").text("Sign up failed: " + email + " already exists");
-    }
-  });
-}
 
-function authenticate(email, password) {
-  var inputs = {};
-  inputs.email = email;
-  inputs.password = password;
-  $.ajax({
-    type: 'GET',
-    url: "/public/user-authenticate/"+email+"/"+password,
-    data: inputs
-  }).done(function (data) {
-    console.log("after login");
-    console.log(data);
-    if (data && data.length > 0) {
-      console.log("authentication: success");
-      if (data[0].type === "admin") {
-        var currentUrl = window.location.href.split('/').pop();
-        var targetUrl = currentUrl +"/media-manager";
-        window.location.replace(targetUrl);
-      } else {
-      var currentUrl = window.location.href.split('/').pop();
-      //console.log("currentUrl: " + currentUrl);
-      var targetUrl = currentUrl +"/user-view/" + data[0].email;
-      //console.log(targetUrl);
-      window.location.replace(targetUrl);
+  function saveSignupData(name, email, password) {
+    console.log("saving signup for " + name + " email: " + email);
+    var inputs = {};
+    inputs.name = name;
+    inputs.email = email;
+    inputs.password = password;
+    $.ajax({
+      type: 'POST',
+      url: "/public/new-user/",
+      data: inputs,
+      success: function (data, text) {
+        console.log("signup: success");
+        console.log(data);
+        authenticate(data.email, data.password);
+      },
+      error: function (request, status, error) {
+        //alert(request.responseText);
+        console.log("sign up : failure");
+        $("#signup-modal").addClass("is-active");
+        $(".modal-card-title").html("Sign up");
+        $("#sign-up-error").show();
+        $("#sign-up-error").text("Sign up failed: " + email + " already exists");
       }
-    } else {
-      console.log("authentication: failure");
-      $("#login-modal").addClass("is-active");
-      $(".modal-card-title").html("Login - authentication failure");
+    });
+  }
+
+  function authenticate(email, password) {
+    var inputs = {};
+    inputs.email = email;
+    inputs.password = password;
+    $.ajax({
+      type: 'GET',
+      url: "/public/user-authenticate/" + email + "/" + password,
+      data: inputs
+    }).done(function (data) {
+      console.log("after login");
+      console.log(data);
+      if (data && data.length > 0) {
+        console.log("authentication: success");
+        if (data[0].type === "admin") {
+          var currentUrl = window.location.href.split('/').pop();
+          var targetUrl = currentUrl + "/media-manager";
+          window.location.replace(targetUrl);
+        } else {
+          var currentUrl = window.location.href.split('/').pop();
+          //console.log("currentUrl: " + currentUrl);
+          var targetUrl = currentUrl + "/user-view/" + data[0].email;
+          //console.log(targetUrl);
+          window.location.replace(targetUrl);
+        }
+      } else {
+        console.log("authentication: failure");
+        $("#login-modal").addClass("is-active");
+        $(".modal-card-title").html("Login - authentication failure");
+      }
+    });
+  }
+
+  function fetchData() {
+    var inputs = {};
+
+    inputs.offset = offset;
+    inputs.limit = limit;
+
+    const url = "/public";
+    $.ajax({
+      type: 'GET',
+      url: url,
+      data: inputs,
+      dataType: 'json',
+      encode: true
+
+    }).done(function (data) {
+      console.log("data fetched!");
+      console.log(data);
+      populatePublicView(data);
+    }).fail(function (data) {
+
+      console.log(data); // DEBUG
+
+    });
+  }
+
+  //Function for synopsis view
+  /*
+  function synopsisView(){
+
+  }
+
+  */
+
+  function backNextToggle() {
+    if (offset == 0) {
+      $('#back-link').hide();
     }
-  });
-}
 
-function fetchData() {
-  var inputs = {};
-
-  inputs.offset = offset;
-  inputs.limit = limit;
-
-  const url = "/public";
-  $.ajax({
-    type: 'GET',
-    url: url,
-    data: inputs,
-    dataType: 'json',
-    encode: true
-
-  }).done(function (data) {
-    console.log("data fetched!");
-    console.log(data);
-    populatePublicView(data);
-  }).fail(function (data) {
-
-    console.log(data);  // DEBUG
-
-  });
-}
-
-function backNextToggle() {
-  if (offset == 0) {
-    $('#back-link').hide();
+    var nextLink = $('#next-link');
+    nextLink.show();
+    var nextButton = $("<button>");
+    nextButton.text("Next 10");
+    nextButton.addClass("next btn btn-info");
   }
 
-  var nextLink = $('#next-link');
-  nextLink.show();
-  var nextButton = $("<button>");
-  nextButton.text("Next 10");
-  nextButton.addClass("next btn btn-info");
-}
+  function populatePublicView(data) {
+    publicView.empty();
+    var rowsToAdd = [];
+    for (i = 0; i < data.length; i++) {
+      rowsToAdd.push(createRow(data[i]));
+    }
 
-function populatePublicView(data) {
-  publicView.empty();
-  var rowsToAdd = [];
-  for (i = 0; i < data.length; i++) {
-    rowsToAdd.push(createRow(data[i]));
+    publicView.append(rowsToAdd);
+    $("table").trigger("update");
   }
 
-  publicView.append(rowsToAdd);
-  $("table").trigger("update");
+  function createRow(record) {
+    var newRow = $("<tr>");
+    var name = $("<td>");
+    name.text(record.name);
+    newRow.append(name);
+
+
+
+    //Adding synopsis in public view
+    //var synposisHeader =$("<td>");
+
+    //var synopsistBtn = $("<td>","<button>");
+    //synopsisBtn.text("SYNOPSIS");
+    //synopsisBtn.addClass("synopsis btn btn-info");
+    //newRow.append(synopsisBtn);
+
+    var type = $("<td>");
+    type.text(record.type);
+    newRow.append(type);
+
+    var genre = $("<td>");
+    genre.text(record.genre);
+    newRow.append(genre);
+
+    var rating = $("<td>");
+    rating.text(record.rating);
+    newRow.append(rating);
+
+    var year = $("<td>");
+    year.text(record.year);
+    newRow.append(year);
+
+    var artist = $("<td>");
+    artist.text(record.artist);
+    newRow.append(artist);
+
+    newRow.data("record", record);
+    return newRow;
+  }
+  //Static modals
+
+
+  // Synopsis Modal
+  var modal = document.getElementById('myModal');
+  var btn = document.getElementById("myBtn");
+  var span = document.getElementsByClassName("close")[0];
+  btn.onclick = function () {
+    modal.style.display = "block";
+  }
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  //ending ready function
 }
 
-function createRow(record) {
-  var newRow = $("<tr>");
-  var name = $("<td>");
-  name.text(record.name);
-  newRow.append(name);
+/*
 
-  var type = $("<td>");
-  type.text(record.type);
-  newRow.append(type);
-
-  var genre = $("<td>");
-  genre.text(record.genre);
-  newRow.append(genre);
-
-  var rating = $("<td>");
-  rating.text(record.rating);
-  newRow.append(rating);
-
-  var year = $("<td>");
-  year.text(record.year);
-  newRow.append(year);
-
-  var artist = $("<td>");
-  artist.text(record.artist);
-  newRow.append(artist);
-
-  newRow.data("record", record);
-  return newRow;
-
+//first
+var modal1 = document.getElementById('myModal1');
+var btn1 = document.getElementsById("myBtn1");
+var span1 = document.getElementsByClassName("close")[0];
+btn1.onclick = function() {
+    modal1.style.display = "block";
+}
+span1.onclick = function() {
+    modal1.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal1) {
+        modal1.style.display = "none";
+    }
 }
 
+//second
+var modal2 = document.getElementById('myModal2');
+var btn2 = document.getElementsById("myBtn1");
+var span2 = document.getElementsByClassName("close")[0];
+btn2.onclick = function() {
+    modal2.style.display = "block";
+}
+span.onclick = function() {
+    modal2.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal2) {
+        modal2.style.display = "none";
+    }
+}
+
+*/
+
+/*
+//Getting synopsis and rating
+
+var input = $("#search-input").val().trim();
+    //Movie Rating from OMDB
+    var omdbURL = "https://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy";
+    $.ajax({
+        url: omdbURL,
+        method: "GET"
+        }).then(function(response) {
+        console.log(response);
+        // $("#movie-rating").text(response.Rated);
+        // $("#movie-rating").text(response.imdbRating);
+        // $("#movie-rating").text(response.Plot);
+    });
+  
+    */
