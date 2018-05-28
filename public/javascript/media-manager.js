@@ -22,19 +22,19 @@ const movieGenres =
     "Alternate History", "Apocalyptic Sci-Fi", "Biblical", "Biopic",
     "Chick Flick", "Claymation", "Comedy", "Contemporary Fantasy", "Courtroom",
     "Crime/Caper Story", "Crime & Gangster", "Cutout Animation", "Dark Fantasy",
-    "Disaster", "Drama", "Drama, Action", "Drama/Thriller", "Empire Western",
-    "Epic", "Epic Fantasy", "Epic Western", "Epics/Historical", "Fairy Tale",
-    "Family,Fantasy, Musical", "Found Footage", "Future Noir", "Gangster",
-    "Hardboiled", "Heroic Fantasy", "Historical Drama", "Horror",
+    "Disaster", "Drama", "Drama, Action", "Drama/Disaster", "Drama/Thriller", 
+    "Empire Western", "Epic", "Epic Fantasy", "Epic Western", "Epics/Historical",
+    "Fairy Tale", "Family,Fantasy, Musical", "Found Footage", "Future Noir",
+    "Gangster", "Hardboiled", "Heroic Fantasy", "Historical Drama", "Horror",
     "Legal Thriller", "Live Action/Animation", "Marshal Western", "Martial Arts",
     "Military Science Fiction", "Monster", "Musicals/Dance", "Outlaw Western",
     "Paranormal/Occult", "Period", "Psychological Horror", "Punk Sci-Fi",
     "Puppet Animation", "Revenge Western", "Revisionist Western", "Rom-com",
     "Romantic Drama", "Romantic Thriller", "Science Fiction", "Slasher Movies",
-    "Space Opera", "Spaghetti Western", "Speculative Sci-Fi", "Splatter Movies",
+    "Space Opera", "Spaghetti Western",  "Speculative Sci-Fi", "Splatter Movies",
     "Spy", "Superhero", "Survival Horror", "Sword and Sorcery", "Thriller",
     "Traditional Animation", "War", "Westerns", "Whodunnit/Detective"
-  ];
+   ];
 
 // list of music genres
 const musicGenres =
@@ -61,6 +61,8 @@ const validTypes =
 
 var currentUrl = window.location.href.split("/");
 
+var currentYear = (new Date().getFullYear());
+
 function readyFunc() {
   populateAdminResult();
 
@@ -76,17 +78,8 @@ function readyFunc() {
   });
 
   // cancel button
-  $("#cancel").on("click", function () {
-    $('#name').empty();
-    $('#artist').empty();
-    $('#type').empty();
-    $('#genre').empty();
-    $('#rating').empty();
-    $('#year').empty();
-    $('#quantity').empty();
-    $('#timelimit').empty();
-    $('#cost').empty();
-  });
+  //   The cancel functionality is implemented entirely in the form element
+  //   <button type="reset" class="button is-text" id="cancel" value="Cancel">Cancel</button>
 
   // logout button
   $("#logout-button").on("click", function () {
@@ -107,6 +100,7 @@ function readyFunc() {
     switch (btnValue) {
 
       case 'add':
+        showMostInputs();
         $('#id').prop('disabled', true);
         break;
 
@@ -160,7 +154,7 @@ function readyFunc() {
   });
 
   // Bind a click event to the Type select menu
-  $("#type").bind("click", function (event) {
+  $("#type").bind("change", function (event) {
     // Update the list of available genres to match the selected
     // media type
     var typeChoice = $(this).val();
@@ -287,15 +281,15 @@ function insertMedia() {
   inputs.time_limit = $('#timelimit').val();
   inputs.cost = $('#cost').val();
 
-  // TODO: add some validation code here
-
   const url = "/admin-add-media";
 
   $('form').submit(function (event) {
     event.preventDefault();
 
-    // remove any previous text from the message area
-    $('#messages').text('');
+    var isValid = validateFormInputs(inputs);
+    if (isValid === false) {
+      return;
+    }
 
     // execute the INSERT INTO `Media` ... statement
     $.ajax({
@@ -308,9 +302,11 @@ function insertMedia() {
     }).done(function (data) {
       console.log(data);  // DEBUG
       var okMsg = data.name + "\nwas successfully added as ID " + data.id;
+      $('#messages').text();
       $('#messages').text(okMsg);
     }).fail(function (data) {
       console.log(data);  // DEBUG
+      $('#messages').text();
       $('#messages').text(JSON.stringify(data));
     });
   });
@@ -428,5 +424,75 @@ function showForUpdate() {
   $('.updhide').show();
 }
 
-  // http://digipiph.com/blog/submitting-multipartform-data-using-jquery-and-ajax
-  // https://scotch.io/tutorials/submitting-ajax-forms-with-jquery
+function validateFormInputs(inpObject) {
+  var errors = '';
+
+  // TODO: Must decide on the validity rules for names and artists.
+  //       This might include the exclusion of certain punctuation
+  //       characters, and the inclusion of accented characters
+  //       from languages other than English.
+
+  // The values from the <select> elements should always be valid,
+  // unless some sort of hacking event has occurred
+
+  if ($.inArray(inpObject.type, validTypes) <= -1) {
+    errors += "Please select one of the types from the Type dropdown box\n";
+  }
+
+  if ($.inArray(inpObject.rating, validRatings) <= -1) {
+    errors += "Please select one of the ratings from the Rating dropdown box\n";
+  }
+
+  var array;
+
+  switch (inpObject.type) {
+    case 'Book' : array = bookGenres;  break;
+    case 'Movie': array = movieGenres; break;
+    case 'Music': array = musicGenres; break;
+  }
+
+  if ($.inArray(inpObject.genre, array) <= -1) {
+    errors += "Please select one of the genres from the Genre dropdown box\n";
+  }
+
+  var yearRegex = /(^\d{4}$)/;
+  var year;
+  var result = inpObject.year.match(yearRegex);
+  var yrMsg = "Year must be a four-digit integer >= 1440 and <= " 
+               + currentYear + "\n";
+
+  if (result === null) {
+    errors += yrMsg;
+  } else {
+      year = parseInt(result[1], 10);
+      if ((year < 1440) || (year > currentYear)) {
+        errors += yrMsg;
+      }
+  }
+
+  // Note: this allows the quantity to be zero (which may sometimes
+  //       be necessary? e.g. not in stock yet)
+  var intRegex = /^\d+$/;
+  if (intRegex.test(inpObject.quantity) === false) {
+    errors += "Quantity must be a non-negative integer\n";
+  }
+
+  // Note: this allows Time Limit to be zero,
+  // e.g. item is in stock but is not currently available for lending
+  if (intRegex.test(inpObject.time_limit) === false) {
+    errors += "Time Limit must be a non-negative integer\n";
+  }
+
+  var moneyRegex = /^\d+\.\d{2}$/;
+  if (moneyRegex.test(inpObject.cost) === false) {
+    errors += "Cost must be in the format d.dd\n";
+  }
+
+  if (errors.length > 0) {
+    // remove any previous text from the message area
+    $('#messages').text();
+    $('#messages').text(errors);
+  }
+
+  return (errors.length > 0) ? false : true;
+}
