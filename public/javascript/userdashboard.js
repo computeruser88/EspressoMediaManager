@@ -252,6 +252,8 @@ $(document).ready(function () {
 
     }
 
+    //Creates a rental history record
+    console.log("Program reaches here"); //DEBUG
     function createHistoryRow(record) {
         var newRecord = $("<div>");
         newRecord.addClass("card");
