@@ -153,7 +153,6 @@ function readyFunc() {
     $(".modal-card-title").html("Synopsis");
   }); */
 
-
   $("#signup-button").on("click", function () {
     $("#signup-modal").addClass("is-active");
     $(".modal-card-title").html("Sign up");
@@ -168,6 +167,7 @@ function readyFunc() {
   $(".cancel-button").on("click", function () {
     $(".modal").removeClass("is-active");
   });
+
 
   $("#signup-save-button").on("click", function () {
     userName = $("#signup-userName").val().trim();
@@ -285,6 +285,14 @@ function fetchData() {
   });
 }
 
+//Function for synopsis view
+/*
+function synopsisView(){
+
+}
+
+*/
+
 function backNextToggle() {
   if (offset == 0) {
     $('#back-link').hide();
@@ -314,6 +322,16 @@ function createRow(record) {
   name.text(record.name);
   newRow.append(name);
 
+
+  
+  //Adding synopsis in public view
+  //var synposisHeader =$("<td>");
+
+  //var synopsistBtn = $("<td>","<button>");
+  //synopsisBtn.text("SYNOPSIS");
+  //synopsisBtn.addClass("synopsis btn btn-info");
+  //newRow.append(synopsisBtn);
+
   var type = $("<td>");
   type.text(record.type);
   newRow.append(type);
@@ -336,6 +354,58 @@ function createRow(record) {
 
   newRow.data("record", record);
   return newRow;
+}
+//Static modals
 
+/*
+// Synopsis Modal
+var modal = document.getElementById('myModal');
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+*/
+/*
+
+//first
+var modal1 = document.getElementById('myModal1');
+var btn1 = document.getElementsById("myBtn1");
+var span1 = document.getElementsByClassName("close")[0];
+btn1.onclick = function() {
+    modal1.style.display = "block";
+}
+span1.onclick = function() {
+    modal1.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal1) {
+        modal1.style.display = "none";
+    }
 }
 
+//second
+var modal2 = document.getElementById('myModal2');
+var btn2 = document.getElementsById("myBtn1");
+var span2 = document.getElementsByClassName("close")[0];
+btn2.onclick = function() {
+    modal2.style.display = "block";
+}
+span.onclick = function() {
+    modal2.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal2) {
+        modal2.style.display = "none";
+    }
+}
+
+*/
