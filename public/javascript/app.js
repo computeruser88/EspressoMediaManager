@@ -91,6 +91,8 @@ function readyFunc() {
   inputs.limit = limit;
 
   fetchData("/public",inputs);
+
+  $(document).on("click", "button.synopsis", synopsisView);
   //Search button logic 
 
   $("#search").on('click', function (e) {
@@ -148,7 +150,7 @@ function readyFunc() {
   // modal controls
 
   // synposis button near sign up
-  $("#synopsis-button").on("click", function () {
+  /*$("#synopsis-button").on("click", function () {
     console.log("synopsis button clicked!");
     var currentRecord = $(this)
             .parent()
@@ -157,9 +159,12 @@ function readyFunc() {
      $("#synopsis-modal").addClass("is-active");
      $(".modal-card-title").html("Synopsis");
      
-   }); 
+   }); */
+
+
 
   $("#signup-button").on("click", function () {
+    console.log("signup-button clicked");
     $("#signup-modal").addClass("is-active");
     $(".modal-card-title").html("Sign up");
   });
@@ -290,7 +295,15 @@ function readyFunc() {
   //Function for synopsis view
   
   function synopsisView(){
-
+    console.log("synopsis button clicked");
+    var currentRecord = $(this)
+            .parent()
+            .data("record");
+        console.log(currentRecord);
+        //currentRecord.name will give you the name of the media 
+     $("#synopsis-modal").addClass("is-active");
+     $("#movie-synopsis").text("Movie Synopsis for " + currentRecord.name);
+     $(".modal-card-title").html("Synopsis");
   }
 
   
@@ -327,7 +340,7 @@ function readyFunc() {
     //Adding synopsis in public view
     var synposisHeader =$("<td>");
 
-    var synopsisBtn = $("<td>","<button>");
+    var synopsisBtn = $("<button>");
     synopsisBtn.text("SYNOPSIS");
     synopsisBtn.attr("id","synopsis-button")
     synopsisBtn.addClass("synopsis btn btn-info");
