@@ -57,16 +57,16 @@ module.exports = function(app) {
         });
     });
 
-    app.get("/search/:name/:type", function(req,res) {
-        if(!req.params.name){
+    app.get("/search", function(req,res) {
+        if(!req.query.name){
             throw "search parameter name is not defined";
         }
         var query = {
             name : {
-                [db.Op.like] : "%"+req.params.name+"%"
+                [db.Op.like] : "%"+req.query.name+"%"
             }
         };
-        var type = req.params.type;
+        var type = req.query.type;
         if(type &&  (type.toLowerCase() =="book" || type.toLowerCase() == "movie" || type.toLowerCase() =="music") ){
             query.type = type;
         }
@@ -152,16 +152,28 @@ module.exports = function(app) {
         //this post API should only be called after it's been confirmed that there's no existing user with this input email
         //input should come from form body
         //console.log(req.body);
+        /*db.User.create(req.body).on('success',function(dbUser){
+            res.json(dbUser);
+        }).on('failure',function(result){
+            console.log("error occured while creating new user");
+            throw "error occured while creating a new user";    
+        });*/
+
         db.User.create(req.body).then(function(dbUser) {
-            console.log(dbUser);
+            console.log("dbUser: " + dbUser);
             if(dbUser){
                 res.json(dbUser);
             }
             else{
                 console.log("error occured while creating new user");
-                throw "error occured while creating a new user";
+                //throw "error occured while creating a new user";
             }
             
+        }).catch(db.Sequelize.ValidationError, function (err) {
+            console.log("validation error");
+            console.log(err);
+            //throw "error occured while creating a new user : " + err;
+            res.status(400).send('User already exists');
         });
     });
 
