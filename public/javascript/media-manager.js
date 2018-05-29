@@ -1,6 +1,12 @@
 $(document).ready(readyFunc);
 var adminMedia = $(".admin-media");
 var currentUrl = window.location.href.split("/");
+
+// Disable the Delete radio button until deleteMedia() is implemented
+// [Note: also remove style="color : #A0A0A0" from the button text
+//        once deleteMedia() is implemented.]
+$('#delete').attr('disabled', true);
+
 // list of literary genres
 const bookGenres =
   [
@@ -456,6 +462,24 @@ function validateFormInputs(inpObject) {
   //       characters, and the inclusion of accented characters
   //       from languages other than English.
 
+/*  
+  // Try using Unicode properties to specify the allowable characters in a Media Name
+  // or Artist Name
+  var reMedArtName = 
+    /^[\p{Letter}\p{Mark}\p{Space_Separator}\p{Symbol}\p{Number}\p{Punctuation}]$/u;
+
+  const invalidUnicode = 
+    " contains one or more Unicode characters that are not\n"
+  + " acceptable in a name. Please check your input.\n";
+
+  if (!reMedArtName.test(inpObject.name) === false) {
+    errors += "Media Name" + invalidUnicode;
+  }
+
+  if (!reMedArtName.test(inpObject.artist) === false) {
+    errors += "Artist Name" + invalidUnicode;
+  }
+*/
   // The values from the <select> elements should always be valid,
   // unless some sort of hacking event has occurred
 
