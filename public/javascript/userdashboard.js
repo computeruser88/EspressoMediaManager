@@ -14,7 +14,7 @@ $(document).ready(function () {
     var userAvailableMedia = $(".user-available-media");
     var helloUser = $("#hello-user");
 
-    // Click events for the checkout and return buttons
+    // Click events for the checkout and return button
     $(document).on("click", "button.checkout", handleCheckout);
     $(document).on("click", "button.return", handleReturn);
     $(document).on("click", "button.review", reviewPost);
@@ -316,7 +316,7 @@ $(document).ready(function () {
     }
 
     function checkoutMedia(email, id) {
-        console.log("returnMedia - email: " + email + " id: " + id);
+        console.log("checkout - email: " + email + " id: " + id);
         $.ajax({
             method: "GET",
             url: "/user-checkout-media/" + email + "/" + id
