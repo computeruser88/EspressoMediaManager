@@ -55,10 +55,14 @@ module.exports = function(app) {
                 type : "user"
             },
             include: [{
-                model: db.Transaction
-                //group: ['MediumId'],
-                //attributes: ['UserEmail', [db.sequelize.fn('COUNT', 'MediumId'), 'MediaCount']],
+                model: db.Transaction,
+                required: false,
+                where : {
+                    returned_date : null
+                },
+                attributes: ['UserEmail',[db.Sequelize.fn('COUNT', 'id'), 'TransactionCount']],
               }],
+            group: ['UserEmail'],
             order : [
                 ['balance','DESC'],
                 ['name','ASC']
