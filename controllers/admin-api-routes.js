@@ -21,9 +21,9 @@ module.exports = function(app) {
                 id : mediaId
             }
         }).then(function(obj){
-            console.log(JSON.stringify(obj));
+            //console.log(JSON.stringify(obj));
             if(obj) {
-                console.log("Media exists. Let's update these quantity and time_limit fields");
+                //console.log("Media exists. Let's update these quantity and time_limit fields");
                 if(quantity) {
                     obj.update(
                         {quantity : quantity}

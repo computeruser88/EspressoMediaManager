@@ -94,6 +94,7 @@ $(document).ready(function () {
 
     function initRows(tableHeaderClass, tableClass, data, headerRowFunc, newRowFunc) {
         tableClass.empty();
+        tableClass.tablesorter();
         tableHeaderClass.empty();
         var recordsToAdd = [];
         tableHeaderClass.append(headerRowFunc());
@@ -103,7 +104,7 @@ $(document).ready(function () {
         //var tbody = $("<tbody>");
         //tbody.append(recordsToAdd);
         tableClass.append(recordsToAdd);
-        // userDashboardTable.tablesorter();
+
     }
 
     function createAvailableHeaderRow() {
