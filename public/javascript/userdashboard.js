@@ -36,8 +36,8 @@ $(document).ready(function () {
     getAvailableRecords(email);
     getRecords(email);
     getHistoricalRecords(email);
-    
- 
+
+
 
     function getUserName(email) {
         $.get("/public/check-email/" + email, function (data) {
@@ -54,8 +54,8 @@ $(document).ready(function () {
             console.log(data);
             if (data)
                 //initializeHistoricalRows(data);
-                initRows(userHistoryHeader,userHistory, data, createHistoricalHeaderRow, createHistoryRow);
-
+                initRows(userHistoryHeader, userHistory, data, createHistoricalHeaderRow, createHistoryRow);
+                $("#user-history").trigger("update");
         });
     }
 
@@ -65,7 +65,8 @@ $(document).ready(function () {
         $.get("/user-dashboard/" + email, function (data) {
             if (data)
                 //initializeRows(data);
-                initRows(userDashboardHeader,userDashboard, data, createHeaderRow, createNewRow);
+                initRows(userDashboardHeader, userDashboard, data, createHeaderRow, createNewRow);
+                $("#user-history").trigger("update");
         });
     }
 
@@ -74,11 +75,12 @@ $(document).ready(function () {
         $.get("/user-available-media/" + email, function (data) {
             console.log(data);
             if (data)
-                initRows(userAvailableMediaHeader,userAvailableMedia, data, createAvailableHeaderRow, createAvailableRow);
+                initRows(userAvailableMediaHeader, userAvailableMedia, data, createAvailableHeaderRow, createAvailableRow);
+                $("#user-available-media").trigger("update");
         });
     }
 
-    function initRows(tableHeaderClass,tableClass, data, headerRowFunc, newRowFunc) {
+    function initRows(tableHeaderClass, tableClass, data, headerRowFunc, newRowFunc) {
         tableClass.empty();
         tableHeaderClass.empty();
         var recordsToAdd = [];
@@ -94,8 +96,7 @@ $(document).ready(function () {
 
     function createAvailableHeaderRow() {
         var row = $("<tr>");
-        var placeholder = $("<th>");
-        row.append(placeholder);
+       
 
         var name = $("<th>");
         name.text("Name");
@@ -116,6 +117,10 @@ $(document).ready(function () {
         var year = $("<th>");
         year.text("Release Year");
         row.append(year);
+
+        var placeholder = $("<th>");
+        row.append(placeholder);
+
         return row;
 
     }
@@ -131,7 +136,7 @@ $(document).ready(function () {
 
         var newRecordRow = $("<tr>");
         // newRecordRow.append(synopsisBtn);
-        newRecordRow.append(checkoutBtn);
+     
 
         var Name = $("<td>");
         Name.text(record.name);
@@ -149,16 +154,14 @@ $(document).ready(function () {
         newRecordRow.append(Genre);
         newRecordRow.append(Rating);
         newRecordRow.append(ReleaseYear);
-
+        newRecordRow.append(checkoutBtn);
         newRecordRow.data("record", record);
         return newRecordRow;
     }
 
     function createHeaderRow() {
         var row = $("<tr>");
-        var placeholder = $("<th>");
-        row.append(placeholder);
-
+   
         var name = $("<th>");
         name.text("Name");
         row.append(name);
@@ -183,6 +186,8 @@ $(document).ready(function () {
         year.text("Release Year");
         row.append(year);
         //thead.append(row);
+        var placeholder = $("<th>");
+        row.append(placeholder);
 
         return row;
 
@@ -199,7 +204,7 @@ $(document).ready(function () {
         returnBtn.addClass("return btn btn-info");
 
         var newRecordRow = $("<tr>");
-        newRecordRow.append(returnBtn);
+   
 
         var Name = $("<td>");
         Name.text(record.Medium.name);
@@ -220,15 +225,13 @@ $(document).ready(function () {
         newRecordRow.append(Genre);
         newRecordRow.append(Rating);
         newRecordRow.append(ReleaseYear);
-
+        newRecordRow.append(returnBtn);
         newRecordRow.data("record", record);
         return newRecordRow;
     }
 
     function createHistoricalHeaderRow() {
         var row = $("<tr>");
-        var placeholder = $("<th>");
-        row.append(placeholder);
 
         var name = $("<th>");
         name.text("Name");
@@ -258,6 +261,9 @@ $(document).ready(function () {
         year.text("Release Year");
         row.append(year);
 
+        var placeholder = $("<th>");
+        row.append(placeholder);
+
         return row;
 
     }
@@ -285,7 +291,6 @@ $(document).ready(function () {
             });
           */
         var newRecordRow = $("<tr>");
-        newRecordRow.append(reviewBtn);
 
         var Name = $("<td>");
         Name.text(record.Medium.name);
@@ -309,7 +314,7 @@ $(document).ready(function () {
         newRecordRow.append(Genre);
         newRecordRow.append(Rating);
         newRecordRow.append(ReleaseYear);
-
+        newRecordRow.append(reviewBtn);
         newRecordRow.data("record", record);
         return newRecordRow;
     }
