@@ -254,7 +254,7 @@ function createNewRow(record) {
   newRecordRow.append(time_limit);
 
   var cost = $("<td>");
-  cost.text(record.cost);
+  cost.text("$"+record.cost);
   newRecordRow.append(cost);
 
   newRecordRow.data("record", record);

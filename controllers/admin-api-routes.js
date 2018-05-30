@@ -54,6 +54,15 @@ module.exports = function(app) {
             where: { 
                 type : "user"
             },
+            include: [{
+                model: db.Transaction,
+                required: false,
+                where : {
+                    returned_date : null
+                },
+                attributes: ['UserEmail',[db.Sequelize.fn('COUNT', 'id'), 'TransactionCount']],
+              }],
+            group: ['UserEmail'],
             order : [
                 ['balance','DESC'],
                 ['name','ASC']

@@ -6,14 +6,17 @@ $(document).ready(function () {
     var email = currentUrl.pop();
     //console.log(id);
     console.log(email);
-    $("#user-available-media, #user-dashboard, #user-history").tablesorter();
+    $('table').tablesorter();
     // userDashboard holds all of our records
     var userDashboard = $(".user-dashboard");
+    var userDashboardHeader = $(".user-dashboard-header");
     var userHistory = $(".user-history");
+    var userHistoryHeader = $(".user-history-header");
     var userAvailableMedia = $(".user-available-media");
+    var userAvailableMediaHeader = $(".user-available-media-header");
     var helloUser = $("#hello-user");
 
-    // Click events for the checkout and return buttons
+    // Click events for the checkout and return button
     $(document).on("click", "button.checkout", handleCheckout);
     $(document).on("click", "button.return", handleReturn);
     $(document).on("click", "button.review", reviewPost);
@@ -51,7 +54,7 @@ $(document).ready(function () {
             console.log(data);
             if (data)
                 //initializeHistoricalRows(data);
-                initRows(userHistory, data, createHistoricalHeaderRow, createHistoryRow);
+                initRows(userHistoryHeader,userHistory, data, createHistoricalHeaderRow, createHistoryRow);
 
         });
     }
@@ -62,7 +65,7 @@ $(document).ready(function () {
         $.get("/user-dashboard/" + email, function (data) {
             if (data)
                 //initializeRows(data);
-                initRows(userDashboard, data, createHeaderRow, createNewRow);
+                initRows(userDashboardHeader,userDashboard, data, createHeaderRow, createNewRow);
         });
     }
 
@@ -71,25 +74,25 @@ $(document).ready(function () {
         $.get("/user-available-media/" + email, function (data) {
             console.log(data);
             if (data)
-                initRows(userAvailableMedia, data, createAvailableHeaderRow, createAvailableRow);
+                initRows(userAvailableMediaHeader,userAvailableMedia, data, createAvailableHeaderRow, createAvailableRow);
         });
     }
 
-    function initRows(tableClass, data, headerRowFunc, newRowFunc) {
+    function initRows(tableHeaderClass,tableClass, data, headerRowFunc, newRowFunc) {
         tableClass.empty();
+        tableHeaderClass.empty();
         var recordsToAdd = [];
-        tableClass.append(headerRowFunc());
+        tableHeaderClass.append(headerRowFunc());
         for (var i = 0; i < data.length; i++) {
             recordsToAdd.push(newRowFunc(data[i]));
         }
-        var tbody = $("<tbody>");
-        tbody.append(recordsToAdd);
-        tableClass.append(tbody);
-        $(tableClass).tablesorter();
+        //var tbody = $("<tbody>");
+        //tbody.append(recordsToAdd);
+        tableClass.append(recordsToAdd);
+        tableClass.tablesorter();
     }
 
     function createAvailableHeaderRow() {
-        var thead = $("<thead>")
         var row = $("<tr>");
         var placeholder = $("<th>");
         row.append(placeholder);
@@ -113,8 +116,7 @@ $(document).ready(function () {
         var year = $("<th>");
         year.text("Release Year");
         row.append(year);
-        thead.append(row);
-        return thead;
+        return row;
 
     }
 
@@ -153,7 +155,6 @@ $(document).ready(function () {
     }
 
     function createHeaderRow() {
-        var thead = $("<thead>");
         var row = $("<tr>");
         var placeholder = $("<th>");
         row.append(placeholder);
@@ -181,9 +182,9 @@ $(document).ready(function () {
         var year = $("<th>");
         year.text("Release Year");
         row.append(year);
-        thead.append(row);
+        //thead.append(row);
 
-        return thead;
+        return row;
 
     }
     // This function constructs a a record's row
@@ -225,7 +226,6 @@ $(document).ready(function () {
     }
 
     function createHistoricalHeaderRow() {
-        var thead = $("<thead>");
         var row = $("<tr>");
         var placeholder = $("<th>");
         row.append(placeholder);
@@ -257,9 +257,8 @@ $(document).ready(function () {
         var year = $("<th>");
         year.text("Release Year");
         row.append(year);
-        thead.append(row);
 
-        return thead;
+        return row;
 
     }
 
@@ -325,7 +324,7 @@ $(document).ready(function () {
     }
 
     function checkoutMedia(email, id) {
-        console.log("returnMedia - email: " + email + " id: " + id);
+        console.log("checkout - email: " + email + " id: " + id);
         $.ajax({
             method: "GET",
             url: "/user-checkout-media/" + email + "/" + id

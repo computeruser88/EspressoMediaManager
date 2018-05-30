@@ -51,9 +51,55 @@
         <div>
             <h5>Available for Rent</h5>
         </div>
-        <table class="table user-available-media tablesorter" id="user-available-media">
-            <thead></thead>
-            <tbody></tbody>
+        <table class="table  tablesorter" id="user-available-media">
+            <thead class="user-available-media-header">
+                    <tr="heading">
+                            <th id="Medianame">
+                                <span>Name</span>
+                            </th>
+                            
+                            <th id="Synopsis">
+                                <span>Synopsis</span>
+                            </th>
+                            <th id="Media Type">
+                                <span>Media Type</span>
+                            </th>
+                            <th id="Genre">
+                                <span>Genre</span>
+                            </th>
+                            <th id="Rating">
+                                <span>Rating</span>
+                            </th>
+                            <th id="Release Year">
+                                <span>Year</span>
+                            </th>
+                            <th id="Artist">
+                                <span>Artist</span>
+                            </th>
+            </thead>
+            <tbody class="user-available-media">
+                    <tr>
+                            <td class="Medianame">Harry Potter and the Deathly Hallows</td>
+                            <!-- Open Synopsis Modal -->
+                            <td>
+                                <button id="myBtn">SYNOPSIS</button>
+                                <!-- Synopsis Modal -->
+                                <div id="myModal" class="modal">
+                                    <!-- Modal Content -->
+                                    <div class="modal-content">
+                                        <span class="close">&times;</span>
+                                        <p id="synopsis"></p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="Media Type">Books</td>
+                            <td class="Genre">Children's Books</td>
+                            <td class="Rating">4.99</td>
+                            <td class="Release Year">2007</td>
+                            <td class="Time-Limit">05-25-2018</td>
+                            <!--<td class="Cost">0.00</td>-->
+                        </tr>
+            </tbody>
         </table>
         <br>
         <br>
@@ -63,9 +109,9 @@
         <div>
             <h5>Currently checked out</h5>
         </div>
-        <table class="table user-dashboard tablesorter" id="user-dashboard">
-            <thead></thead>
-            <tbody></tbody>
+        <table class="table tablesorter" id="user-dashboard">
+            <thead class="user-dashboard-header"></thead>
+            <tbody class="user-dashboard"></tbody>
         </table>
     </div>
 
@@ -75,9 +121,9 @@
             <br>
             <h5>Rental History</h5>
         </div>
-        <table class="table user-history tablesorter" id="user-history">
-            <thead></thead>
-            <tbody></tbody>
+        <table class="table tablesorter" id="user-history">
+            <thead class="user-history-header"></thead>
+            <tbody class="user-history"></tbody>
         </table>
     </div>
     <footer class="footer">
