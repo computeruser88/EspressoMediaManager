@@ -25,5 +25,6 @@
     "path": "^0.12.7",
     "sequelize": "^4.37.9",
     "tablesorter": "^2.30.4"
-  }
+  },
+  "devDependencies": {}
 }
