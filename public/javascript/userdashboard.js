@@ -119,6 +119,7 @@ $(document).ready(function () {
         row.append(year);
 
         var placeholder = $("<th>");
+        placeholder.text("Checkout");
         row.append(placeholder);
 
         return row;
@@ -187,6 +188,7 @@ $(document).ready(function () {
         row.append(year);
         //thead.append(row);
         var placeholder = $("<th>");
+        placeholder.text("Return");
         row.append(placeholder);
 
         return row;
@@ -262,6 +264,7 @@ $(document).ready(function () {
         row.append(year);
 
         var placeholder = $("<th>");
+        placeholder.text("Review");        
         row.append(placeholder);
 
         return row;
