@@ -111,7 +111,11 @@ $(document).ready(function () {
         var email = $("<td>");
         email.text(record.email);
         var count = $("<td>");
-        count.text(0);
+        var cnt = 0;
+        if(record.Transactions.length > 0){
+            cnt = record.Transactions[0].TransactionCount;
+        }
+        count.text(cnt);
         var balance = $("<td>");
         balance.text(record.balance);
 

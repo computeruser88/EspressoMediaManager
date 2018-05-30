@@ -169,11 +169,13 @@ module.exports = function(app) {
   app.get("/user-return-media/:email/:mediaId", function(req,res) {
     var email = req.params.email;
     var mediaId = req.params.mediaId;
+    console.log("**********************/user-return-media/ for email : " + email + " and media ID: " + mediaId);
 
     db.Transaction.findOne({
       where : {
         UserEmail: email,
-        MediumId : mediaId
+        MediumId : mediaId,
+        returned_date : null
       }
     }).then(function(obj) {
       if(obj) {
