@@ -2,12 +2,11 @@ $(document).ready(function () {
 
     /* global moment */
     //var email ="janedoe@gmail.com";
-
     var currentUrl = window.location.href.split("/");
     var email = currentUrl.pop();
     //console.log(id);
     console.log(email);
-
+    $("#user-available-media, #user-dashboard, #user-history").tablesorter();
     // userDashboard holds all of our records
     var userDashboard = $(".user-dashboard");
     var userHistory = $(".user-history");
@@ -20,7 +19,6 @@ $(document).ready(function () {
     $(document).on("click", "button.review", reviewPost);
     // Variable to hold our records
     var records;
-
     // logout button
     $("#logout-button").on("click", function () {
         console.log("currentUrl: " + currentUrl);
@@ -35,6 +33,8 @@ $(document).ready(function () {
     getAvailableRecords(email);
     getRecords(email);
     getHistoricalRecords(email);
+    
+ 
 
     function getUserName(email) {
         $.get("/public/check-email/" + email, function (data) {
@@ -52,6 +52,7 @@ $(document).ready(function () {
             if (data)
                 //initializeHistoricalRows(data);
                 initRows(userHistory, data, createHistoricalHeaderRow, createHistoryRow);
+
         });
     }
 
@@ -81,10 +82,14 @@ $(document).ready(function () {
         for (var i = 0; i < data.length; i++) {
             recordsToAdd.push(newRowFunc(data[i]));
         }
-        tableClass.append(recordsToAdd);
+        var tbody = $("<tbody>");
+        tbody.append(recordsToAdd);
+        tableClass.append(tbody);
+        $(tableClass).tablesorter();
     }
 
     function createAvailableHeaderRow() {
+        var thead = $("<thead>")
         var row = $("<tr>");
         var placeholder = $("<th>");
         row.append(placeholder);
@@ -108,8 +113,8 @@ $(document).ready(function () {
         var year = $("<th>");
         year.text("Release Year");
         row.append(year);
-
-        return row;
+        thead.append(row);
+        return thead;
 
     }
 
@@ -117,13 +122,13 @@ $(document).ready(function () {
     function createAvailableRow(record) {
         var newRecord = $("<div>");
         newRecord.addClass("card");
-    
+
         var checkoutBtn = $("<button>");
         checkoutBtn.text("CHECKOUT");
         checkoutBtn.addClass("checkout btn btn-info");
 
         var newRecordRow = $("<tr>");
-       // newRecordRow.append(synopsisBtn);
+        // newRecordRow.append(synopsisBtn);
         newRecordRow.append(checkoutBtn);
 
         var Name = $("<td>");
@@ -148,6 +153,7 @@ $(document).ready(function () {
     }
 
     function createHeaderRow() {
+        var thead = $("<thead>");
         var row = $("<tr>");
         var placeholder = $("<th>");
         row.append(placeholder);
@@ -175,8 +181,9 @@ $(document).ready(function () {
         var year = $("<th>");
         year.text("Release Year");
         row.append(year);
+        thead.append(row);
 
-        return row;
+        return thead;
 
     }
     // This function constructs a a record's row
@@ -218,6 +225,7 @@ $(document).ready(function () {
     }
 
     function createHistoricalHeaderRow() {
+        var thead = $("<thead>");
         var row = $("<tr>");
         var placeholder = $("<th>");
         row.append(placeholder);
@@ -249,8 +257,9 @@ $(document).ready(function () {
         var year = $("<th>");
         year.text("Release Year");
         row.append(year);
+        thead.append(row);
 
-        return row;
+        return thead;
 
     }
 
@@ -266,16 +275,16 @@ $(document).ready(function () {
         var reviewBtn = $("<button>");
         reviewBtn.text("Write Review");
         reviewBtn.addClass("review btn btn-info");
-        reviewBtn.attr("id","reviewBtn");
+        reviewBtn.attr("id", "reviewBtn");
 
 
         //Review button modal pop up functionality
-      /*  
-        $("#reviewbtn").on("click", function () {
-            $("#review-modal").addClass("is-active");
-            $(".modal-card-title").html("Write a review");
-          });
-        */
+        /*  
+          $("#reviewbtn").on("click", function () {
+              $("#review-modal").addClass("is-active");
+              $(".modal-card-title").html("Write a review");
+            });
+          */
         var newRecordRow = $("<tr>");
         newRecordRow.append(reviewBtn);
 
@@ -326,6 +335,7 @@ $(document).ready(function () {
 
             getAvailableRecords(email);
             getRecords(email);
+            $("table").trigger("update");
             //getHistoricalRecords(email);
             //window.location.href = "/user-view/"+email;
             //window.location.reload();
@@ -340,6 +350,7 @@ $(document).ready(function () {
             .data("record");
         console.log(currentRecord);
         returnMedia(email, currentRecord.Medium.id);
+        $("table").trigger("update");
         //window.location.href = "/user-return-media/"+email+"/" + currentRecord.Medium.id;
     }
 
@@ -355,6 +366,8 @@ $(document).ready(function () {
             getAvailableRecords(email);
             getRecords(email);
             getHistoricalRecords(email);
+            $("table").trigger("update");
+
             //window.location.href = "/user-view/"+email;
             //window.location.reload();
             //getPosts(postCategorySelect.val());
@@ -370,7 +383,7 @@ $(document).ready(function () {
         console.log("reviewPost function");
         console.log(currentRecord);
         $("#review-modal").addClass("is-active");
-        $("#review-text").attr("placeholder","Write your review for " + currentRecord.Medium.name + " here");
+        $("#review-text").attr("placeholder", "Write your review for " + currentRecord.Medium.name + " here");
 
         $("#review-submit-button").on("click", function () {
             writeReview(email, currentRecord.Medium.id);
@@ -384,26 +397,26 @@ $(document).ready(function () {
         $(".close-review").on("click", function () {
             $("#review-modal").removeClass("is-active");
         });
-        
-        
+
+
     }
 
-        // This function figures out which post we want to checkout and then calls checkout
-        $(".reviewbtn").click(reviewPost);
-    
-        function writeReview(email, id) {
-            console.log("write review for Media - email: " + email + " id: " + id);
-            $.ajax({
-                method: "GET",
-                url: "/user-writereview-media/" + email + "/" + id
-            }).then(function (result) {
-                console.log(result);
-                console.log("refresh page after review is written");
-    
-                getAvailableRecords(email);
-                getRecords(email);
-            });
-        }
+    // This function figures out which post we want to checkout and then calls checkout
+    $(".reviewbtn").click(reviewPost);
+
+    function writeReview(email, id) {
+        console.log("write review for Media - email: " + email + " id: " + id);
+        $.ajax({
+            method: "GET",
+            url: "/user-writereview-media/" + email + "/" + id
+        }).then(function (result) {
+            console.log(result);
+            console.log("refresh page after review is written");
+
+            getAvailableRecords(email);
+            getRecords(email);
+        });
+    }
 
     // This function displays a message when there are no records
     function displayEmpty(id) {
