@@ -31,13 +31,13 @@ function findAllCheckedOutMedia(email,cb,anotherCb){
         model: db.Media, attributes: mediaAttributes
       }]
     }).then(function(dbMediaTransaction) {
-      console.log(JSON.parse(JSON.stringify(dbMediaTransaction)));
+     // console.log(JSON.parse(JSON.stringify(dbMediaTransaction)));
       var results = JSON.parse(JSON.stringify(dbMediaTransaction));
       var checkedOutMediaIds = [];
       for(i = 0;i < results.length; i++){
         checkedOutMediaIds.push(results[i].Medium.id);
       }
-      console.log("checkedOutMediaIds: " + checkedOutMediaIds);
+      //console.log("checkedOutMediaIds: " + checkedOutMediaIds);
       if(anotherCb){
         cb(email,checkedOutMediaIds,function(data){
           anotherCb(data);
@@ -111,7 +111,7 @@ module.exports = function(app) {
     //make sure media quantity is greater than
     var email = req.params.email;
     //findAll(email,availableMedia);
-    console.log("/user-available-media/:email route API");
+    //console.log("/user-available-media/:email route API");
     findAllCheckedOutMedia(email,findAvailableMedia,function(data){
       res.json(data);
     });
@@ -145,7 +145,7 @@ module.exports = function(app) {
             UserEmail : email,
             MediumId : mediaId
           }).then(function(dbTransaction) {
-            console.log("new transaction created: " + JSON.stringify(dbTransaction));
+            //console.log("new transaction created: " + JSON.stringify(dbTransaction));
             //update media quantity
             db.Media.decrement('quantity', { where :
               {id : mediaId}
@@ -172,7 +172,7 @@ module.exports = function(app) {
   app.get("/user-return-media/:email/:mediaId", function(req,res) {
     var email = req.params.email;
     var mediaId = req.params.mediaId;
-    console.log("**********************/user-return-media/ for email : " + email + " and media ID: " + mediaId);
+    //console.log("**********************/user-return-media/ for email : " + email + " and media ID: " + mediaId);
 
     db.Transaction.findOne({
       where : {
@@ -183,11 +183,11 @@ module.exports = function(app) {
     }).then(function(obj) {
       if(obj) {
         //console.log(JSON.stringify(obj));
-        console.log("Transaction exists already for this email: " + email + " and for Media ID: " + mediaId);
+        //console.log("Transaction exists already for this email: " + email + " and for Media ID: " + mediaId);
         obj.update({
           returned_date: Date.now() 
         }).then(function(result) {
-          console.log("Returned media by setting returned_date value. Now update media's quantity");
+          //console.log("Returned media by setting returned_date value. Now update media's quantity");
           db.Media.increment('quantity', { where :
             {id : mediaId}
           }).then(function(dbMedia) {
@@ -198,8 +198,8 @@ module.exports = function(app) {
         })
       }
       else{
-        console.log("transaction does not exist for User Email: " + email + " and for Media ID: " + mediaId);
-        console.log("nothing to return");
+        //console.log("transaction does not exist for User Email: " + email + " and for Media ID: " + mediaId);
+        //console.log("nothing to return");
         res.redirect("/user-view/"+email);
       }
     });
