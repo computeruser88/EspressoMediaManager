@@ -6,7 +6,7 @@ $(document).ready(function () {
     var email = currentUrl.pop();
     //console.log(id);
     console.log(email);
-    $('table').tablesorter();
+
     // userDashboard holds all of our records
     var userDashboard = $(".user-dashboard");
     var userDashboardHeader = $(".user-dashboard-header");
@@ -15,6 +15,9 @@ $(document).ready(function () {
     var userAvailableMedia = $(".user-available-media");
     var userAvailableMediaHeader = $(".user-available-media-header");
     var helloUser = $("#hello-user");
+    var userDashboardTable = $("#user-dashboard");
+    var userHistoryTable = $("#user-history");
+    var userAvailableMediaTable = $("#user-available-media");
 
     // Click events for the checkout and return button
     $(document).on("click", "button.checkout", handleCheckout);
@@ -55,7 +58,10 @@ $(document).ready(function () {
             if (data)
                 //initializeHistoricalRows(data);
                 initRows(userHistoryHeader, userHistory, data, createHistoricalHeaderRow, createHistoryRow);
-                $("#user-history").trigger("update");
+                // userDashboardTable.trigger("update");
+                userHistoryTable.tablesorter();
+                userHistoryTable.trigger("update");
+                // userAvailableMediaTable.trigger("update");
         });
     }
 
@@ -66,7 +72,10 @@ $(document).ready(function () {
             if (data)
                 //initializeRows(data);
                 initRows(userDashboardHeader, userDashboard, data, createHeaderRow, createNewRow);
-                $("#user-dashboard").trigger("update");
+                userDashboardTable.tablesorter();
+                userDashboardTable.trigger("update");
+                // userHistoryTable.trigger("update");
+                // userAvailableMediaTable.trigger("update");
         });
     }
 
@@ -76,7 +85,10 @@ $(document).ready(function () {
             console.log(data);
             if (data)
                 initRows(userAvailableMediaHeader, userAvailableMedia, data, createAvailableHeaderRow, createAvailableRow);
-                $("#user-available-media").trigger("update");
+                // userDashboardTable.trigger("update");
+                // userHistoryTable.trigger("update");
+                userAvailableMediaTable.tablesorter();
+                userAvailableMediaTable.trigger("update");
         });
     }
 
@@ -91,7 +103,7 @@ $(document).ready(function () {
         //var tbody = $("<tbody>");
         //tbody.append(recordsToAdd);
         tableClass.append(recordsToAdd);
-        tableClass.tablesorter();
+        // userDashboardTable.tablesorter();
     }
 
     function createAvailableHeaderRow() {
