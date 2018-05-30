@@ -66,7 +66,7 @@ $(document).ready(function () {
             if (data)
                 //initializeRows(data);
                 initRows(userDashboardHeader, userDashboard, data, createHeaderRow, createNewRow);
-                $("#user-history").trigger("update");
+                $("#user-dashboard").trigger("update");
         });
     }
 
