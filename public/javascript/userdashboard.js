@@ -332,18 +332,30 @@ $(document).ready(function () {
         console.log("checkout - email: " + email + " id: " + id);
         $.ajax({
             method: "GET",
-            url: "/user-checkout-media/" + email + "/" + id
-        }).then(function (result) {
-            console.log(result);
-            console.log("refresh page after checkoutMedia");
+            url: "/user-checkout-media/" + email + "/" + id,
+            success: function (data, text) {
+                console.log("refresh page after checkoutMedia");
+                getAvailableRecords(email);
+                getRecords(email);
+                $("table").trigger("update");
+            },
+            error: function (request, status, error) {
+                //alert(request.responseText);
+                console.log("Check Out Limit Exceeded");
+                //alert("Checkout Limit exceeded! Please return some media");
+                $("#limit-modal").addClass("is-active");
+                //$(".modal-card-title").html("Limit Exceeded");
+                $("#limit-modal").show();
 
-            getAvailableRecords(email);
-            getRecords(email);
-            $("table").trigger("update");
-            //getHistoricalRecords(email);
-            //window.location.href = "/user-view/"+email;
-            //window.location.reload();
-            //getPosts(postCategorySelect.val());
+                $(".close-limit").on("click", function () {
+                    $("#limit-modal").removeClass("is-active");
+                });
+
+                $("#close-limit").on("click", function () {
+                    $("#limit-modal").removeClass("is-active");
+                });
+                //$("#sign-up-error").text("Sign up failed: " + email + " already exists");
+              }
         });
     }
 
@@ -384,8 +396,8 @@ $(document).ready(function () {
         var currentRecord = $(this)
             .parent()
             .data("record");
-        console.log("reviewPost function");
-        console.log(currentRecord);
+        //console.log("reviewPost function");
+        //console.log(currentRecord);
         $("#review-modal").addClass("is-active");
         $("#review-text").attr("placeholder", "Write your review for " + currentRecord.Medium.name + " here");
 

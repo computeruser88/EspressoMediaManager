@@ -155,6 +155,9 @@ module.exports = function(app) {
             });
           });
         }
+        else{
+          res.status(400).send("Limit exceeded!");
+        }
         
       }
       else {

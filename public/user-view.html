@@ -139,6 +139,23 @@
     <script src="../javascript/userdashboard.js"></script>
 
     <!--Modal for reviews -->
+    <div class="modal" id="limit-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                    <p class="modal-card-title">Check Out Limit Exceeded!</p>
+                    <button class="delete close-limit" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="field">
+                    <p>Return your checked out media to rent more. </p>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button cancel-button" id="close-limit">Close</button>
+            </footer>
+        </div>
+    </div>
     <div class="modal" id="review-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
@@ -150,16 +167,18 @@
                 <div class="field">
                     <label class="label">Write a Review</label>
                     <div class="control">
-                        <textarea class="textarea" id="review-text"></textarea>
+                        <textarea class="textarea"  id="review-text"></textarea>
+
                     </div>
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-info" id="review-submit-button">Submit</button>
-                <button class="button cancel-button" id="review-cancel">Cancel</button>
-            </footer>
+                    <button class="button is-info" id="review-submit-button">Submit</button>
+                    <button class="button cancel-button" id="review-cancel">Cancel</button>
+                </footer>
         </div>
     </div>
+
 </body>
 
 </html>

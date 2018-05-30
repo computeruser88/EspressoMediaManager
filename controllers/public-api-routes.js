@@ -170,8 +170,8 @@ module.exports = function(app) {
             }
             
         }).catch(db.Sequelize.ValidationError, function (err) {
-            console.log("validation error");
-            console.log(err);
+            //console.log("validation error");
+            //console.log(err);
             //throw "error occured while creating a new user : " + err;
             res.status(400).send('User already exists');
         });
