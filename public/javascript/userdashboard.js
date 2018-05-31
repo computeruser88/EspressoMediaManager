@@ -23,6 +23,7 @@ $(document).ready(function () {
     $(document).on("click", "button.checkout", handleCheckout);
     $(document).on("click", "button.return", handleReturn);
     $(document).on("click", "button.review", reviewPost);
+    $(document).on("click", "button.synopsis", synopsisView);
     // Variable to hold our records
     var records;
     // logout button
@@ -58,10 +59,10 @@ $(document).ready(function () {
             if (data)
                 //initializeHistoricalRows(data);
                 initRows(userHistoryHeader, userHistory, data, createHistoricalHeaderRow, createHistoryRow);
-                // userDashboardTable.trigger("update");
-                userHistoryTable.tablesorter();
-                userHistoryTable.trigger("update");
-                // userAvailableMediaTable.trigger("update");
+            // userDashboardTable.trigger("update");
+            userHistoryTable.tablesorter();
+            userHistoryTable.trigger("update");
+            // userAvailableMediaTable.trigger("update");
         });
     }
 
@@ -72,10 +73,10 @@ $(document).ready(function () {
             if (data)
                 //initializeRows(data);
                 initRows(userDashboardHeader, userDashboard, data, createHeaderRow, createNewRow);
-                userDashboardTable.tablesorter();
-                userDashboardTable.trigger("update");
-                // userHistoryTable.trigger("update");
-                // userAvailableMediaTable.trigger("update");
+            userDashboardTable.tablesorter();
+            userDashboardTable.trigger("update");
+            // userHistoryTable.trigger("update");
+            // userAvailableMediaTable.trigger("update");
         });
     }
 
@@ -85,10 +86,10 @@ $(document).ready(function () {
             //console.log(data);
             if (data)
                 initRows(userAvailableMediaHeader, userAvailableMedia, data, createAvailableHeaderRow, createAvailableRow);
-                // userDashboardTable.trigger("update");
-                // userHistoryTable.trigger("update");
-                userAvailableMediaTable.tablesorter();
-                userAvailableMediaTable.trigger("update");
+            // userDashboardTable.trigger("update");
+            // userHistoryTable.trigger("update");
+            userAvailableMediaTable.tablesorter();
+            userAvailableMediaTable.trigger("update");
         });
     }
 
@@ -109,7 +110,7 @@ $(document).ready(function () {
 
     function createAvailableHeaderRow() {
         var row = $("<tr>");
-       
+
 
         var name = $("<th>");
         name.text("Name");
@@ -135,6 +136,10 @@ $(document).ready(function () {
         placeholder.text("Checkout");
         row.append(placeholder);
 
+        // var placeholder2 = $("<th>");
+        // placeholder2.text("Synopsis");
+        // row.append(placeholder2);
+
         return row;
 
     }
@@ -148,9 +153,16 @@ $(document).ready(function () {
         checkoutBtn.text("CHECKOUT");
         checkoutBtn.addClass("checkout btn btn-info");
 
+        //Synopsis button
+
+        var synopsisBtn = $("<button>");
+        synopsisBtn.text("SYNOPSIS");
+        synopsisBtn.attr("id", "synopsis-button")
+        synopsisBtn.addClass("synopsis btn btn-info");
+
         var newRecordRow = $("<tr>");
-        // newRecordRow.append(synopsisBtn);
-     
+
+
 
         var Name = $("<td>");
         Name.text(record.name);
@@ -169,13 +181,60 @@ $(document).ready(function () {
         newRecordRow.append(Rating);
         newRecordRow.append(ReleaseYear);
         newRecordRow.append(checkoutBtn);
+        newRecordRow.append(synopsisBtn);
         newRecordRow.data("record", record);
         return newRecordRow;
+        //end of available records
     }
+
+     //Function for synopsis view
+
+     function synopsisView() {
+        console.log("synopsis button clicked");
+        var currentRecord = $(this)
+            .parent()
+            .data("record");
+        console.log(currentRecord);
+        //currentRecord.name will give you the name of the media 
+
+        //Getting synopsis and rating
+
+        var movie = currentRecord.name;
+
+        /*var omdbURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+        $.ajax({
+          url: omdbURL,
+          method: "GET"
+        }).then(function (response) {
+          console.log(response);
+          console.log(response.Plot);
+         $("#movie-synopsis").text(response.Plot);
+          */
+        var movieQueryURL = "https://api.themoviedb.org/3/search/movie?api_key=1fc17c4180643016e173ba07928a30f2&query=" + encodeURI(movie) + "&page=1";
+
+        // Make ajax request on movie API first
+        $.ajax({
+            url: movieQueryURL,
+            method: "GET"
+        }).done(function (response) {
+            console.log(response);
+            var movieID = (response.results[0].id);
+            var creditsURL = "https://api.themoviedb.org/3/movie/" + movieID + "/credits?api_key=1fc17c4180643016e173ba07928a30f2";
+            $("#movie-synopsis").text(response.results[0].overview);
+            $("#synopsis-modal").addClass("is-active");
+            //$("#movie-synopsis").text("Movie Synopsis for " + currentRecord.name);
+            $(".modal-card-title").html("Synopsis");
+            $("#synopsis-cancel-button").on("click", function () {
+                $(".modal").removeClass("is-active");
+              });
+        });
+        //end of synopsis view function
+    }
+
 
     function createHeaderRow() {
         var row = $("<tr>");
-   
+
         var name = $("<th>");
         name.text("Name");
         row.append(name);
@@ -218,8 +277,10 @@ $(document).ready(function () {
         returnBtn.text("RETURN");
         returnBtn.addClass("return btn btn-info");
 
+
+
         var newRecordRow = $("<tr>");
-   
+
 
         var Name = $("<td>");
         Name.text(record.Medium.name);
@@ -243,6 +304,8 @@ $(document).ready(function () {
         newRecordRow.append(returnBtn);
         newRecordRow.data("record", record);
         return newRecordRow;
+
+        //Ending createnewrow function
     }
 
     function createHistoricalHeaderRow() {
@@ -277,7 +340,7 @@ $(document).ready(function () {
         row.append(year);
 
         var placeholder = $("<th>");
-        placeholder.text("Review");        
+        placeholder.text("Review");
         row.append(placeholder);
 
         return row;
@@ -371,7 +434,7 @@ $(document).ready(function () {
                     $("#limit-modal").removeClass("is-active");
                 });
                 //$("#sign-up-error").text("Sign up failed: " + email + " already exists");
-              }
+            }
         });
     }
 
@@ -467,5 +530,4 @@ $(document).ready(function () {
             "'>here</a> in order to get started.");
         userDashboard.append(messageH2);
     }
-
 });
