@@ -307,7 +307,7 @@ function readyFunc() {
 
     //Getting synopsis and rating
 
-    var movie = $("#search-form").val().trim();
+    var movie = currentRecord.name;
 
     /*var omdbURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
     $.ajax({
@@ -332,7 +332,9 @@ function readyFunc() {
       $("#synopsis-modal").addClass("is-active");
       //$("#movie-synopsis").text("Movie Synopsis for " + currentRecord.name);
       $(".modal-card-title").html("Synopsis");
-
+      $(".cancel-button").on("click", function () {
+        $(".modal").removeClass("is-active");
+      });
     });
   }
 
@@ -367,15 +369,6 @@ function readyFunc() {
     name.text(record.name);
     newRow.append(name);
 
-    //Adding synopsis in public view
-    var synposisHeader = $("<td>");
-
-    var synopsisBtn = $("<button>");
-    synopsisBtn.text("SYNOPSIS");
-    synopsisBtn.attr("id", "synopsis-button")
-    synopsisBtn.addClass("synopsis btn btn-info");
-    newRow.append(synopsisBtn);
-
     var type = $("<td>");
     type.text(record.type);
     newRow.append(type);
@@ -397,6 +390,16 @@ function readyFunc() {
     newRow.append(artist);
 
     newRow.data("record", record);
+
+    //Adding synopsis in public view
+    var synposisHeader = $("<td>");
+
+    var synopsisBtn = $("<button>");
+    synopsisBtn.text("SYNOPSIS");
+    synopsisBtn.attr("id", "synopsis-button")
+    synopsisBtn.addClass("synopsis btn btn-info");
+    newRow.append(synopsisBtn);
+
     return newRow;
   }
   //Static modals
