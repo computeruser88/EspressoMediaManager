@@ -275,8 +275,8 @@ function readyFunc() {
 
 
   function fetchData(url, inputs) {
-    console.log("inputs: ");
-    console.log(inputs);
+    //console.log("inputs: ");
+    //console.log(inputs);
     $.ajax({
       type: 'GET',
       url: url,
