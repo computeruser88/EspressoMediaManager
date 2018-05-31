@@ -1,9 +1,6 @@
 INSERT INTO Media(name,type,genre,rating,year,quantity,time_limit,cost,createdAt, updatedAt)
 VALUES("Moana","Movie","Family, Fantasy, Musical","PG",2016,7,5,0.0,NOW(), NOW());
 
-INSERT INTO media(name,type,genre,rating,year,quantity,time_limit,cost,createdAt, updatedAt)
-VALUES("Deadpool 2","Movie","Action, Adventure", "R",2018,10,3,0.0,NOW(), NOW());
-
 INSERT INTO Media(name,type,genre,rating,year,quantity,time_limit,cost,createdAt, updatedAt)
 VALUES("The Princess Bride","Movie","Family, Fantasy, Musical","PG",1987,7,5,0.0,NOW(), NOW());
 
