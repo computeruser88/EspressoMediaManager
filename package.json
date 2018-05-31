@@ -11,6 +11,7 @@
     "fs": "0.0.1-security",
     "mocha": "^5.2.0",
     "mysql2": "^1.5.3",
+    "nightmare": "^3.0.1",
     "path": "^0.12.7",
     "sequelize": "^4.37.10",
     "tablesorter": "^2.30.5"
