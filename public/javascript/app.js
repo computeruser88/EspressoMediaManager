@@ -90,7 +90,7 @@ function readyFunc() {
   inputs.offset = offset;
   inputs.limit = limit;
 
-  fetchData("/public",inputs);
+  fetchData("/public", inputs);
 
   $(document).on("click", "button.synopsis", synopsisView);
   //Search button logic 
@@ -114,8 +114,10 @@ function readyFunc() {
   });
 
   function search(input) {
-    var searchInput = { name: input };
-    fetchData("/search",searchInput);
+    var searchInput = {
+      name: input
+    };
+    fetchData("/search", searchInput);
 
     $("#carouselExampleControls").hide();
     //synopsisView();
@@ -244,7 +246,7 @@ function readyFunc() {
     inputs.password = password;
     $.ajax({
       type: 'GET',
-      url: "/public/user-authenticate/"+email+"/"+password,
+      url: "/public/user-authenticate/" + email + "/" + password,
       data: inputs
     }).done(function (data) {
       console.log("after login");
@@ -271,7 +273,7 @@ function readyFunc() {
     });
   }
 
-  function fetchData(url,inputs) {
+  function fetchData(url, inputs) {
     console.log("inputs: ");
     console.log(inputs);
     $.ajax({
@@ -293,20 +295,37 @@ function readyFunc() {
   }
 
   //Function for synopsis view
-  
-  function synopsisView(){
+
+  function synopsisView() {
     console.log("synopsis button clicked");
     var currentRecord = $(this)
-            .parent()
-            .data("record");
-        console.log(currentRecord);
-        //currentRecord.name will give you the name of the media 
-     $("#synopsis-modal").addClass("is-active");
-     $("#movie-synopsis").text("Movie Synopsis for " + currentRecord.name);
-     $(".modal-card-title").html("Synopsis");
+      .parent()
+      .data("record");
+    console.log(currentRecord);
+    //currentRecord.name will give you the name of the media 
+
+    //Getting synopsis and rating
+
+    var movie = $("#search-form").val().trim();
+
+    var omdbURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+    $.ajax({
+      url: omdbURL,
+      method: "GET"
+    }).then(function (response) {
+      console.log(response);
+      console.log(response.Plot);
+      $("#movie-synopsis").text(response.Plot);
+      //$("#movie-rating").text(response.imdbRating);
+
+      $("#synopsis-modal").addClass("is-active");
+      //$("#movie-synopsis").text("Movie Synopsis for " + currentRecord.name);
+      $(".modal-card-title").html("Synopsis");
+
+    });
   }
 
-  
+
 
   function backNextToggle() {
     if (offset == 0) {
@@ -338,11 +357,11 @@ function readyFunc() {
     newRow.append(name);
 
     //Adding synopsis in public view
-    var synposisHeader =$("<td>");
+    var synposisHeader = $("<td>");
 
     var synopsisBtn = $("<button>");
     synopsisBtn.text("SYNOPSIS");
-    synopsisBtn.attr("id","synopsis-button")
+    synopsisBtn.attr("id", "synopsis-button")
     synopsisBtn.addClass("synopsis btn btn-info");
     newRow.append(synopsisBtn);
 
@@ -387,59 +406,9 @@ function readyFunc() {
       modal.style.display = "none";
     }
   }
+
+
+
+
   //ending ready function
 }
-
-/*
-
-//first
-var modal1 = document.getElementById('myModal1');
-var btn1 = document.getElementsById("myBtn1");
-var span1 = document.getElementsByClassName("close")[0];
-btn1.onclick = function() {
-    modal1.style.display = "block";
-}
-span1.onclick = function() {
-    modal1.style.display = "none";
-}
-window.onclick = function(event) {
-    if (event.target == modal1) {
-        modal1.style.display = "none";
-    }
-}
-
-//second
-var modal2 = document.getElementById('myModal2');
-var btn2 = document.getElementsById("myBtn1");
-var span2 = document.getElementsByClassName("close")[0];
-btn2.onclick = function() {
-    modal2.style.display = "block";
-}
-span.onclick = function() {
-    modal2.style.display = "none";
-}
-window.onclick = function(event) {
-    if (event.target == modal2) {
-        modal2.style.display = "none";
-    }
-}
-
-*/
-
-/*
-//Getting synopsis and rating
-
-var input = $("#search-input").val().trim();
-    //Movie Rating from OMDB
-    var omdbURL = "https://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy";
-    $.ajax({
-        url: omdbURL,
-        method: "GET"
-        }).then(function(response) {
-        console.log(response);
-        // $("#movie-rating").text(response.Rated);
-        // $("#movie-rating").text(response.imdbRating);
-        // $("#movie-rating").text(response.Plot);
-    });
-  
-    */
