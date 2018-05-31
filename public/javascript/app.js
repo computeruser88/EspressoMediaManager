@@ -275,8 +275,8 @@ function readyFunc() {
 
 
   function fetchData(url, inputs) {
-    console.log("inputs: ");
-    console.log(inputs);
+    //console.log("inputs: ");
+    //console.log(inputs);
     $.ajax({
       type: 'GET',
       url: url,
@@ -369,15 +369,6 @@ function readyFunc() {
     name.text(record.name);
     newRow.append(name);
 
-    //Adding synopsis in public view
-    var synposisHeader = $("<td>");
-
-    var synopsisBtn = $("<button>");
-    synopsisBtn.text("SYNOPSIS");
-    synopsisBtn.attr("id", "synopsis-button")
-    synopsisBtn.addClass("synopsis btn btn-info");
-    newRow.append(synopsisBtn);
-
     var type = $("<td>");
     type.text(record.type);
     newRow.append(type);
@@ -399,6 +390,16 @@ function readyFunc() {
     newRow.append(artist);
 
     newRow.data("record", record);
+
+    //Adding synopsis in public view
+    var synposisHeader = $("<td>");
+
+    var synopsisBtn = $("<button>");
+    synopsisBtn.text("SYNOPSIS");
+    synopsisBtn.attr("id", "synopsis-button")
+    synopsisBtn.addClass("synopsis btn btn-info");
+    newRow.append(synopsisBtn);
+
     return newRow;
   }
   //Static modals

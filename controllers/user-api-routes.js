@@ -17,7 +17,7 @@ router.post('/user/new', function(req, res) {
   })
 
 
-function findAllCheckedOutMedia(email,cb,anotherCb){
+function findAllCheckedOutMedia(email,cb,searchStr,anotherCb){
 
     var attributes = [ 'checked_out_date', 'returned_date'];
     var mediaAttributes = ['id','type','name','rating','year','genre'];
@@ -39,7 +39,7 @@ function findAllCheckedOutMedia(email,cb,anotherCb){
       }
       //console.log("checkedOutMediaIds: " + checkedOutMediaIds);
       if(anotherCb){
-        cb(email,checkedOutMediaIds,function(data){
+        cb(email,checkedOutMediaIds,searchStr,function(data){
           anotherCb(data);
         });
       }
@@ -50,19 +50,25 @@ function findAllCheckedOutMedia(email,cb,anotherCb){
     });
 };
 
-function findAvailableMedia(email,excludeMediaIds,cb) {
+function findAvailableMedia(email,excludeMediaIds,searchStr,cb) {
   //exclude the Id's currently checked out. 
+  var whereClause = {
+    quantity : {
+      [db.Sequelize.Op.gt] : 0
+    },
+    id : {
+      [db.Sequelize.Op.notIn] : excludeMediaIds
+    }
+  };
+  if(searchStr && searchStr.trim() !=""){
+    whereClause.name = {
+      [db.Op.like] : "%"+searchStr.trim()+"%"
+    };
+  }
   var mediaAttributes = ['id','type','name','rating','year','genre'];
     db.Media.findAll({
       attributes : mediaAttributes,
-      where: { 
-          quantity : {
-            [db.Sequelize.Op.gt] : 0
-          },
-          id : {
-            [db.Sequelize.Op.notIn] : excludeMediaIds
-          }
-      },
+      where: whereClause,
       include: [{
         model: db.Transaction, 
         required:false,
@@ -83,6 +89,7 @@ module.exports = function(app) {
   app.get("/user-dashboard/:email", function(req,res) {
     //return all media in the transaction table for this user-email
     var email = req.params.email;
+    var searchStr = req.query.searchStr;
     findAllCheckedOutMedia(email,function(data){
       res.json(data);
     });
@@ -110,9 +117,12 @@ module.exports = function(app) {
     //user must not currently have this media checked out
     //make sure media quantity is greater than
     var email = req.params.email;
+    var searchStr = req.query.search || "";
+    console.log("/user-available-media/:email");
+  
     //findAll(email,availableMedia);
     //console.log("/user-available-media/:email route API");
-    findAllCheckedOutMedia(email,findAvailableMedia,function(data){
+    findAllCheckedOutMedia(email,findAvailableMedia,searchStr,function(data){
       res.json(data);
     });
 

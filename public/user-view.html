@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.1/parsley.min.js"></script>
     <script src="../javascript/jquery.tablesorter.min.js"></script>
     <style>
         #espresso{
@@ -44,13 +45,13 @@
     </section>
     <div class="field is-grouped">
         <p class="control is-expanded">
-            <input class="input" type="text" placeholder="Search books, music, or videos">
-        </p>
-        <p class="control">
-            <a class="button is-info">
-                Search
-            </a>
-        </p>
+                <input class="input" id="search-form" data-validate="parsley" type="text" placeholder="Search books, music, or videos" data-parsley-required>
+            </p>
+            <p class="control" id="search">
+                <a class="button is-info">
+                    Search
+                </a>
+            </p>
     </div>
 
     <div>
