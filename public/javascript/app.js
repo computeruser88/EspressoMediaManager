@@ -224,13 +224,13 @@ function readyFunc() {
       url: "/public/new-user/",
       data: inputs,
       success: function (data, text) {
-        console.log("signup: success");
-        console.log(data);
+        //console.log("signup: success");
+        //console.log(data);
         authenticate(data.email, data.password);
       },
       error: function (request, status, error) {
         //alert(request.responseText);
-        console.log("sign up : failure");
+        //console.log("sign up : failure");
         $("#signup-modal").addClass("is-active");
         $(".modal-card-title").html("Sign up");
         $("#sign-up-error").show();
@@ -273,6 +273,7 @@ function readyFunc() {
     });
   }
 
+
   function fetchData(url, inputs) {
     console.log("inputs: ");
     console.log(inputs);
@@ -284,8 +285,8 @@ function readyFunc() {
       encode: true
 
     }).done(function (data) {
-      console.log("data fetched!");
-      console.log(data);
+      //console.log("data fetched!");
+      //console.log(data);
       populatePublicView(data);
     }).fail(function (data) {
 

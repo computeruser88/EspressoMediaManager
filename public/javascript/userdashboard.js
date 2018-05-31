@@ -82,7 +82,7 @@ $(document).ready(function () {
     function getAvailableRecords(email) {
         console.log("getting available media for user email: " + email);
         $.get("/user-available-media/" + email, function (data) {
-            console.log(data);
+            //console.log(data);
             if (data)
                 initRows(userAvailableMediaHeader, userAvailableMedia, data, createAvailableHeaderRow, createAvailableRow);
                 // userDashboardTable.trigger("update");
