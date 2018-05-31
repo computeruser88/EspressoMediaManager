@@ -1,5 +1,13 @@
-# EspressoMediaManager
+Espresso Media Manager
 
-Making changes to ensure that i am able to commit to my branch
+Project Members:
+Tom Harris
+Jan Balangue
+Hnin Haymar
+Meghna Nag
+Radhika Iyer
 
-trying to create a branch
+Overview
+Espresso Media Manager is an online database that allows a user to browse and checkout movies based. 
+
+Live Heroku App Link: https://floating-shelf-58188.herokuapp.com/
