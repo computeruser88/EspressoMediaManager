@@ -1,11 +1,11 @@
 **Espresso Media Manager**
 
 **Project Members:**
-Tom Harris
-Jan Balangue
-Hnin Haymar
-Meghna Nag
-Radhika Iyer
+1. Tom Harris
+2. Jan Balangue
+3. Hnin Haymar
+4. Meghna Nag
+5. Radhika Iyer
 
 
 **Overview:**
