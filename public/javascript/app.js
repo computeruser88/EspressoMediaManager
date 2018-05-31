@@ -309,16 +309,26 @@ function readyFunc() {
 
     var movie = $("#search-form").val().trim();
 
-    var omdbURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+    /*var omdbURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
     $.ajax({
       url: omdbURL,
       method: "GET"
     }).then(function (response) {
       console.log(response);
       console.log(response.Plot);
-      $("#movie-synopsis").text(response.Plot);
-      //$("#movie-rating").text(response.imdbRating);
+     $("#movie-synopsis").text(response.Plot);
+      */
+    var movieQueryURL = "https://api.themoviedb.org/3/search/movie?api_key=1fc17c4180643016e173ba07928a30f2&query=" + encodeURI(movie) + "&page=1";
 
+    // Make ajax request on movie API first
+    $.ajax({
+      url: movieQueryURL,
+      method: "GET"
+    }).done(function (response) {
+      console.log(response);
+      var movieID = (response.results[0].id);
+      var creditsURL = "https://api.themoviedb.org/3/movie/" + movieID + "/credits?api_key=1fc17c4180643016e173ba07928a30f2";
+      $("#movie-synopsis").text(response.results[0].overview);
       $("#synopsis-modal").addClass("is-active");
       //$("#movie-synopsis").text("Movie Synopsis for " + currentRecord.name);
       $(".modal-card-title").html("Synopsis");
