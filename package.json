@@ -3,6 +3,17 @@
   "version": "1.0.0",
   "description": "Making changes to ensure that i am able to commit to my branch",
   "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "fs": "0.0.1-security",
+    "mysql2": "^1.5.3",
+    "path": "^0.12.7",
+    "sequelize": "^4.37.10",
+    "tablesorter": "^2.30.5"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -17,13 +28,5 @@
   "bugs": {
     "url": "https://github.com/computeruser88/EspressoMediaManager/issues"
   },
-  "homepage": "https://github.com/computeruser88/EspressoMediaManager#readme",
-  "dependencies": {
-    "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
-    "mysql2": "^1.5.3",
-    "path": "^0.12.7",
-    "sequelize": "^4.37.9",
-    "tablesorter": "^2.30.4"
-  }
+  "homepage": "https://github.com/computeruser88/EspressoMediaManager#readme"
 }
