@@ -307,7 +307,7 @@ function readyFunc() {
 
     //Getting synopsis and rating
 
-    var movie = $("#search-form").val().trim();
+    var movie = currentRecord.name;
 
     /*var omdbURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
     $.ajax({
@@ -332,7 +332,9 @@ function readyFunc() {
       $("#synopsis-modal").addClass("is-active");
       //$("#movie-synopsis").text("Movie Synopsis for " + currentRecord.name);
       $(".modal-card-title").html("Synopsis");
-
+      $(".cancel-button").on("click", function () {
+        $(".modal").removeClass("is-active");
+      });
     });
   }
 
