@@ -1,13 +1,14 @@
-Espresso Media Manager
+**Espresso Media Manager**
 
-Project Members:
+**Project Members:**
 Tom Harris
 Jan Balangue
 Hnin Haymar
 Meghna Nag
 Radhika Iyer
 
-Overview
+
+**Overview:**
 
 Espresso Media Manager allows users such as librarians or media rental managers to
 1. Manage media inventory
