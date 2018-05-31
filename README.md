@@ -1,6 +1,6 @@
-#**Espresso Media Manager**
+**Espresso Media Manager**
 
-##**Project Members:**
+**Project Members:**
 Tom Harris
 Jan Balangue
 Hnin Haymar
@@ -8,7 +8,7 @@ Meghna Nag
 Radhika Iyer
 
 
-##**Overview:**
+**Overview:**
 
 Espresso Media Manager allows users such as librarians or media rental managers to
 1. Manage media inventory
@@ -22,4 +22,4 @@ For users of media rental services, Espresso media manager allows them to:
 5. Search Media Availability 
 
 
-**Live Heroku App Link: ** https://floating-shelf-58188.herokuapp.com/
+Live Heroku App Link: https://floating-shelf-58188.herokuapp.com/
