@@ -4,8 +4,6 @@ $(document).ready(function () {
     //var email ="janedoe@gmail.com";
     var currentUrl = window.location.href.split("/");
     var email = currentUrl.pop();
-    //console.log(id);
-    console.log(email);
 
     // userDashboard holds all of our records
     var userDashboard = $(".user-dashboard");
@@ -28,13 +26,30 @@ $(document).ready(function () {
     var records;
     // logout button
     $("#logout-button").on("click", function () {
-        console.log("currentUrl: " + currentUrl);
+        //console.log("currentUrl: " + currentUrl);
         currentUrl.pop();
         var targetUrl = currentUrl.join('/');
-        console.log(targetUrl);
         //console.log(targetUrl);
         window.location.replace(targetUrl);
     });
+
+    $("#search").on('click', function (e) {
+        e.preventDefault();
+        $("#search-form").parsley().validate();
+        if ($("#search-form").parsley().isValid()) {
+          getAvailableRecords(email,$("#search-form").val().trim());
+        }
+      });
+    
+      $("#search-form").on('keypress', function (e) {
+        if (event.keyCode === 13) {
+          e.preventDefault();
+          $("#search-form").parsley().validate();
+          if ($("#search-form").parsley().isValid()) {
+            getAvailableRecords(email,$("#search-form").val().trim());
+          }
+        }
+      });
 
     getUserName(email);
     getAvailableRecords(email);
@@ -46,7 +61,6 @@ $(document).ready(function () {
     function getUserName(email) {
         $.get("/public/check-email/" + email, function (data) {
             if (data) {
-                console.log(data);
                 helloUser.text("Welcome " + data[0].name);
             }
         });
@@ -71,7 +85,7 @@ $(document).ready(function () {
     function getRecords(email) {
         $.get("/user-dashboard/" + email, function (data) {
             if (data)
-                //initializeRows(data);
+                //initializeRows(data);bncczx
                 initRows(userDashboardHeader, userDashboard, data, createHeaderRow, createNewRow);
             userDashboardTable.tablesorter();
             userDashboardTable.trigger("update");
@@ -80,17 +94,40 @@ $(document).ready(function () {
         });
     }
 
-    function getAvailableRecords(email) {
+    function getAvailableRecords(email,searchInput) {
         console.log("getting available media for user email: " + email);
-        $.get("/user-available-media/" + email, function (data) {
+        console.log("search input: " + searchInput);
+        var input = {
+            email : email,
+            search: searchInput
+        };
+        $.ajax({
+            type: 'GET',
+            url: "/user-available-media/" + email,
+            data: input,
+            dataType: 'json',
+            encode: true
+      
+          }).done(function (data) {
+                initRows(userAvailableMediaHeader, userAvailableMedia, data, createAvailableHeaderRow, createAvailableRow);
+                // userDashboardTable.trigger("update");
+                // userHistoryTable.trigger("update");
+                userAvailableMediaTable.tablesorter();
+                userAvailableMediaTable.trigger("update");
+          }).fail(function (data) {
+            console.log(data); // DEBUG
+      
+        });
+
+        /*$.get("/user-available-media/" + email, function (data) {
             //console.log(data);
             if (data)
                 initRows(userAvailableMediaHeader, userAvailableMedia, data, createAvailableHeaderRow, createAvailableRow);
-            // userDashboardTable.trigger("update");
-            // userHistoryTable.trigger("update");
-            userAvailableMediaTable.tablesorter();
-            userAvailableMediaTable.trigger("update");
-        });
+                // userDashboardTable.trigger("update");
+                // userHistoryTable.trigger("update");
+                userAvailableMediaTable.tablesorter();
+                userAvailableMediaTable.trigger("update");
+        });*/
     }
 
     function initRows(tableHeaderClass, tableClass, data, headerRowFunc, newRowFunc) {
