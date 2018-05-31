@@ -11,10 +11,16 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.1/parsley.min.js"></script>
     <script src="../javascript/jquery.tablesorter.min.js"></script>
     <style>
-        #espresso{
+        #espresso {
             background-image: url("../images/music.jpg");
 
         }
@@ -45,13 +51,13 @@
     </section>
     <div class="field is-grouped">
         <p class="control is-expanded">
-                <input class="input" id="search-form" data-validate="parsley" type="text" placeholder="Search books, music, or videos" data-parsley-required>
-            </p>
-            <p class="control" id="search">
-                <a class="button is-info">
-                    Search
-                </a>
-            </p>
+            <input class="input" id="search-form" data-validate="parsley" type="text" placeholder="Search books, music, or videos" data-parsley-required>
+        </p>
+        <p class="control" id="search">
+            <a class="button is-info">
+                Search
+            </a>
+        </p>
     </div>
 
     <div>
@@ -60,10 +66,10 @@
         </div>
         <table class="table tablesorter" id="user-available-media">
             <thead class="user-available-media-header">
-            
+
             </thead>
             <tbody class="user-available-media">
-               
+
             </tbody>
         </table>
         <br>
@@ -144,22 +150,22 @@
         </div>
     </div>
 
-        <!--Synopsis Modal -->
-        <div class="modal" id="synopsis-modal">
-            <div class="modal-background"></div>
-            <div class="modal-card">
-                <header class="modal-card-head">
-                    <p class="modal-card-title">Synopsis</p>
-                    <button class="delete" aria-label="close"></button>
-                </header>
-                <section class="modal-card-body">
-                    <div id="movie-synopsis"></div>
+    <!--Synopsis Modal -->
+    <div class="modal" id="synopsis-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Synopsis</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div id="movie-synopsis"></div>
             </section>
-             <footer class="modal-card-foot">
-              <button class="button cancel-button"id="synopsis-cancel-button">Cancel</button>
+            <footer class="modal-card-foot">
+                <button class="button cancel-button" id="synopsis-cancel-button">Cancel</button>
             </footer>
-          </div>
-        </div> 
+        </div>
+    </div>
 
 </body>
 
